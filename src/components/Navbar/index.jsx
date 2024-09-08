@@ -5,6 +5,7 @@ import Logo from "./images/Logo.png";
 import "./styles.css";
 
 let navLinks = [
+  { name: "Home", path: "" },
   { name: "Buy", path: "buy" },
   { name: "Rent", path: "rent" },
   { name: "Agents", path: "agents" },
