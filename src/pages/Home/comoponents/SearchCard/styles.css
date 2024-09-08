@@ -1,0 +1,18 @@
+.searchCard {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.custom-placeholder::placeholder {
+  color: #6c757d; /* Change placeholder text color */
+  font-size: 0.9rem; /* Change the size */
+  font-style: italic; /* Optional: Make it italic */
+  opacity: 1; /* Ensure the opacity is not reduced */
+}
+
+.custom-placeholder:focus {
+  outline: none;
+  box-shadow: none; /* Optionally remove box-shadow */
+}

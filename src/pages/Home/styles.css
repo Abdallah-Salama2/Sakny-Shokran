@@ -1,0 +1,7 @@
+.homeImage {
+  width: 100%;
+}
+.homeImage img {
+  width: 100% !important;
+  height: 100% !important;
+}
