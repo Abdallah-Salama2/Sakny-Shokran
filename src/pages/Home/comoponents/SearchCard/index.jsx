@@ -41,14 +41,14 @@ export default function SearchCard() {
 
         <input
           type="text"
-          class="form-control custom-placeholder rounded-start border border-end-0 "
+          className="form-control custom-placeholder rounded-start border border-end-0 "
           placeholder="Enter a location,address,property"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
         />
-        <div class="input-group-append">
+        <div className="input-group-append">
           <button
-            class="btn btn-danger border border-0  rounded  rounded-start-0   rounded-end-3"
+            className="btn btn-danger border border-0  rounded  rounded-start-0   rounded-end-3"
             type="button"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} className="w-100 py-2" />
