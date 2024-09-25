@@ -1,0 +1,28 @@
+{
+  "homes": [
+    {
+      "id": 1,
+      "title": "Sabry 3atrees",
+      "agent_id": 1,
+      "address": "13 El Malaha Street",
+      "price": 150000,
+      "description": "Oh Yeah",
+      "type": "buy",
+      "image_url": "Oh Yeah",
+      "lat": 50,
+      "long": 49
+    },
+    {
+      "id": 2,
+      "title": "om Abdo's Supermarket",
+      "agent_id": 1,
+      "address": "12 El Malaha Street",
+      "price": 15000,
+      "description": "Oh Yeah",
+      "type": "buy",
+      "image_url": "Oh Yeah",
+      "lat": 50.04,
+      "long": 49.005
+    }
+  ]
+}

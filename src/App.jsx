@@ -4,7 +4,7 @@ import "./App.css";
 import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components";
-import { Home, Login, Register, Buy, Rent, Agents, About } from "./pages";
+import { Home, Login, Register, Buy, Agents, About } from "./pages";
 
 export class App extends Component {
   render() {
@@ -17,7 +17,7 @@ export class App extends Component {
             <Route path="" element={<Home />}></Route>
             <Route path="home" element={<Home />}></Route>
             <Route path="buy" element={<Buy />}></Route>
-            <Route path="rent" element={<Rent />}></Route>
+            <Route path="rent" element={<Buy />}></Route>
             <Route path="agents" element={<Agents />}></Route>
             <Route path="about" element={<About />}></Route>
             <Route path="login" element={<Login />}></Route>
