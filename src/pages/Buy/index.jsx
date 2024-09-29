@@ -74,11 +74,13 @@ export default function Buy() {
           aria-label="Search"
         />
       </div>
-      
+
       <div className="d-flex">
-        <Card></Card>
+        <div className="col-6">
+          <Card></Card>
+        </div>
         <MapContainer
-          className="col-6"
+          className=" offset-4 col-6 position-fixed mt-3"
           center={position}
           zoom={13}
           scrollWheelZoom={true}
