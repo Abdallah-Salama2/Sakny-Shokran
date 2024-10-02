@@ -65,22 +65,20 @@ export default function Buy() {
 
   return (
     <>
-      <div class="form-outline mb-3" data-mdb-input-init>
+      <div className="form-outline mb-3 z-3" data-mdb-input-init>
         <input
           type="search"
           id="form1"
-          class="form-control"
+          className="form-control z-2"
+          style={{ zIndex: "10" }}
           placeholder="Type query"
           aria-label="Search"
         />
       </div>
 
-      <div className="d-flex">
-        <div className="col-6">
-          <Card></Card>
-        </div>
+      <div className="d-flex position-relative">
         <MapContainer
-          className=" offset-4 col-6 position-fixed mt-3"
+          className="col-6 position-fixed z-1"
           center={position}
           zoom={13}
           scrollWheelZoom={true}
@@ -105,6 +103,9 @@ export default function Buy() {
           ))}
           {/*<LocationMarker/>*/}
         </MapContainer>
+        <div className="offset-5">
+          <Card />
+        </div>
       </div>
     </>
   );

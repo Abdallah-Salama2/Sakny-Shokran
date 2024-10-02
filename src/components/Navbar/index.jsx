@@ -22,8 +22,8 @@ export default function Navbar() {
     navigate("/register");
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
-      <div className="container ">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3  bg-body rounded z-3">
+      <div className="container-fluid ">
         <Link className="navbar-brand  " to="/">
           <img src={Logo} alt="#"></img>
         </Link>
