@@ -1,9 +1,9 @@
-.searchCard {
+/* .searchCard {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
-}
+} */
 
 .custom-placeholder::placeholder {
   color: #6c757d; /* Change placeholder text color */

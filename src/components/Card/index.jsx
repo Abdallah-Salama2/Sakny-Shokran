@@ -69,7 +69,7 @@ export default function Card() {
     // </div>
 
     <div
-      className="d-flex  "
+      className="d-flex   "
       // style={{ height: "50vh", overflowY: "auto", overflowX: "hidden" }}
     >
       <div className="row">

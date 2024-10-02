@@ -20,39 +20,49 @@ export default function SearchCard() {
     { id: "option3", label: "Agent" },
   ];
   return (
-    <div className="searchCard bg-white text-center w-50   py-2 border rounded-5">
+    <div className=" bg-white text-center  py-2 border rounded-5">
       <h4 className="mb-5 mt-4 upper">Make yourself at home.</h4>
-      <div
-        className="input-group d-flex mx-auto border border-2 rounded-5 p-3 mb-5 "
-        style={{ width: "600px" }}
-      >
-        <ul className="navbar-nav mx-auto mb-2 mb-lg-0 align-self-center flex-row">
-          {options.map((option) => (
-            <Option
-              key={option.id}
-              id={option.id}
-              name="options"
-              label={option.label}
-              checked={selectedOption === option.id}
-              handleClick={() => handleClick(option.id)}
-            />
-          ))}
-        </ul>
+      <div className="container">
+        <div className="row">
+          <div className="col-xl-10 mx-xl-auto">
+            <div className="input-group d-flex  border border-2 rounded-5 p-3 mb-5">
+              <div></div>
+              <div class="row align-items-center border border-1 rounded-start ">
+                {options.map((option) => (
+                  <Option
+                    key={option.id}
+                    id={option.id}
+                    name="options"
+                    label={option.label}
+                    checked={selectedOption === option.id}
+                    handleClick={() => handleClick(option.id)}
+                  />
+                ))}
+              </div>
+              {/* <ul className="p-0 w-">
+          
+        </ul> */}
 
-        <input
-          type="text"
-          className="form-control custom-placeholder rounded-start border border-end-0 "
-          placeholder="Enter a location,address,property"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-        />
-        <div className="input-group-append">
-          <button
-            className="btn btn-danger border border-0  rounded  rounded-start-0   rounded-end-3"
-            type="button"
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="w-100 py-2" />
-          </button>
+              <input
+                type="text"
+                className="form-control custom-placeholder  border border-1 border-start-0 border-end-0 "
+                placeholder="Enter a location,address,property"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              />
+              <div className="input-group-append">
+                <button
+                  className="btn btn-danger border border-0  rounded  rounded-start-0   rounded-end-3"
+                  type="button"
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="w-100 py-2"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

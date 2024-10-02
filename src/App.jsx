@@ -11,19 +11,17 @@ export class App extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container">
-          <Routes>
-            <Route path="*" element={<h1>Element Not Found</h1>}></Route>
-            <Route path="" element={<Home />}></Route>
-            <Route path="home" element={<Home />}></Route>
-            <Route path="buy" element={<Buy />}></Route>
-            <Route path="rent" element={<Buy />}></Route>
-            <Route path="agents" element={<Agents />}></Route>
-            <Route path="about" element={<About />}></Route>
-            <Route path="login" element={<Login />}></Route>
-            <Route path="register" element={<Register />}></Route>
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="*" element={<h1>Element Not Found</h1>}></Route>
+          <Route path="" element={<Home />}></Route>
+          <Route path="home" element={<Home />}></Route>
+          <Route path="buy" element={<Buy />}></Route>
+          <Route path="rent" element={<Buy />}></Route>
+          <Route path="agents" element={<Agents />}></Route>
+          <Route path="about" element={<About />}></Route>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="register" element={<Register />}></Route>
+        </Routes>
       </div>
     );
   }

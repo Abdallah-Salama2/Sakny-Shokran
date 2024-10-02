@@ -6,16 +6,19 @@ import Card from "../../components/Card";
 
 export default function Home() {
   return (
-    <div className="bg-red">
-      <section className=" position-relative" style={{ height: "500px" }}>
+    <>
+      <section className="position-relative margin-bottom-large ">
         <div className="homeImage">
           <img src={homeImage} alt="#"></img>
         </div>
-        <div style={{ marginBottom: "200px" }}>
+        <div className="mx-auto w-50 position-absolute start-50 translate-middle  ">
           <SearchCard />
         </div>
-        <Card />
       </section>
-    </div>
+
+      <div className="container ">
+        <Card />
+      </div>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Option({ id, name, label, checked, handleClick }) {
   return (
-    <li className="nav-item">
+    <div className="col">
       <input
         type="radio"
         className="btn-check "
@@ -19,6 +19,6 @@ export default function Option({ id, name, label, checked, handleClick }) {
       >
         {label}
       </label>
-    </li>
+    </div>
   );
 }
