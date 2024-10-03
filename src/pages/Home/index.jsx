@@ -11,7 +11,7 @@ export default function Home() {
         <div className="homeImage">
           <img src={homeImage} alt="#"></img>
         </div>
-        <div className="mx-auto w-50 position-absolute start-50 translate-middle  ">
+        <div className="  search-card-wrapper ">
           <SearchCard />
         </div>
       </section>

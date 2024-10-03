@@ -1,7 +1,7 @@
 .leaflet-container {
-    height: 98vh !important;
+    height: 100vh !important;
     width: 700px !important;
-    top: 130px;
+    top: 0;
     bottom:0;
     /* z-index: -1; */
 }
