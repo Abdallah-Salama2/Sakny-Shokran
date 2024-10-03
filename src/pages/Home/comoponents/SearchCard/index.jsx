@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function SearchCard() {
   const [selectedOption, setSelectedOption] = useState("option1"); // Initial checked option
@@ -24,10 +25,10 @@ export default function SearchCard() {
       <h4 className="mb-5 mt-4 upper">Make yourself at home.</h4>
       <div className="container">
         <div className="row">
-          <div className="col-xl-10 mx-xl-auto">
+          <div className="col col-xl-10 mx-xl-auto">
             <div className="input-group d-flex  border border-2 rounded-5 p-3 mb-5">
               <div></div>
-              <div class="row align-items-center border border-1 rounded-start ">
+              <div class="row align-items-center  border border-1 rounded-start ">
                 {options.map((option) => (
                   <Option
                     key={option.id}
@@ -68,17 +69,17 @@ export default function SearchCard() {
 
       <p className="small">
         Sakny's commitment to{" "}
-        <a href="#" className="text-decoration-none me-1">
+        <Link to="#" className="text-decoration-none me-1">
           fair housing laws
-        </a>
+        </Link>
         ,
-        <a href="#" className="ms-1 text-decoration-none me-2">
+        <Link to="#" className="ms-1 text-decoration-none me-2">
           standard operating procedures
-        </a>
+        </Link>
         ,and
-        <a href="#" className=" ms-1 text-decoration-none">
+        <Link to="#" className=" ms-1 text-decoration-none">
           reasonable accommodations .
-        </a>
+        </Link>
       </p>
     </div>
   );
