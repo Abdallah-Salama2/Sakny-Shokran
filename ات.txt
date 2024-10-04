@@ -1,0 +1,57 @@
+<div className="container bg-danger">
+    <div className="header">
+      <div className="text-center text-info fs-1 fw-bold">Sign Up</div>
+      <div className="underline"></div>
+
+
+
+    </div>
+    <div className="inputs">
+      <div class="mb-3">
+      <i class="fa-solid fa-user"></i>
+          <label for="exampleInputName1" class="form-label">Name</label>
+          <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp"/>
+        </div>
+      <div class="mb-3">
+        <i class="fa-solid fa-envelope"></i>
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+      </div>
+      <div class="mb-3">
+        <i class="fa-solid fa-lock"></i>
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1"/>
+      </div>
+    </div>
+    <div className="forgot-pass">Forget Password <span>Click Here.</span></div>
+    <div className="submit-container">
+      <div className="submit">Sign Up</div>
+      <div className="submit">Login</div>
+    </div>
+  </div>
+
+
+
+<div className="switch-content">
+        <div className="switch">
+          <div className="switch-panel switch-right">
+            <h1>Welcome</h1>
+            <p>Join our uniqe platform, explore a new experience</p>
+            <button className="hidden btn  border-white text-white w-50 fs-6">Register</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+<div className="switch-content">
+        <div className="switch">
+          <div className="switch-panel switch-left">
+            <h1>Hello, Again</h1>
+            <p>We are happy to see you back</p>
+            <button className="hidden btn text-white w-50 fs-6">Login</button>
+          </div>
+        </div>
+      </div>
