@@ -6,15 +6,17 @@ export default function Card() {
   const [homes, setHomes] = useState([]);
 
   function getHomes() {
+    const token = localStorage.getItem("Token");
+
     axios
       .get("https://y-sooty-seven.vercel.app/api/api/properties", {
         headers: {
-          Authorization: `Bearer 21|FbKc3Ol5jQA35OMtXJaHMx9HNsh8g2F915jNUHuJa2385431`, // Passing the token here
+          Authorization: `Bearer ${token}`, // Attach the token in the header
         },
       })
 
       .then((res) => {
-        console.log(res.data);
+        console.log("listings from 3amk api", res.data);
         setHomes(res.data);
       })
       .catch((err) => {
@@ -40,7 +42,7 @@ export default function Card() {
     //         <div
     //           key={index}
     //           className="card col-6 me-3"
-    //           style={{ width: "18rem" }}
+    //           style={{ width: "17rem" }}
     //         >
     //           <img
     //             src={home.imageUrl || "default-image-url"} // Use actual data if available
@@ -71,7 +73,7 @@ export default function Card() {
 
     <div className="container">
       <div className="row">
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"
@@ -94,7 +96,7 @@ export default function Card() {
             </Link>
           </div>
         </div>
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"
@@ -117,7 +119,7 @@ export default function Card() {
             </Link>
           </div>
         </div>
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"
@@ -140,7 +142,7 @@ export default function Card() {
             </Link>
           </div>
         </div>
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"
@@ -163,7 +165,7 @@ export default function Card() {
             </Link>
           </div>
         </div>
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"
@@ -186,7 +188,7 @@ export default function Card() {
             </Link>
           </div>
         </div>
-        <div className="card col-6 m-3" style={{ width: "18rem" }}>
+        <div className="card col-6 mx-3 mb-3" style={{ width: "17rem" }}>
           <img
             src="https://media-cloud.corcoranlabs.com/filters:format(webp)/fit-in/424x424/ListingFullAPI/Realogy/7BB84F62-8ABC-449B-85DC-FE851B695001/D9F26C72-30CA-4ECE-97CD-21547B002488"
             className="card-img-top"

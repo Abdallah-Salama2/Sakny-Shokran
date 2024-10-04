@@ -11,7 +11,7 @@ let navLinks = [
   { name: "Agents", path: "agents" },
   { name: "About", path: "about" },
 ];
-export default function Navbar() {
+export default function Navbar({ userData, logout }) {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -38,28 +38,68 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="w-75 flex justify-content-between">
+        <div className="w-100 flex ">
           <div
             className="collapse navbar-collapse "
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0 h5 ">
-              {navLinks.map((link) => {
-                return <NavLink key={link.name} link={link} />;
-              })}
-            </ul>
-            <button
-              className="btn btn-outline-secondary me-2 ms-auto"
-              onClick={handleRegisterClick}
-            >
-              Join now
-            </button>
-            <button
-              className="btn btn-outline-primary "
-              onClick={handleLoginClick}
-            >
-              Sign in
-            </button>
+            {userData != null && (
+              <ul className="navbar-nav mx-auto mb-2 mb-lg-0 h5 ">
+                {navLinks.map((link) => {
+                  return <NavLink key={link.name} link={link} />;
+                })}
+              </ul>
+            )}
+
+            {userData == null && (
+              <>
+                <button
+                  className="btn btn-outline-secondary me-2 ms-auto"
+                  onClick={handleRegisterClick}
+                >
+                  Join now
+                </button>
+                <button
+                  className="btn btn-outline-primary me-5"
+                  onClick={handleLoginClick}
+                >
+                  Sign in
+                </button>
+              </>
+            )}
+            {userData != null && (
+              <>
+                <div class="dropdown">
+                  <button
+                    className="border-0 bg-transparent  dropdown-toggle me-3"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {localStorage.getItem("UserName")}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="profile">
+                        User Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="favorites">
+                        Favorites
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <button className="btn btn-outline-primary " onClick={logout}>
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

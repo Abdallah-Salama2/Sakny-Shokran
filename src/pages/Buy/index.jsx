@@ -70,9 +70,9 @@ export default function Buy() {
         />
       </div>
 
-      <div className="d-flex ">
+      <div className="d-flex gap-5">
         <MapContainer
-          className="col-6 "
+          className="col-5 "
           center={position}
           zoom={13}
           scrollWheelZoom={true}
@@ -98,7 +98,7 @@ export default function Buy() {
           {/*<LocationMarker/>*/}
         </MapContainer>
         <div
-          className="col-6 "
+          className="col-6  "
           style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
         >
           <Card />

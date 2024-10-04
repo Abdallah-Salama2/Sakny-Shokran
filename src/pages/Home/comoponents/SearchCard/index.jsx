@@ -28,7 +28,7 @@ export default function SearchCard() {
           <div className="col col-xl-10 mx-xl-auto">
             <div className="input-group d-flex  border border-2 rounded-5 p-3 mb-5">
               <div></div>
-              <div class="row align-items-center  border border-1 rounded-start ">
+              <div className="row align-items-center  border border-1 rounded-start ">
                 {options.map((option) => (
                   <Option
                     key={option.id}
