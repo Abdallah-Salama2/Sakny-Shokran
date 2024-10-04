@@ -70,9 +70,9 @@ export default function Buy() {
         />
       </div>
 
-      <div className="d-flex position-relative">
+      <div className="d-flex ">
         <MapContainer
-          className="col-6 position-fixed z-1"
+          className="col-6 "
           center={position}
           zoom={13}
           scrollWheelZoom={true}
@@ -97,7 +97,10 @@ export default function Buy() {
           ))}
           {/*<LocationMarker/>*/}
         </MapContainer>
-        <div className="offset-5">
+        <div
+          className="col-6 "
+          style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
+        >
           <Card />
         </div>
       </div>
