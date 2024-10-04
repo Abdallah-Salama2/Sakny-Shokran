@@ -1,9 +1,13 @@
 .leaflet-container {
-    height: 100vh !important;
+    height: 80vh !important;
     width: 700px !important;
-    top: 0;
+    /* top: 0; */
     bottom:0;
     /* z-index: -1; */
+}
+.card-height{
+    height: 80vh !important;
+
 }
 .leaflet-control-zoom {
     position: absolute !important;

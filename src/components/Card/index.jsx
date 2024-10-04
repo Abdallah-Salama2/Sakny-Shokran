@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Card() {
   const [homes, setHomes] = useState([]);
@@ -68,10 +69,7 @@ export default function Card() {
     //   </div>
     // </div>
 
-    <div
-      className="d-flex   "
-      // style={{ height: "50vh", overflowY: "auto", overflowX: "hidden" }}
-    >
+    <div className="container">
       <div className="row">
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
           <img
@@ -88,12 +86,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
@@ -111,12 +109,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
@@ -134,12 +132,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
@@ -157,12 +155,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
@@ -180,12 +178,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
         <div className="card col-6 m-3" style={{ width: "18rem" }}>
@@ -203,12 +201,12 @@ export default function Card() {
           </div>
 
           <div className="card-body">
-            <a href="#" className="card-link">
+            <Link to="#" className="card-link">
               Card link
-            </a>
-            <a href="#" className="card-link">
+            </Link>
+            <Link to="#" className="card-link">
               Another link
-            </a>
+            </Link>
           </div>
         </div>
       </div>
