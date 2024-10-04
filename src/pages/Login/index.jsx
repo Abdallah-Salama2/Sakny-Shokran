@@ -1,81 +1,152 @@
 import "./styles.css";
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import Joi from "joi";
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false); // state to Remember Me
-  const [message, setMessage] = useState('');
+export default function Login({ saveDataUser }) {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(""); //validation for backend
+  const [errors, setErrors] = useState(""); //validation for frontend
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    remember: false, // add remember field
+  });
+  function getData(e) {
+    let data = { ...formData };
+    if (e.target.name === "remember") {
+      data[e.target.name] = e.target.checked; // handle checkbox
+    } else {
+      data[e.target.name] = e.target.value;
+    }
+    setFormData(data);
+    console.log(data);
+    // set data now in formData to send it to api
+  }
 
-  const handleLogin = async (e) => {
-      e.preventDefault();
+  async function submitHandler(e) {
+    e.preventDefault();
+
+    let statusError = validateData();
+    if (statusError?.error) {
+      setErrors(statusError?.error.details);
+    } else {
       try {
-          const response = await axios.post('http://localhost:5000/api/login', { email, password });
-          setMessage(response.data.message);
+        // Get CSRF token
+        const toto = await axios.get(
+          "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
+        );
+        console.log(toto);
 
-          if (rememberMe) {
-              // save data if choose Remember Me
-              localStorage.setItem('token', response.data.token);
-          } else {
-              sessionStorage.setItem('token', response.data.token);
-          }
-      } catch (error) {
-          setMessage('Error: Invalid credentials');
+        // Make login request
+        const res = await axios.post(
+          "https://y-sooty-seven.vercel.app/api/api/login",
+          formData
+        );
+        console.log(res.data);
+        console.log(res.data.token);
+        if (res.data.token) {
+          localStorage.setItem("UserName", res.data.user.name);
+          localStorage.setItem("Token", res.data.token);
+          saveDataUser();
+          navigate("/home");
+        } else {
+          setErrorMessage("Login failed, token not generated.");
+        }
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          setErrorMessage("Invalid credentials.");
+        } else if (err.response && err.response.data) {
+          setErrorMessage(err.response.data.message);
+        } else {
+          setErrorMessage("An unexpected error occurred.");
+        }
       }
-  };
+    }
+  }
+
+  function validateData() {
+    let schema = Joi.object({
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+          tlds: { allow: ["com", "net"] },
+        })
+        .required(),
+      password: Joi.string()
+        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+        .required(),
+      remember: Joi.required(),
+    });
+
+    return schema.validate(formData, { abortEarly: true });
+  }
 
   return (
-    <div className="content container justify-content-center align-items-center d-flex shadow-lg flex-column" id="content">
-        <h2>Login</h2>
-        <form className="form  w-75 p-1 text-center" onSubmit={handleLogin}>
+    <div
+      className="content container justify-content-center align-items-center d-flex shadow-lg flex-column"
+      id="content"
+    >
+      <h2>Login</h2>
+      {/* Conditionally show error message if it exists */}
+      {errorMessage.length > 0 && (
+        <div className="alert alert-danger">
+          <strong>Error:</strong> {errorMessage}
+        </div>
+      )}
+      {errors?.length > 0 &&
+        errors.map((err, i) => (
+          <div key={i} className="alert alert-danger">
+            <strong>Error:</strong> {err.message}
+          </div>
+        ))}
+      <form className="form  w-75 p-1 text-center" onSubmit={submitHandler}>
+        <input
+          className="form-control form-control-lg bg-light fs-6 mb-3"
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={getData}
+        />
+        <input
+          className="form-control form-control-lg bg-light fs-6 mb-3"
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={getData}
+        />
+
+        {/*  Checkbox to Remember Me */}
+        <div className="d-flex justify-content-between mt-4">
+          <div className="form-check mb-3">
             <input
-                className="form-control form-control-lg bg-light fs-6 mb-3"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+              type="checkbox"
+              className="form-check-input"
+              id="remember"
+              name="remember"
+              onChange={getData}
             />
-            <input
-                className="form-control form-control-lg bg-light fs-6 mb-3"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
+            <label className="form-check-label" htmlFor="remember">
+              Remember Me
+            </label>
+          </div>
 
-            {/*  Checkbox to Remember Me */}
-            <div className="d-flex justify-content-between">
-              <div className="check">
-                <input
-                      type="checkbox"
-                      id="rememberMe"
-                      checked={rememberMe}
-                      onChange={() => setRememberMe(!rememberMe)}
-                  />
-                  <label htmlFor="rememberMe">Remember Me</label>
-              </div>
-
-                <p>
-                  <a href="/forgot-password">Forgot Password?</a>
-                </p>
-            </div>
-            <div className="buttons-group d-flex justify-content-between">
-              <button type="submit">Login</button>
-              <button onClick={() => navigate('/register')}>
-                Register
-              </button>
-            </div>
-
-        </form>
-        <p>{message}</p>
-
-
+          <div className="">
+            <Link
+              to="/forgot-password"
+              className="text-decoration-none"
+              style={{ color: "rgb(160, 128, 22)" }}
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        </div>
+        <div className="buttons-group d-flex justify-content-between">
+          <button type="submit">Login</button>
+          <button onClick={() => navigate("/register")}>Register</button>
+        </div>
+      </form>
     </div>
   );
 }
-
