@@ -7,20 +7,20 @@
 
     </div>
     <div className="inputs">
-      <div class="mb-3">
-      <i class="fa-solid fa-user"></i>
-          <label for="exampleInputName1" class="form-label">Name</label>
-          <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp"/>
+      <div className="mb-3">
+      <i className="fa-solid fa-user"></i>
+          <label for="exampleInputName1" className="form-label">Name</label>
+          <input type="text" className="form-control" id="exampleInputName1" aria-describedby="emailHelp"/>
         </div>
-      <div class="mb-3">
-        <i class="fa-solid fa-envelope"></i>
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+      <div className="mb-3">
+        <i className="fa-solid fa-envelope"></i>
+        <label for="exampleInputEmail1" className="form-label">Email address</label>
+        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
       </div>
-      <div class="mb-3">
-        <i class="fa-solid fa-lock"></i>
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1"/>
+      <div className="mb-3">
+        <i className="fa-solid fa-lock"></i>
+        <label for="exampleInputPassword1" className="form-label">Password</label>
+        <input type="password" className="form-control" id="exampleInputPassword1"/>
       </div>
     </div>
     <div className="forgot-pass">Forget Password <span>Click Here.</span></div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 
-export default function Login({ saveDataUser }) {
+export default function AgentLogin({ saveDataUser }) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
@@ -41,18 +41,18 @@ export default function Login({ saveDataUser }) {
 
         // Make login request
         const res = await axios.post(
-          "https://y-sooty-seven.vercel.app/api/api/login",
+          "https://y-sooty-seven.vercel.app/api/api/agent/login",
           formData
         );
         console.log(res.data);
         console.log(res.data.token);
         if (res.data.token) {
-          localStorage.setItem("UserName", res.data.agent.name);
+          localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
           navigate("/home");
         } else {
-          setErrorMessage("Login failed,  False Credentials.");
+          setErrorMessage("Login failed, False Credentials");
         }
       } catch (err) {
         if (err.response && err.response.status === 401) {
@@ -88,7 +88,7 @@ export default function Login({ saveDataUser }) {
       className="content container justify-content-center align-items-center d-flex shadow-lg flex-column"
       id="content"
     >
-      <h2>Login</h2>
+      <h2>Agent Login</h2>
       {/* Conditionally show error message if it exists */}
       {errorMessage.length > 0 && (
         <div className="alert alert-danger">

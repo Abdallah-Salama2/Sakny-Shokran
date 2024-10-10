@@ -59,17 +59,47 @@ export default function Navbar({ userData, logout }) {
                 >
                   Join now
                 </button>
-                <button
+                <div className="btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary"
+                    onClick={handleLoginClick}
+                  >
+                    Sign In
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split me-4"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <span className="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="login">
+                        Sign In
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="agentLogin">
+                        Agent Sign In
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                {/* <button
                   className="btn btn-outline-primary me-5"
                   onClick={handleLoginClick}
                 >
                   Sign in
-                </button>
+                </button> */}
               </>
             )}
             {userData != null && (
               <>
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
                     className="border-0 bg-transparent  dropdown-toggle me-3"
                     type="button"
@@ -80,16 +110,16 @@ export default function Navbar({ userData, logout }) {
                     {localStorage.getItem("UserName")}
                   </button>
                   <ul
-                    class="dropdown-menu"
+                    className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
-                      <Link class="dropdown-item" to="profile">
+                      <Link className="dropdown-item" to="profile">
                         User Profile
                       </Link>
                     </li>
                     <li>
-                      <Link class="dropdown-item" to="favorites">
+                      <Link className="dropdown-item" to="favorites">
                         Favorites
                       </Link>
                     </li>
