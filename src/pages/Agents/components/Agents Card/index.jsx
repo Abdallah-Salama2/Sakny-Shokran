@@ -17,3 +17,4 @@ const AgentCard = ({ agent }) => {
 };
 
 export default AgentCard;
+
