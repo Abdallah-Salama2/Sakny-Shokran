@@ -1,35 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AgentCard from "./components/Agents Card/index";
-
-const mockAgents = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    email: "alice.johnson@realestate.com",
-    phone: "555-1234",
-    agency: "Dream Homes Agency",
-    experience: 8,
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    email: "bob.smith@realestate.com",
-    phone: "555-5678",
-    agency: "Luxury Estates",
-    experience: 12,
-  },
-  {
-    id: 3,
-    name: "Catherine Brown",
-    email: "catherine.brown@realestate.com",
-    phone: "555-8765",
-    agency: "Home Sweet Home Realty",
-    experience: 5,
-  },
-];
+import axios from "axios";
 
 const Agents = () => {
-  const [agents] = useState(mockAgents);
+  const [agents, setAgents] = useState([]);
+  function getAgents() {
+    axios
+      .get("https://y-sooty-seven.vercel.app/api/api/agents", {
+        headers: {
+          Authorization: `Bearer 21|FbKc3Ol5jQA35OMtXJaHMx9HNsh8g2F915jNUHuJa2385431`,
+        },
+      })
+
+      .then((res) => {
+        console.log(res.data);
+        setAgents(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getAgents();
+  }, []);
+
 
   return (
     <div className="container mt-5">
