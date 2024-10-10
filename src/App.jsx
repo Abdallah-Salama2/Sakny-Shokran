@@ -11,6 +11,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
 import Favorites from "./pages/Profile/Customer/Favorites";
 import Profile from "./pages/Profile";
+import AgentLogin from "./pages/AgentLogin";
 
 const mockFavorites = [
   { id: 1, title: "Beautiful Family House", location: "New York" },
@@ -106,6 +107,7 @@ export default function App() {
           element={<Register saveDataUser={saveDataUser} />}
         ></Route>
         <Route path="login" element={<Login saveDataUser={saveDataUser} />} />
+        <Route path="agentLogin" element={<AgentLogin saveDataUser={saveDataUser} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/password-reset/:token" element={<PasswordReset />} />
       </Routes>
