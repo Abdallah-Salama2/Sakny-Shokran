@@ -6,13 +6,26 @@
 } */
 
 .custom-placeholder::placeholder {
-  color: #6c757d; /* Change placeholder text color */
-  font-size: 0.9rem; /* Change the size */
-  font-style: italic; /* Optional: Make it italic */
-  opacity: 1; /* Ensure the opacity is not reduced */
+  color: #6c757d; 
+  font-size: 0.9rem;
+  font-style: italic; 
+  opacity: 1; 
 }
 
-.custom-placeholder:focus {
-  outline: none;
-  box-shadow: none; /* Optionally remove box-shadow */
+
+@media (max-width: 767px) {
+  .input-group {
+    padding: 0.5rem !important;
+  }
+  
+  .btn-check + label {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .input-group {
+    flex-wrap: nowrap !important;
+  }
 }

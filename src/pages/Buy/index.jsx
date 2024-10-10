@@ -1,13 +1,7 @@
 import "./styles.css";
 import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -76,9 +70,9 @@ export default function Buy() {
         />
       </div>
 
-      <div className="d-flex position-relative">
+      <div className="d-flex gap-5">
         <MapContainer
-          className="col-6 position-fixed z-1"
+          className="col-5 "
           center={position}
           zoom={13}
           scrollWheelZoom={true}
@@ -103,7 +97,10 @@ export default function Buy() {
           ))}
           {/*<LocationMarker/>*/}
         </MapContainer>
-        <div className="offset-5">
+        <div
+          className="col-6  "
+          style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
+        >
           <Card />
         </div>
       </div>
