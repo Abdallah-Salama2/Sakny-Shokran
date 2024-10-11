@@ -47,8 +47,10 @@ export default function AgentLogin({ saveDataUser }) {
         console.log(res.data);
         console.log(res.data.token);
         if (res.data.token) {
-          localStorage.setItem("UserName", res.data.user.name);
+          localStorage.setItem("UserName", res.data.agent.name);
           localStorage.setItem("Token", res.data.token);
+          localStorage.setItem("userType", res.data.type);
+
           saveDataUser();
           navigate("/home");
         } else {
@@ -142,9 +144,9 @@ export default function AgentLogin({ saveDataUser }) {
             </Link>
           </div>
         </div>
-        <div className="buttons-group d-flex justify-content-between">
+        <div className="buttons-group d-flex justify-content-center">
           <button type="submit">Login</button>
-          <button onClick={() => navigate("/register")}>Register</button>
+          {/* <button onClick={() => navigate("/register")}>Register</button> */}
         </div>
       </form>
     </div>

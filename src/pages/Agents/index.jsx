@@ -4,11 +4,13 @@ import axios from "axios";
 
 const Agents = () => {
   const [agents, setAgents] = useState([]);
+  const token = localStorage.getItem("Token");
+
   function getAgents() {
     axios
       .get("https://y-sooty-seven.vercel.app/api/api/agents", {
         headers: {
-          Authorization: `Bearer 21|FbKc3Ol5jQA35OMtXJaHMx9HNsh8g2F915jNUHuJa2385431`,
+          Authorization: `Bearer ${token}`, // Attach the token in the header
         },
       })
 
@@ -24,7 +26,6 @@ const Agents = () => {
   useEffect(() => {
     getAgents();
   }, []);
-
 
   return (
     <div className="container mt-5">

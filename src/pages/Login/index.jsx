@@ -46,8 +46,10 @@ export default function Login({ saveDataUser }) {
         );
         console.log(res.data);
         console.log(res.data.token);
+        console.log(res.data.type);
         if (res.data.token) {
-          localStorage.setItem("UserName", res.data.agent.name);
+          localStorage.setItem("UserName", res.data.user.name);
+          localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
           navigate("/home");
@@ -55,12 +57,16 @@ export default function Login({ saveDataUser }) {
           setErrorMessage("Login failed,  False Credentials.");
         }
       } catch (err) {
+        console.error("Login error: ", err); // Log the full error object to inspect
+
         if (err.response && err.response.status === 401) {
           setErrorMessage("Invalid credentials.");
         } else if (err.response && err.response.data) {
           setErrorMessage(err.response.data.message);
         } else {
-          setErrorMessage("An unexpected error occurred.");
+          setErrorMessage(
+            "An unexpected error occurred. Please try again later."
+          );
         }
       }
     }

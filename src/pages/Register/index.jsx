@@ -1,7 +1,7 @@
 import "./styles.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 
 export default function Register({ saveDataUser }) {
@@ -144,15 +144,18 @@ export default function Register({ saveDataUser }) {
           required
         />
 
-        <div className="buttons-group d-flex justify-content-between">
+        <div className="">
+          <Link
+            to="/login"
+            className="text-decoration-none"
+            style={{ color: "rgb(160, 128, 22)" }}
+          >
+            Already have an account?
+          </Link>
+        </div>
+        <div className="buttons-group d-flex justify-content-center">
           <button className="btn border-white text-white fs-6" type="submit">
             Register
-          </button>
-          <button
-            className="btn border-white text-white fs-6 "
-            onClick={() => navigate("/login")}
-          >
-            Login
           </button>
         </div>
       </form>
