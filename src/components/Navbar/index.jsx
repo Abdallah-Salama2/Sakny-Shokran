@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavLink from "./components/NavLink";
 import Logo from "./images/Logo.png";
 import "./styles.css";
@@ -12,6 +12,7 @@ let navLinks = [
   { name: "About", path: "about" },
 ];
 export default function Navbar({ userData, logout }) {
+  const [userType, setuserType] = useState("");
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -21,10 +22,17 @@ export default function Navbar({ userData, logout }) {
   const handleRegisterClick = () => {
     navigate("/register");
   };
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    // console.log(storedUserType);
+    if (storedUserType) {
+      setuserType(storedUserType);
+    }
+  }, []);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3  bg-body rounded z-3">
       <div className="container-fluid ">
-        <Link className="navbar-brand  " to="/">
+        <Link className="navbar-brand" to="/">
           <img src={Logo} alt="#"></img>
         </Link>
         <button
@@ -89,14 +97,9 @@ export default function Navbar({ userData, logout }) {
                     </li>
                   </ul>
                 </div>
-                {/* <button
-                  className="btn btn-outline-primary me-5"
-                  onClick={handleLoginClick}
-                >
-                  Sign in
-                </button> */}
               </>
             )}
+            {/* {console.log(userType)} */}
             {userData != null && (
               <>
                 <div className="dropdown">
@@ -118,11 +121,20 @@ export default function Navbar({ userData, logout }) {
                         User Profile
                       </Link>
                     </li>
-                    <li>
-                      <Link className="dropdown-item" to="favorites">
-                        Favorites
-                      </Link>
-                    </li>
+                    {userType === "client" && (
+                      <li>
+                        <Link className="dropdown-item" to="favorites">
+                          Favorites
+                        </Link>
+                      </li>
+                    )}
+                    {userType === "agent" && (
+                      <li>
+                        <Link className="dropdown-item" to="favorites">
+                          My Properties
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 </div>
                 <button className="btn btn-outline-primary " onClick={logout}>

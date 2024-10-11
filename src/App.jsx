@@ -71,7 +71,7 @@ export default function App() {
       )
       .then(() => {
         setUserData(null); // Clear user data from state
-        localStorage.removeItem("Token"); // Clear the token
+        localStorage.clear();
         navigate("/login"); // Redirect to login page
       })
       .catch((error) => {
@@ -107,7 +107,10 @@ export default function App() {
           element={<Register saveDataUser={saveDataUser} />}
         ></Route>
         <Route path="login" element={<Login saveDataUser={saveDataUser} />} />
-        <Route path="agentLogin" element={<AgentLogin saveDataUser={saveDataUser} />} />
+        <Route
+          path="agentLogin"
+          element={<AgentLogin saveDataUser={saveDataUser} />}
+        />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/password-reset/:token" element={<PasswordReset />} />
       </Routes>
