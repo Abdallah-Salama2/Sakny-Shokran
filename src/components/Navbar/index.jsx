@@ -11,6 +11,7 @@ let navLinks = [
   { name: "Agents", path: "agents" },
   { name: "About", path: "about" },
 ];
+
 export default function Navbar({ userData, logout }) {
   const [userType, setuserType] = useState("");
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ export default function Navbar({ userData, logout }) {
                     )}
                     {userType === "agent" && (
                       <li>
-                        <Link className="dropdown-item" to="favorites">
+                        <Link className="dropdown-item" to="agentProperties">
                           My Properties
                         </Link>
                       </li>

@@ -21,6 +21,7 @@ const customIcon = new L.Icon({
 export default function Buy() {
   const position = [50, 49];
   const [homes, setHomes] = useState([]);
+  const [properties, setProperties] = useState([]);
 
   function getHomes() {
     axios
@@ -34,8 +35,26 @@ export default function Buy() {
       });
   }
 
+  function getProperties() {
+    axios
+      .get("https://y-sooty-seven.vercel.app/api/api/properties", {
+        headers: {
+          Authorization: `Bearer {$token}`, // Passing the token here
+        },
+      })
+
+      .then((res) => {
+        console.log(res.data.data);
+        setProperties(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     getHomes();
+    getProperties();
   }, []);
 
   // function LocationMarker() {
@@ -70,13 +89,8 @@ export default function Buy() {
         />
       </div>
 
-      <div className="d-flex gap-5">
-        <MapContainer
-          className="col-5 "
-          center={position}
-          zoom={13}
-          scrollWheelZoom={true}
-        >
+      <div className="d-flex justify-content-between  pe-5">
+        <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -98,10 +112,16 @@ export default function Buy() {
           {/*<LocationMarker/>*/}
         </MapContainer>
         <div
-          className="col-6  "
+          className="col-7"
           style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
         >
-          <Card />
+          <div className="row pe-3 ">
+            {properties.map((property) => (
+              <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+                <Card property={property} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

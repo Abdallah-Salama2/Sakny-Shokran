@@ -13,6 +13,7 @@ import Favorites from "./pages/Profile/Customer/Favorites";
 import Profile from "./pages/Profile";
 import AgentLogin from "./pages/AgentLogin";
 import { ClipLoader } from "react-spinners";
+import AgentProperties from "./pages/Profile/Agent/AgentProperties";
 
 const mockFavorites = [
   { id: 1, title: "Beautiful Family House", location: "New York" },
@@ -117,6 +118,7 @@ export default function App() {
             <Favorites favorites={favorites} removeFavorite={removeFavorite} />
           }
         ></Route>
+        <Route path="agentProperties" element={<AgentProperties />}></Route>
         <Route
           path="register"
           element={<Register saveDataUser={saveDataUser} />}
