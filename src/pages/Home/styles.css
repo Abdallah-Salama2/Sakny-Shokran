@@ -21,7 +21,7 @@
 /* Media query for large screens */
 @media (min-width: 992px) {
   .margin-bottom-large {
-    margin-bottom: 200px;
+    margin-bottom: 250px;
   }
   .search-card-wrapper {
     position: absolute;

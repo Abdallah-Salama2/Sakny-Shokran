@@ -11,3 +11,20 @@ body {
   background-color: var(--mainColor);
   font-family: "Montserrat Alternates", sans-serif;
 }
+
+::-webkit-scrollbar {  
+  width: 8px;  
+}  
+
+::-webkit-scrollbar-track {  
+  /* background: #000;   */
+}  
+
+::-webkit-scrollbar-thumb {  
+  background: grey;  
+  border-radius: 4px;  
+}  
+
+::-webkit-scrollbar-thumb:hover {  
+  background: rgb(160, 128, 22);  
+}  
