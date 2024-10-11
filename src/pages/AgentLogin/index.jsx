@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
+import { ClipLoader } from "react-spinners";
 
 export default function AgentLogin({ saveDataUser }) {
+  const [loading, setLoading] = useState(false); // State for loading spinner
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
@@ -32,6 +34,8 @@ export default function AgentLogin({ saveDataUser }) {
     if (statusError?.error) {
       setErrors(statusError?.error.details);
     } else {
+      setLoading(true); // Start loading
+
       try {
         // Get CSRF token
         const toto = await axios.get(
@@ -64,6 +68,8 @@ export default function AgentLogin({ saveDataUser }) {
         } else {
           setErrorMessage("An unexpected error occurred.");
         }
+      } finally {
+        setLoading(false); // End loading
       }
     }
   }
@@ -144,9 +150,15 @@ export default function AgentLogin({ saveDataUser }) {
             </Link>
           </div>
         </div>
-        <div className="buttons-group d-flex justify-content-center">
-          <button type="submit">Login</button>
-          {/* <button onClick={() => navigate("/register")}>Register</button> */}
+        <div className="buttons-group d-flex justify-content-between">
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <ClipLoader size={20} color={"#fff"} /> // Display spinner during loading
+            ) : (
+              "Login"
+            )}
+          </button>
+          <button onClick={() => navigate("/register")}>Register</button>
         </div>
       </form>
     </div>

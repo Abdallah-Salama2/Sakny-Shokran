@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
+import { ClipLoader } from "react-spinners";
 
 export default function Login({ saveDataUser }) {
+  const [loading, setLoading] = useState(false); // State for loading spinner
+
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
@@ -32,21 +35,19 @@ export default function Login({ saveDataUser }) {
     if (statusError?.error) {
       setErrors(statusError?.error.details);
     } else {
+      setLoading(true); // Start loading
       try {
         // Get CSRF token
         const toto = await axios.get(
           "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
         );
-        console.log(toto);
 
         // Make login request
         const res = await axios.post(
           "https://y-sooty-seven.vercel.app/api/api/login",
           formData
         );
-        console.log(res.data);
-        console.log(res.data.token);
-        console.log(res.data.type);
+
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("userType", res.data.type);
@@ -57,8 +58,7 @@ export default function Login({ saveDataUser }) {
           setErrorMessage("Login failed,  False Credentials.");
         }
       } catch (err) {
-        console.error("Login error: ", err); // Log the full error object to inspect
-
+        console.error("Login error: ", err);
         if (err.response && err.response.status === 401) {
           setErrorMessage("Invalid credentials.");
         } else if (err.response && err.response.data) {
@@ -68,6 +68,8 @@ export default function Login({ saveDataUser }) {
             "An unexpected error occurred. Please try again later."
           );
         }
+      } finally {
+        setLoading(false); // End loading
       }
     }
   }
@@ -149,7 +151,13 @@ export default function Login({ saveDataUser }) {
           </div>
         </div>
         <div className="buttons-group d-flex justify-content-between">
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <ClipLoader size={20} color={"#fff"} /> // Display spinner during loading
+            ) : (
+              "Login"
+            )}
+          </button>
           <button onClick={() => navigate("/register")}>Register</button>
         </div>
       </form>

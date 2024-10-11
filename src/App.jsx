@@ -12,6 +12,7 @@ import PasswordReset from "./pages/PasswordReset";
 import Favorites from "./pages/Profile/Customer/Favorites";
 import Profile from "./pages/Profile";
 import AgentLogin from "./pages/AgentLogin";
+import { ClipLoader } from "react-spinners";
 
 const mockFavorites = [
   { id: 1, title: "Beautiful Family House", location: "New York" },
@@ -28,6 +29,7 @@ export default function App() {
   const [userInfo, setUserInfo] = useState(null);
   const [favorites, setFavorites] = useState(mockFavorites);
   const [filledForms] = useState(mockForms);
+  const [loading, setLoading] = useState(true); // Loading state for spinner
 
   const updateUserInfo = (updatedInfo) => {
     setUserInfo(updatedInfo);
@@ -51,6 +53,11 @@ export default function App() {
 
   useEffect(() => {
     saveDataUser();
+
+    // Simulate loading for 1000 seconds (1000000 ms)
+    setTimeout(() => {
+      setLoading(false); // After 1000 seconds, stop loading
+    }, 1000); // 1000000ms = 1000 seconds
   }, []);
 
   function logout() {
@@ -78,7 +85,15 @@ export default function App() {
         console.error("Logout error", error);
       });
   }
-
+  // If loading, show the spinner
+  if (loading) {
+    return (
+      <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
+        <ClipLoader size={150} color={"#123abc"} loading={loading} />
+        <h3>Loading...</h3>
+      </div>
+    );
+  }
   return (
     <div>
       <Navbar userData={userData} logout={logout} />
