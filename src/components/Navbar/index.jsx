@@ -122,6 +122,11 @@ export default function Navbar({ userData, logout }) {
                         User Profile
                       </Link>
                     </li>
+                    <li>
+                      <Link className="dropdown-item" to="ChangingPage">
+                        Changing Page
+                      </Link>
+                    </li>
                     {userType === "client" && (
                       <li>
                         <Link className="dropdown-item" to="favorites">

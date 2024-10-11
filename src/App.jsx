@@ -11,6 +11,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
 import Favorites from "./pages/Profile/Customer/Favorites";
 import Profile from "./pages/Profile";
+import ChangingPage from './pages/ChangingPage';
 import AgentLogin from "./pages/AgentLogin";
 import { ClipLoader } from "react-spinners";
 import AgentProperties from "./pages/Profile/Agent/AgentProperties";
@@ -106,6 +107,7 @@ export default function App() {
         <Route path="rent" element={<Buy />}></Route>
         <Route path="agents" element={<Agents />}></Route>
         <Route path="about" element={<About />}></Route>
+        <Route path="ChangingPage" element={<ChangingPage />} />
         <Route
           path="profile"
           element={
