@@ -131,87 +131,91 @@ const About = () => {
         </div>
       </div>
 
-      <div className="vh-100 d-flex flex-column justify-content-center align-items-center bg-light text-center bg-opacity-75">
-        <h2>Get in Touch</h2>
-        <p>
-          Whether you’re looking to buy, sell, or invest in real estate,
-          Sakeny-Shokran is here to help. Contact us today to learn more about
-          how we can assist you in your real estate journey.
-        </p>
-        <div className="contact-info">
-          <h4>Contact Us:</h4>
-          <ul className="list-unstyled">
-            <li>
-              📞 <strong>Phone:</strong> +20 123 456 7890
-            </li>
-            <li>
-              📧 <strong>Email:</strong> info@sakenyshokran.com
-            </li>
-            <li>
-              📍 <strong>Address:</strong> 123 Real Estate St, Cairo, Egypt
-            </li>
-          </ul>
-        </div>
-        <div className="social-media mt-4">
-          <h4>Follow Us:</h4>
-          <ul className="list-unstyled d-flex justify-content-center">
-            <li className="mx-3">
-              <a
-                href="https://facebook.com/sakenyshokran"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={Facebook}
-                  alt="Facebook"
-                  className="img-fluid"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </a>
-            </li>
-            <li className="mx-3">
-              <a
-                href="https://twitter.com/sakenyshokran"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={X}
-                  alt="Twitter"
-                  className="img-fluid"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </a>
-            </li>
-            <li className="mx-3">
-              <a
-                href="https://instagram.com/sakenyshokran"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={Instagram}
-                  alt="Instagram"
-                  className="img-fluid"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </a>
-            </li>
-            <li className="mx-3">
-              <a
-                href="https://linkedin.com/company/sakenyshokran"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={LinkedIn}
-                  alt="LinkedIn"
-                  className="img-fluid"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </a>
-            </li>
-          </ul>
+      <div className="h-25  bg-light  py-5 ">
+        <div className="d-flex  container gap-5 align-items-center">
+          <div>
+            <h2>Get in Touch</h2>
+            <p>
+              Whether you’re looking to buy, sell, or invest in real estate,
+              Sakeny-Shokran is here to help. <br />
+              Contact us today to learn more about how we can assist you in your
+              real estate journey.
+            </p>
+            <div className="social-media mt-4">
+              <ul className="list-unstyled d-flex justify-content-center">
+                <li className="mx-3">
+                  <a
+                    href="https://facebook.com/sakenyshokran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={Facebook}
+                      alt="Facebook"
+                      className="img-fluid"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  </a>
+                </li>
+                <li className="mx-3">
+                  <a
+                    href="https://twitter.com/sakenyshokran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={X}
+                      alt="Twitter"
+                      className="img-fluid"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  </a>
+                </li>
+                <li className="mx-3">
+                  <a
+                    href="https://instagram.com/sakenyshokran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={Instagram}
+                      alt="Instagram"
+                      className="img-fluid"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  </a>
+                </li>
+                <li className="mx-3">
+                  <a
+                    href="https://linkedin.com/company/sakenyshokran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="img-fluid"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="contact-info">
+            <h4>Contact Us:</h4>
+            <ul className="list-unstyled">
+              <li>
+                📞 <strong>Phone:</strong> +20 123 456 7890
+              </li>
+              <li>
+                📧 <strong>Email:</strong> info@sakenyshokran.com
+              </li>
+              <li>
+                📍 <strong>Address:</strong> 123 Real Estate St, Cairo, Egypt
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

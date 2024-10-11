@@ -100,11 +100,14 @@ export default function Buy() {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {homes.map((home) => (
-            <Marker position={[home.lat, home.long]} icon={customIcon}>
+          {properties.map((property) => (
+            <Marker
+              position={[property.latitude, property.longitude]}
+              icon={customIcon}
+            >
               <Popup>
                 <div>
-                  <h6>{home.title}</h6>
+                  <h6>{property.description}</h6>
                 </div>
               </Popup>
             </Marker>
