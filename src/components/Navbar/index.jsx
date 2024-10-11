@@ -122,11 +122,7 @@ export default function Navbar({ userData, logout }) {
                         User Profile
                       </Link>
                     </li>
-                    <li>
-                      <Link className="dropdown-item" to="ChangingPage">
-                        Changing Page
-                      </Link>
-                    </li>
+
                     {userType === "client" && (
                       <li>
                         <Link className="dropdown-item" to="favorites">
@@ -135,11 +131,18 @@ export default function Navbar({ userData, logout }) {
                       </li>
                     )}
                     {userType === "agent" && (
-                      <li>
-                        <Link className="dropdown-item" to="agentProperties">
-                          My Properties
-                        </Link>
-                      </li>
+                      <>
+                        <li>
+                          <Link className="dropdown-item" to="ChangingPage">
+                            Changing Page
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="agentProperties">
+                            My Properties
+                          </Link>
+                        </li>
+                      </>
                     )}
                   </ul>
                 </div>
