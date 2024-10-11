@@ -14,13 +14,14 @@ import X from "./images/icons/X_logo-black.png";
 export default function Home({ userData }) {
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
+  let token = localStorage.getItem("Token");
 
   function getProperties() {
     if (userData != null) {
       axios
         .get("https://y-sooty-seven.vercel.app/api/api/properties", {
           headers: {
-            Authorization: `Bearer {$token}`, // Passing the token here
+            Authorization: `Bearer ${token}`, // Attach the token in the header
           },
         })
         .then((res) => {
@@ -34,7 +35,7 @@ export default function Home({ userData }) {
       axios
         .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {
           headers: {
-            Authorization: `Bearer {$token}`, // Passing the token here
+            // Authorization: `Bearer {$token}`, // Passing the token here
           },
         })
         .then((res) => {
