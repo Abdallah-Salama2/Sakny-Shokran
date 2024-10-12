@@ -11,11 +11,11 @@ import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
-export default function Home({ userData }) {
+export default function Home() {
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
   let token = localStorage.getItem("Token");
-
+  let userData = localStorage.getItem("userType");
   function getProperties() {
     if (userData != null) {
       axios
@@ -25,6 +25,7 @@ export default function Home({ userData }) {
           },
         })
         .then((res) => {
+          console.log("userData", userData);
           console.log(res.data.data);
           setProperties(res.data.data);
         })
@@ -39,6 +40,8 @@ export default function Home({ userData }) {
           },
         })
         .then((res) => {
+          console.log("userData", userData);
+
           console.log(res.data.data);
           setProperties(res.data.data);
         })
