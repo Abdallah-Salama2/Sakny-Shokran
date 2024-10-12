@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UserFavourites from "./components/UserFavourites";
 import UserInfo from "./components/UserInfo";
 import AgentProperties from "./components/AgentProperties"; // Make sure this component exists
+import Inquiries from "./components/Inquiries";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("info");
@@ -17,8 +18,8 @@ const Profile = () => {
         return userType === "client" ? <UserFavourites /> : <p>No favourites for this user type</p>;
       case "props":
         return userType === "agent" ? <AgentProperties /> : <p>No properties for this user type</p>;
-      case "ingine":
-        return <p>This is the Inquiries section</p>;
+      case "inquiries":
+        return <Inquiries/>;
       default:
         return <p>Select a section</p>;
     }
@@ -63,8 +64,8 @@ const Profile = () => {
               </li>
             )}
             <li
-              className={`list-group-item ${activeSection === "ingine" ? "active" : ""}`}
-              onClick={() => setActiveSection("ingine")}
+              className={`list-group-item ${activeSection === "inquiries" ? "active" : ""}`}
+              onClick={() => setActiveSection("inquiries")}
               style={{ cursor: "pointer" }}
             >
               Inquiries

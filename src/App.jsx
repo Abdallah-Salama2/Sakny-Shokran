@@ -13,6 +13,7 @@ import AgentLogin from "./pages/AgentLogin";
 import { ClipLoader } from "react-spinners";
 import User from "./pages/Profile";
 import PropertyDetails from "./pages/PropertyDetails";
+import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
 
 
 const mockForms = [
@@ -89,10 +90,11 @@ export default function App() {
         <Route path="home" element={<Home userData={userData} />}></Route>
         <Route path="buy" element={<Buy />}></Route>
         <Route path="rent" element={<Buy />}></Route>
-        <Route path="details" element={<PropertyDetails />}></Route>
+        <Route path="details/:id" element={<PropertyDetails />}></Route>
         <Route path="agents" element={<Agents />}></Route>
         <Route path="about" element={<About />}></Route>
         <Route path="profile" element={<User />} />
+        <Route path="inquiries/:id" element={<PropertInquiries />} />
         <Route
           path="register"
           element={<Register saveDataUser={saveDataUser} />}

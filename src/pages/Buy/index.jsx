@@ -2,6 +2,7 @@ import "./styles.css";
 import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Link } from "react-router-dom";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -108,7 +109,12 @@ export default function Buy() {
           <div className="row pe-3 ">
             {properties.map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
-                <Card property={property} />
+                <Link
+                  to={`/details/${property.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Card property={property} />
+                </Link>
               </div>
             ))}
           </div>

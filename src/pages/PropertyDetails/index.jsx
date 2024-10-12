@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AgentCard from "../Agents//components/Agents Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useParams } from "react-router-dom";
 export default function PropertyDetails() {
+  const { id } = useParams();
+  console.log(id)
   let token = localStorage.getItem("Token");
   const [properties, setProperties] = useState(null); // Set to null initially to avoid undefined issues
   const [loading, setLoading] = useState(true); // Loading state
@@ -14,7 +15,7 @@ export default function PropertyDetails() {
 
   function getProperty() {
     axios
-      .get(`https://y-sooty-seven.vercel.app/api/api/properties/1`, {
+      .get(`https://y-sooty-seven.vercel.app/api/api/properties/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the token in the header
         },
@@ -43,7 +44,7 @@ export default function PropertyDetails() {
   }
   return (
     <>
-    {/* property info */}
+      {/* property info */}
       <div>
         <h3>{properties.title}</h3>
         <p>{properties.description}</p>
