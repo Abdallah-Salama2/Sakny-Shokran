@@ -51,7 +51,7 @@ export default function Home() {
         <div>
           <h1>Featured Listings</h1>
           <div className="row ">
-            {properties.slice(0, 3).map((property) => (
+            {properties?.slice(0, 3).map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                 <Card property={property} />
               </div>

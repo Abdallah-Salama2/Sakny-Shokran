@@ -20,26 +20,15 @@ const customIcon = new L.Icon({
 
 export default function Buy() {
   const position = [50, 49];
-  const [homes, setHomes] = useState([]);
   const [properties, setProperties] = useState([]);
 
-  function getHomes() {
-    axios
-      .get("http://localhost:8000/homes")
-      .then((res) => {
-        console.log(res.data);
-        setHomes(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  let token = localStorage.getItem("Token");
 
   function getProperties() {
     axios
       .get("https://y-sooty-seven.vercel.app/api/api/properties", {
         headers: {
-          Authorization: `Bearer {$token}`, // Passing the token here
+          Authorization: `Bearer ${token}`, // Passing the token here
         },
       })
 
@@ -53,7 +42,7 @@ export default function Buy() {
   }
 
   useEffect(() => {
-    getHomes();
+
     getProperties();
   }, []);
 

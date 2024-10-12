@@ -1,191 +1,84 @@
-import React, { useState } from "react";
+import "./styles.css";
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserFavourites from "./components/UserFavourites";
+import UserInfo from "./components/UserInfo";
+import AgentProperties from "./components/AgentProperties"; // Make sure this component exists
 
-const UserInfo = ({ userInfo, updateUserInfo }) => {
-  const [editMode, setEditMode] = useState(false);
+const Profile = () => {
+  const [activeSection, setActiveSection] = useState("info");
+  const [userType, setUserType] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const updatedInfo = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      birthdate: e.target.birthdate.value,
-      gender: e.target.gender.value,
-    };
-    updateUserInfo(updatedInfo);
-    setEditMode(false);
+  const renderContent = () => {
+    switch (activeSection) {
+      case "info":
+        return <UserInfo />;
+      case "favs":
+        return userType === "client" ? <UserFavourites /> : <p>No favourites for this user type</p>;
+      case "props":
+        return userType === "agent" ? <AgentProperties /> : <p>No properties for this user type</p>;
+      case "ingine":
+        return <p>This is the Inquiries section</p>;
+      default:
+        return <p>Select a section</p>;
+    }
   };
 
-  if (!userInfo) {
-    return (
-      <div className="card mb-4">
-        <div className="card-header">
-          <h2>User Information</h2>
-        </div>
-        <div className="card-body">
-          <p>
-            You are not signed in. Please fill in your information to continue.
-          </p>
-          {editMode ? (
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="birthdate" className="form-label">
-                  Birthdate
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="birthdate"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="gender" className="form-label">
-                  Gender
-                </label>
-                <select className="form-select" name="gender" required>
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Save
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary ms-2"
-                onClick={() => setEditMode(false)}
-              >
-                Cancel
-              </button>
-            </form>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => setEditMode(true)}
-            >
-              Add Info
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
+  }, []);
 
   return (
-    <div className="card mb-4">
-      <div className="card-header">
-        <h2>User Information</h2>
-      </div>
-      <div className="card-body">
-        {editMode ? (
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="name"
-                defaultValue={userInfo.name}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                defaultValue={userInfo.email}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="birthdate" className="form-label">
-                Birthdate
-              </label>
-              <input
-                type="date"
-                className="form-control"
-                name="birthdate"
-                defaultValue={userInfo.birthdate}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="gender" className="form-label">
-                Gender
-              </label>
-              <select
-                className="form-select"
-                name="gender"
-                defaultValue={userInfo.gender}
+    <div className="container-fluid mt-2">
+      <div className="row">
+        {/* Left side (menu) */}
+        <div className="col-3 bg-light vh-100">
+          <ul className="list-group">
+            <li
+              className={`list-group-item ${activeSection === "info" ? "active" : ""}`}
+              onClick={() => setActiveSection("info")}
+              style={{ cursor: "pointer" }}
+            >
+              Info
+            </li>
+            {userType === "client" && (
+              <li
+                className={`list-group-item ${activeSection === "favs" ? "active" : ""}`}
+                onClick={() => setActiveSection("favs")}
+                style={{ cursor: "pointer" }}
               >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Save
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary ms-2"
-              onClick={() => setEditMode(false)}
+                Favourites
+              </li>
+            )}
+            {userType === "agent" && (
+              <li
+                className={`list-group-item ${activeSection === "props" ? "active" : ""}`}
+                onClick={() => setActiveSection("props")}
+                style={{ cursor: "pointer" }}
+              >
+                Properties
+              </li>
+            )}
+            <li
+              className={`list-group-item ${activeSection === "ingine" ? "active" : ""}`}
+              onClick={() => setActiveSection("ingine")}
+              style={{ cursor: "pointer" }}
             >
-              Cancel
-            </button>
-          </form>
-        ) : (
-          <>
-            <p>
-              <strong>Name:</strong> {userInfo.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {userInfo.email}
-            </p>
-            <p>
-              <strong>Birthdate:</strong> {userInfo.birthdate}
-            </p>
-            <p>
-              <strong>Gender:</strong> {userInfo.gender}
-            </p>
-            <button
-              className="btn btn-primary"
-              onClick={() => setEditMode(true)}
-            >
-              Edit Info
-            </button>
-          </>
-        )}
+              Inquiries
+            </li>
+          </ul>
+        </div>
+
+        {/* Right side (changing content) */}
+        <div className="col-9">
+          {renderContent()}
+        </div>
       </div>
     </div>
   );
 };
 
-export default UserInfo;
+export default Profile;

@@ -1,15 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
+import axios from "axios";
 
 export default function Card({ property }) {
   const [isClick, setClick] = useState(false);
+  let token = localStorage.getItem("Token"); // Fetch token from local storage
 
-  const [isFavorite, setFavorite] = useState(false);
-  const handleFavorite = (index) => {
-    setFavorite((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+  // Initialize heart click state based on favoriteStats from the property
+  useEffect(() => {
+    setClick(property.favoriteStats === 1);
+  }, [property.favoriteStats]);
+
+  // Handle favorite status change
+  const handleFavorite = async () => {
+    try {
+      // Send POST request to toggle favorite status
+      const response = await axios.post(
+        `https://y-sooty-seven.vercel.app/api/api/preferences/${property.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass token in request headers
+          },
+        }
+      );
+      
+      // Toggle the heart click state on successful API response
+      setClick(!isClick);
+      console.log(response.data); // Optionally log the response
+    } catch (error) {
+      console.error("Error updating favorite status:", error);
+    }
   };
 
   return (
@@ -26,7 +47,7 @@ export default function Card({ property }) {
       </div>
       <div className="card-body d-flex justify-content-between align-items-center">
         <p>$ {property.price}</p>
-        <Heart isClick={isClick} onClick={() => setClick(!isClick)} />
+         <Heart isClick={isClick} onClick={handleFavorite} />
       </div>
     </div>
   );

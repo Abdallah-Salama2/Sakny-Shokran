@@ -123,27 +123,8 @@ export default function Navbar({ userData, logout }) {
                       </Link>
                     </li>
 
-                    {userType === "client" && (
-                      <li>
-                        <Link className="dropdown-item" to="favorites">
-                          Favorites
-                        </Link>
-                      </li>
-                    )}
-                    {userType === "agent" && (
-                      <>
-                        <li>
-                          <Link className="dropdown-item" to="ChangingPage">
-                            Changing Page
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="agentProperties">
-                            My Properties
-                          </Link>
-                        </li>
-                      </>
-                    )}
+                    {userType === "client" && <></>}
+                    {userType === "agent" && <></>}
                   </ul>
                 </div>
                 <button className="btn btn-outline-primary " onClick={logout}>

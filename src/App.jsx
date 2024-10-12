@@ -9,17 +9,10 @@ import { Home, Login, Register, Buy, Agents, About } from "./pages";
 import axios from "axios";
 import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
-import Favorites from "./pages/Profile/Customer/Favorites";
-import Profile from "./pages/Profile";
-import ChangingPage from './pages/ChangingPage';
 import AgentLogin from "./pages/AgentLogin";
 import { ClipLoader } from "react-spinners";
-import AgentProperties from "./pages/Profile/Agent/AgentProperties";
+import User from "./pages/Profile";
 
-const mockFavorites = [
-  { id: 1, title: "Beautiful Family House", location: "New York" },
-  { id: 2, title: "Modern Apartment", location: "San Francisco" },
-];
 
 const mockForms = [
   { id: 1, formType: "Mortgage Application", date: "2023-01-05" },
@@ -28,18 +21,8 @@ const mockForms = [
 export default function App() {
   let navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
-  const [favorites, setFavorites] = useState(mockFavorites);
   const [filledForms] = useState(mockForms);
   const [loading, setLoading] = useState(true); // Loading state for spinner
-
-  const updateUserInfo = (updatedInfo) => {
-    setUserInfo(updatedInfo);
-  };
-
-  const removeFavorite = (id) => {
-    setFavorites(favorites.filter((fav) => fav.id !== id));
-  };
 
   function saveDataUser() {
     let token = localStorage.getItem("Token");
@@ -107,20 +90,7 @@ export default function App() {
         <Route path="rent" element={<Buy />}></Route>
         <Route path="agents" element={<Agents />}></Route>
         <Route path="about" element={<About />}></Route>
-        <Route path="ChangingPage" element={<ChangingPage />} />
-        <Route
-          path="profile"
-          element={
-            <Profile userInfo={userInfo} updateUserInfo={updateUserInfo} />
-          }
-        ></Route>
-        <Route
-          path="favorites"
-          element={
-            <Favorites favorites={favorites} removeFavorite={removeFavorite} />
-          }
-        ></Route>
-        <Route path="agentProperties" element={<AgentProperties />}></Route>
+        <Route path="profile" element={<User />} />
         <Route
           path="register"
           element={<Register saveDataUser={saveDataUser} />}
