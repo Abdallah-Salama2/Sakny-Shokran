@@ -1,6 +1,7 @@
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
+import "bootstrap/dist/js/bootstrap";
 import "./App.css";
 import React, { Component, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ import PasswordReset from "./pages/PasswordReset";
 import AgentLogin from "./pages/AgentLogin";
 import { ClipLoader } from "react-spinners";
 import User from "./pages/Profile";
+import PropertyDetails from "./pages/PropertyDetails";
 
 
 const mockForms = [
@@ -88,6 +90,7 @@ export default function App() {
         <Route path="home" element={<Home userData={userData} />}></Route>
         <Route path="buy" element={<Buy />}></Route>
         <Route path="rent" element={<Buy />}></Route>
+        <Route path="details" element={<PropertyDetails />}></Route>
         <Route path="agents" element={<Agents />}></Route>
         <Route path="about" element={<About />}></Route>
         <Route path="profile" element={<User />} />
