@@ -11,25 +11,41 @@ import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
-export default function Home() {
+export default function Home({ userData }) {
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
+  let token = localStorage.getItem("Token");
 
   function getProperties() {
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/properties", {
-        headers: {
-          Authorization: `Bearer {$token}`, // Passing the token here
-        },
-      })
-
-      .then((res) => {
-        console.log(res.data.data);
-        setProperties(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (userData != null) {
+      axios
+        .get("https://y-sooty-seven.vercel.app/api/api/properties", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach the token in the header
+          },
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setProperties(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {
+          headers: {
+            // Authorization: `Bearer {$token}`, // Passing the token here
+          },
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setProperties(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   useEffect(() => {

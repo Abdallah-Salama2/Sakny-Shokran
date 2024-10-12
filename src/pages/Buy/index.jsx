@@ -21,7 +21,6 @@ const customIcon = new L.Icon({
 export default function Buy() {
   const position = [50, 49];
   const [properties, setProperties] = useState([]);
-
   let token = localStorage.getItem("Token");
 
   function getProperties() {
@@ -42,7 +41,6 @@ export default function Buy() {
   }
 
   useEffect(() => {
-
     getProperties();
   }, []);
 
