@@ -56,7 +56,7 @@ export default function AgentLogin({ saveDataUser }) {
           localStorage.setItem("userType", res.data.type);
 
           saveDataUser();
-          navigate("/home");
+          navigate("/profile");
         } else {
           setErrorMessage("Login failed, False Credentials");
         }

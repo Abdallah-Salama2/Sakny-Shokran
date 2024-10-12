@@ -31,12 +31,11 @@ export default function UserFavourites() {
   }, []);
 
   return (
-    <div className="container ">
+    <div className="container-fluid px-2 py-3 ">
       <div>
-        <h1>Featured Listings</h1>
         <div className="row ">
           {favourites.map((property) => (
-            <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+            <div key={property.id} className="col-md-3 col-sm-6 mb-4">
               <Card property={property} />
             </div>
           ))}

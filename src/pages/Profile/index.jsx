@@ -15,11 +15,19 @@ const Profile = () => {
       case "info":
         return <UserInfo />;
       case "favs":
-        return userType === "client" ? <UserFavourites /> : <p>No favourites for this user type</p>;
+        return userType === "client" ? (
+          <UserFavourites />
+        ) : (
+          <p>No favourites for this user type</p>
+        );
       case "props":
-        return userType === "agent" ? <AgentProperties /> : <p>No properties for this user type</p>;
+        return userType === "agent" ? (
+          <AgentProperties />
+        ) : (
+          <p>No properties for this user type</p>
+        );
       case "inquiries":
-        return <Inquiries/>;
+        return <Inquiries />;
       default:
         return <p>Select a section</p>;
     }
@@ -39,7 +47,9 @@ const Profile = () => {
         <div className="col-3 bg-light vh-100">
           <ul className="list-group">
             <li
-              className={`list-group-item ${activeSection === "info" ? "active" : ""}`}
+              className={`list-group-item ${
+                activeSection === "info" ? "active" : ""
+              }`}
               onClick={() => setActiveSection("info")}
               style={{ cursor: "pointer" }}
             >
@@ -47,7 +57,9 @@ const Profile = () => {
             </li>
             {userType === "client" && (
               <li
-                className={`list-group-item ${activeSection === "favs" ? "active" : ""}`}
+                className={`list-group-item ${
+                  activeSection === "favs" ? "active" : ""
+                }`}
                 onClick={() => setActiveSection("favs")}
                 style={{ cursor: "pointer" }}
               >
@@ -56,15 +68,19 @@ const Profile = () => {
             )}
             {userType === "agent" && (
               <li
-                className={`list-group-item ${activeSection === "props" ? "active" : ""}`}
+                className={`list-group-item ${
+                  activeSection === "props" ? "active" : ""
+                }`}
                 onClick={() => setActiveSection("props")}
                 style={{ cursor: "pointer" }}
               >
-                Properties
+                My Properties
               </li>
             )}
             <li
-              className={`list-group-item ${activeSection === "inquiries" ? "active" : ""}`}
+              className={`list-group-item ${
+                activeSection === "inquiries" ? "active" : ""
+              }`}
               onClick={() => setActiveSection("inquiries")}
               style={{ cursor: "pointer" }}
             >
@@ -74,9 +90,7 @@ const Profile = () => {
         </div>
 
         {/* Right side (changing content) */}
-        <div className="col-9">
-          {renderContent()}
-        </div>
+        <div className="col-9">{renderContent()}</div>
       </div>
     </div>
   );

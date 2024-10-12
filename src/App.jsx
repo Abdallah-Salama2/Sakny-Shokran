@@ -15,7 +15,6 @@ import User from "./pages/Profile";
 import PropertyDetails from "./pages/PropertyDetails";
 import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
 
-
 const mockForms = [
   { id: 1, formType: "Mortgage Application", date: "2023-01-05" },
   { id: 2, formType: "Rental Application", date: "2023-06-18" },

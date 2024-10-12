@@ -28,16 +28,17 @@ const Agents = () => {
   }, []);
 
   return (
-    <div className="container mt-5">
-      <h1>Real Estate Agents</h1>
-      <div className="row">
-        {agents.map((agent) => (
-          <AgentCard key={agent.id} agent={agent} />
-        ))}
+    <div className=" pt-5 vh-100 offwhite ">
+      <div className="container">
+        <h1>Real Estate Agents</h1>
+        <div className="row">
+          {agents.map((agent) => (
+            <AgentCard key={agent.id} agent={agent} />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Agents;
-

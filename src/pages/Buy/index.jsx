@@ -23,22 +23,41 @@ export default function Buy() {
   const position = [50, 49];
   const [properties, setProperties] = useState([]);
   let token = localStorage.getItem("Token");
+  let userData = localStorage.getItem("userType");
 
   function getProperties() {
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/properties", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Passing the token here
-        },
-      })
+    if (userData != null) {
+      axios
+        .get("https://y-sooty-seven.vercel.app/api/api/properties", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach the token in the header
+          },
+        })
+        .then((res) => {
+          console.log("userData", userData);
+          console.log(res.data.data);
+          setProperties(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {
+          headers: {
+            // Authorization: `Bearer {$token}`, // Passing the token here
+          },
+        })
+        .then((res) => {
+          console.log("userData", userData);
 
-      .then((res) => {
-        console.log(res.data.data);
-        setProperties(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          console.log(res.data.data);
+          setProperties(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   useEffect(() => {
@@ -65,7 +84,7 @@ export default function Buy() {
   // }
 
   return (
-    <>
+    <div className="offwhite">
       <div className="form-outline mb-3 z-3" data-mdb-input-init>
         <input
           type="search"
@@ -120,6 +139,6 @@ export default function Buy() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
