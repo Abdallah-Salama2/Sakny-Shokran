@@ -1,7 +1,6 @@
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import "bootstrap/dist/js/bootstrap";
 import "./App.css";
 import React, { Component, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";

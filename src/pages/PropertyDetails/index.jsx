@@ -43,6 +43,7 @@ export default function PropertyDetails() {
   }
   return (
     <>
+    {/* property info */}
       <div>
         <h3>{properties.title}</h3>
         <p>{properties.description}</p>
@@ -72,6 +73,7 @@ export default function PropertyDetails() {
           </span>
         </p>
       </div>
+      {/* images carousel */}
       <div id="carouselExample" className="carousel slide w-50">
         <div className="carousel-inner">
           {properties.images.map((image, index) => (
@@ -87,8 +89,39 @@ export default function PropertyDetails() {
             </div>
           ))}
         </div>
-      </div>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
 
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+      {/* agent */}
+      <h1>Listing agent</h1>
+      <hr className="border border-dark border-3 opacity-75 w-25"></hr>
+      <div style={{ width: "800px" }}>
+        <AgentCard key={properties.agent.id} agent={properties.agent} />
+      </div>
+      {/* details */}
       <h1>The Details</h1>
       <hr className="border border-dark border-3 opacity-75 w-25"></hr>
       <p>{properties.description}</p>
