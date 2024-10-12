@@ -46,6 +46,10 @@ export default function PropertInquiries() {
                   <span className="text-primary"> {inquiry.id}</span>
                 </p>
                 <p className="card-title text-opacity-75">
+                  Inquiry Message:
+                  <span className="text-primary">{inquiry.message}</span>
+                </p>
+                <p className="card-title text-opacity-75">
                   Inquiry email:
                   <span className="text-primary">{inquiry.email}</span>
                 </p>
