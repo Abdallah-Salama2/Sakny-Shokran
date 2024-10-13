@@ -8,20 +8,22 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import axios from "axios";
 import Card from "../../components/Card/index";
+import PropertyFilter from "../../components/PropertyFilter";
 
 // Define custom icon with proper image paths
 const customIcon = new L.Icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [25, 41], // size of the icon
-  iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
-  popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
-  shadowSize: [41, 41], // size of the shadow
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 export default function Buy() {
   const position = [50, 49];
   const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
   let token = localStorage.getItem("Token");
   let userData = localStorage.getItem("userType");
 
@@ -30,29 +32,22 @@ export default function Buy() {
       axios
         .get("https://y-sooty-seven.vercel.app/api/api/properties", {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach the token in the header
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          console.log("userData", userData);
-          console.log(res.data.data);
           setProperties(res.data.data);
+          setFilteredProperties(res.data.data); // Initially, show all properties
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
       axios
-        .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {
-          headers: {
-            // Authorization: `Bearer {$token}`, // Passing the token here
-          },
-        })
+        .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {})
         .then((res) => {
-          console.log("userData", userData);
-
-          console.log(res.data.data);
           setProperties(res.data.data);
+          setFilteredProperties(res.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -64,38 +59,47 @@ export default function Buy() {
     getProperties();
   }, []);
 
-  // function LocationMarker() {
-  //     const [position, setPosition] = useState(null)
-  //     const map = useMapEvents({
-  //         click() {
-  //             map.locate()
-  //         },
-  //         locationfound(e) {
-  //             setPosition(e.latlng)
-  //             map.flyTo(e.latlng, map.getZoom())
-  //         },
-  //     })
-  //
-  //     return position === null ? null : (
-  //         <Marker position={position} icon={customIcon}>
-  //             <Popup>You are here</Popup>
-  //         </Marker>
-  //     )
-  // }
+  // Filtering function
+  const handleFilter = (filterCriteria) => {
+    let filtered = properties;
+
+    // Apply filtering logic based on user input
+    if (filterCriteria.priceFrom) {
+      filtered = filtered.filter(
+        (property) => property.price >= filterCriteria.priceFrom
+      );
+    }
+    if (filterCriteria.priceTo) {
+      filtered = filtered.filter(
+        (property) => property.price <= filterCriteria.priceTo
+      );
+    }
+    if (filterCriteria.beds) {
+      filtered = filtered.filter(
+        (property) => property.beds >= filterCriteria.beds
+      );
+    }
+    if (filterCriteria.baths) {
+      filtered = filtered.filter(
+        (property) => property.baths >= filterCriteria.baths
+      );
+    }
+    if (filterCriteria.areaFrom) {
+      filtered = filtered.filter(
+        (property) => property.area >= filterCriteria.areaFrom
+      );
+    }
+    if (filterCriteria.areaTo) {
+      filtered = filtered.filter(
+        (property) => property.area <= filterCriteria.areaTo
+      );
+    }
+
+    setFilteredProperties(filtered);
+  };
 
   return (
-    <div className="offwhite">
-      <div className="form-outline mb-3 z-3" data-mdb-input-init>
-        <input
-          type="search"
-          id="form1"
-          className="form-control z-2"
-          style={{ zIndex: "10" }}
-          placeholder="Type query"
-          aria-label="Search"
-        />
-      </div>
-
+    <div className="offwhite border mt-2">
       <div className="d-flex justify-content-between  pe-5">
         <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
           <TileLayer
@@ -107,8 +111,11 @@ export default function Buy() {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {properties.map((property) => (
+
+          {/* Display filtered properties on the map */}
+          {filteredProperties.map((property) => (
             <Marker
+              key={property.id}
               position={[property.latitude, property.longitude]}
               icon={customIcon}
             >
@@ -119,14 +126,19 @@ export default function Buy() {
               </Popup>
             </Marker>
           ))}
-          {/*<LocationMarker/>*/}
         </MapContainer>
+
         <div
-          className="col-7"
+          className="col-7 border"
           style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
         >
-          <div className="row pe-3 ">
-            {properties.map((property) => (
+          <div className="form-outline mb-3 z-3">
+            {/* Pass the filtering function to the PropertyFilter component */}
+            <PropertyFilter onFilter={handleFilter} />
+          </div>
+          <div className="row pe-3">
+            {/* Display filtered properties in the list */}
+            {filteredProperties.map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                 <Link
                   to={`/details/${property.id}`}
