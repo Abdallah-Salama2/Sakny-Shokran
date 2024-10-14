@@ -9,7 +9,7 @@ export default function AgentProperties() {
   const navigate = useNavigate();
 
   let {agentProperties} = useContext(ContextData);
-
+  console.log("agent properties " + agentProperties);
   return (
     <div className="container-fluid px-2 py-3 ">
       <div>

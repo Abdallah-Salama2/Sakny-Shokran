@@ -1,45 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../../../components/Card";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useContext } from "react";
+import { ContextData } from "../../../../components/Store/API's";
 
 export default function UserFavourites() {
-  let token = localStorage.getItem("Token");
+  
+  let {favorites} = useContext(ContextData);
+const navigate = useNavigate();
 
-  const [favourites, setFavourites] = useState([]);
-  const navigate = useNavigate();
-
-  function getFavourites() {
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/preferences", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-        },
-      })
-
-      .then((res) => {
-        console.log(res.data);
-        setFavourites(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
+  const [Loading, setLoading] = useState(true);
+  const [favs, setFavs] = useState([]);
   useEffect(() => {
-    getFavourites();
-  }, []);
+      const fetchedFavs = favorites
+      if (fetchedFavs && fetchedFavs.length > 0) {
+        setFavs(fetchedFavs);
+        setLoading(false);
+    }
+  }, [favorites]); 
 
   return (
     <div className="container-fluid px-2 py-3 ">
       <div>
-        <div className="row ">
-          {favourites.map((property) => (
+        {Loading ? (<div>Loading....</div>):
+        (<div className="row ">
+          {favs.map((property) => (
             <div key={property.id} className="col-md-3 col-sm-6 mb-4">
               <Card property={property} />
             </div>
           ))}
-        </div>
+        </div>)}
       </div>
     </div>
   );

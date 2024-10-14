@@ -1,37 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { ContextData } from "../../../../components/Store/API's";
 
 export default function UserInfo() {
-  let token = localStorage.getItem("Token");
+  let {loggedUser} = useContext(ContextData);
 
   const [info, setInfo] = useState([]);
-//   const navigate = useNavigate();
 
-  function getInfo() {
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/loggedInUser", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-        },
-      })
-
-      .then((res) => {
-        console.log(res.data);
-        setInfo(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
+  const [Loading, setLoading] = useState(true);
   useEffect(() => {
-    getInfo();
-  }, []);
+      if (loggedUser) {
+        setInfo(loggedUser);
+        setLoading(false);
+    }
+  }, [loggedUser]); 
+
 
   return (
 <>
-      {info ? ( // Check if info is available before rendering
+      {Loading ? (<div>Loading....</div>) :(
         <>
         <div className="w-fit">
             <img
@@ -54,8 +40,6 @@ export default function UserInfo() {
           Joined Since: <span className="text-primary">{info.created_at ? info.created_at.split("T")[0] : "N/A"}</span>
           </p>
         </>
-      ) : (
-        <p className="fw-bolder fs-3">Loading...</p> // Show a loading message while data is being fetched
       )}
     </>
   );
