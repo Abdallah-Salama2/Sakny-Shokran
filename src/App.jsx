@@ -2,7 +2,7 @@ import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "./App.css";
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Navbar } from "./components";
 import { Home, Login, Register, Buy, Agents, About } from "./pages";
@@ -10,20 +10,14 @@ import axios from "axios";
 import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
 import AgentLogin from "./pages/AgentLogin";
-import { ClipLoader } from "react-spinners";
 import User from "./pages/Profile";
 import PropertyDetails from "./pages/PropertyDetails";
 import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
 
-const mockForms = [
-  { id: 1, formType: "Mortgage Application", date: "2023-01-05" },
-  { id: 2, formType: "Rental Application", date: "2023-06-18" },
-];
+
 export default function App() {
   let navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [filledForms] = useState(mockForms);
-  const [loading, setLoading] = useState(true); // Loading state for spinner
 
   function saveDataUser() {
     let token = localStorage.getItem("Token");
@@ -39,11 +33,6 @@ export default function App() {
 
   useEffect(() => {
     saveDataUser();
-
-    // Simulate loading for 1000 seconds (1000000 ms)
-    setTimeout(() => {
-      setLoading(false); // After 1000 seconds, stop loading
-    }, 1000); // 1000000ms = 1000 seconds
   }, []);
 
   function logout() {
@@ -71,15 +60,7 @@ export default function App() {
         console.error("Logout error", error);
       });
   }
-  // If loading, show the spinner
-  if (loading) {
-    return (
-      <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
-        <ClipLoader size={150} color={"#123abc"} loading={loading} />
-        <h3>Loading...</h3>
-      </div>
-    );
-  }
+
   return (
     <div>
       <Navbar userData={userData} logout={logout} />

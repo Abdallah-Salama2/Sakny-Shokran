@@ -2,60 +2,19 @@ import "./styles.css";
 import homeImage from "./images/HomeImage.png";
 import metingImage from "./images/meeting-3.jpg";
 import learnMore from "./images/LearnMore.jpg";
-import React, { useEffect, useState } from "react";
+
+import React, { useContext } from "react";
 import SearchCard from "./comoponents/SearchCard";
 import Card from "../../components/Card";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
+import { ContextData } from "../../components/Store/API's";
 export default function Home() {
-  const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
-  let token = localStorage.getItem("Token");
-  let userData = localStorage.getItem("userType");
-
-  function getProperties() {
-    if (userData != null) {
-      axios
-        .get("https://y-sooty-seven.vercel.app/api/api/properties", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach the token in the header
-          },
-        })
-        .then((res) => {
-          console.log("userData", userData);
-          console.log(res.data.data);
-          setProperties(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .get("https://y-sooty-seven.vercel.app/api/api/home/properties", {
-          headers: {
-            // Authorization: `Bearer {$token}`, // Passing the token here
-          },
-        })
-        .then((res) => {
-          console.log("userData", userData);
-
-          console.log(res.data.data);
-          setProperties(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
-
-  useEffect(() => {
-    getProperties();
-  }, []);
+  let { properties } = useContext(ContextData);
 
   return (
     <>
