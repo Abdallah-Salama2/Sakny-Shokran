@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Bentham&display=swap');
+
+
+.property-info{
+    font-size: xx-large !important;
+    font-family: "Bentham", serif;
+
+}
+
+.website-logo{
+    position: absolute;
+    bottom: 0px;
+    right: -150px;
+
+}
+
+.form-button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row-reverse !important;
+    margin: 40px 0 0 0 !important;
+    padding:10px 50px !important;
+    height: 60px !important;
+    position: sticky !important;
+    top: 0px !important;
+    border: 1px solid #aaaaaa !important;
+}

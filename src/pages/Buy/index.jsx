@@ -85,7 +85,7 @@ export default function Buy() {
                 {Loading ? (
                     <div>Loading map...</div>
                 ) : (
-                    <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
+                    <MapContainer center={position} zoom={16} scrollWheelZoom={true}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
