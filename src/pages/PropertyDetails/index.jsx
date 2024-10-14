@@ -210,6 +210,56 @@ export default function PropertyDetails() {
                     </div>
                 </div>
             </div>
+            <div className="row">
+                <div className="col-12 property-carousel ">
+                      <div id="carouselExample" className="carousel slide w-50">
+                        <div className="carousel-inner">
+                          {property.images.map((image, index) => (
+                            <div
+                              className={`carousel-item ${index === 0 ? "active" : ""}`}
+                              key={image.id}
+                            >
+                              <img
+                                src={image.image_url}
+                                className="d-block w-100"
+                                alt={`Property Image ${image.id}`}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          className="carousel-control-prev"
+                          type="button"
+                          data-bs-target="#carouselExample"
+                          data-bs-slide="prev"
+                        >
+                          <span
+                            className="carousel-control-prev-icon"
+                            aria-hidden="true"
+                          ></span>
+                          <span className="visually-hidden">Previous</span>
+                        </button>
+
+                        <button
+                          className="carousel-control-next"
+                          type="button"
+                          data-bs-target="#carouselExample"
+                          data-bs-slide="next"
+                        >
+                          <span
+                            className="carousel-control-next-icon"
+                            aria-hidden="true"
+                          ></span>
+                          <span className="visually-hidden">Next</span>
+                        </button>
+                      </div>
+                </div>
+            </div>
+            <div className="row ">
+                <div className="  col-6 offset-6 property-agent d-flex justify-content-end align-items-center ">
+                    <AgentCard agent={property.agent}/>
+                </div>
+            </div>
             {/* property info */}
             {/*  <div>*/}
             {/*    <h3>{property.title}</h3>*/}
@@ -283,11 +333,7 @@ export default function PropertyDetails() {
             {/*    </button>*/}
             {/*  </div>*/}
             {/*  /!* agent *!/*/}
-            {/*  <h1>Listing agent</h1>*/}
-            {/*  <hr className="border border-dark border-3 opacity-75 w-25"></hr>*/}
-            {/*  <div style={{ width: "800px" }}>*/}
-            {/*    <AgentCard key={property.agent.id} agent={property.agent} />*/}
-            {/*  </div>*/}
+
             {/*  /!* details *!/*/}
             {/*  <h1>The Details</h1>*/}
             {/*  <hr className="border border-dark border-3 opacity-75 w-25"></hr>*/}
