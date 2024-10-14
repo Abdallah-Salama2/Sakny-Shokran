@@ -7,10 +7,18 @@
 
 }
 
+.property-price {
+    font-size: xxx-large !important;
+    position: absolute;
+    top: 60px;
+    right: 55px;
+
+}
+
 .website-logo{
     position: absolute;
-    bottom: 0px;
-    right: -150px;
+    bottom: 20px;
+    right: 40px;
 
 }
 

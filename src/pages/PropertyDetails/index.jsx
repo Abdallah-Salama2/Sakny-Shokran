@@ -201,8 +201,11 @@ export default function PropertyDetails() {
 
                     </div>
                 </div>
-                <div className="col-3 website-logo ">
-                    <div className="w-100" style={{maxWidth: "250px"}}>
+                <div className="col-3 position-relative ">
+                    <div className={"property-price"}>
+                        ${property.price}
+                    </div>
+                    <div className="w-100 website-logo" style={{maxWidth: "250px"}}>
                         <img src={logo} className="img-fluid" alt="Logo" />
                     </div>
                 </div>
