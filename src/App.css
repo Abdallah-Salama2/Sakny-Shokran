@@ -11,7 +11,10 @@ body {
   background-color: var(--mainColor);
   font-family: "Montserrat Alternates", sans-serif;
 }
-
+.offwhite{
+  background: #fcf4fb;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
 ::-webkit-scrollbar {  
   width: 8px;  
 }  

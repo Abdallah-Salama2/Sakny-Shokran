@@ -1,12 +1,14 @@
 import "./styles.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { ClipLoader } from "react-spinners";
+import { ContextData } from "../../components/Store/API's";
 
 export default function Login({ saveDataUser }) {
   const [loading, setLoading] = useState(false); // State for loading spinner
+  const { fetchData, loading: contextLoading } = useContext(ContextData);
 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
@@ -53,6 +55,8 @@ export default function Login({ saveDataUser }) {
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
+          fetchData();
+
           navigate("/home");
         } else {
           setErrorMessage("Login failed,  False Credentials.");
@@ -89,6 +93,15 @@ export default function Login({ saveDataUser }) {
     });
 
     return schema.validate(formData, { abortEarly: true });
+  }
+  // Show loading spinner if context is loading
+  if (contextLoading) {
+    return (
+      <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
+        <ClipLoader size={150} color={"#123abc"} loading={contextLoading} />
+        <h3>Loading Data...</h3>
+      </div>
+    );
   }
 
   return (
