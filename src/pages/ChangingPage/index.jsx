@@ -2,6 +2,7 @@ import "./styles.css";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AgentProperties from "./components/AgentProperties";
+import UserDetails from "./components/AgentInfo/UserDetails";
 
 const ChangingPage = () => {
   const [activeSection, setActiveSection] = useState("info");
@@ -9,7 +10,7 @@ const ChangingPage = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "info":
-        return <p>This is the Info section</p>;
+        return <UserDetails />;
       case "props":
         return <AgentProperties />;
       case "ingine":
