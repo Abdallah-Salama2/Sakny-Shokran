@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  useParams
-  } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function PropertInquiries() {
-    const { id } = useParams();
-    console.log(id)
+  const { id } = useParams();
+  console.log(id);
   let token = localStorage.getItem("Token");
   const [inquiries, setInquiries] = useState([]);
   let uri = `https://y-sooty-seven.vercel.app/api/api/properties/${id}/inquiries`;
@@ -59,22 +57,20 @@ export default function PropertInquiries() {
                 </p>
                 <p className="card-title text-opacity-75">
                   Inquiry CreationTime:
-                  <span className="text-primary">{inquiry.inquiry_date.split(" ")[0]}</span>
+                  <span className="text-primary">
+                    {inquiry.inquiry_date.split(" ")[0]}
+                  </span>
                 </p>
-                <hr class="border border-dark border-3 opacity-75"></hr>
+                <hr className="border border-dark border-3 opacity-75"></hr>
                 <h3>User Info</h3>
                 <h5>ID: {inquiry.user.id}</h5>
                 <p className="card-text">
-                Name:
-                  <span className="text-primary">
-                    {inquiry.user.name}
-                  </span>
+                  Name:
+                  <span className="text-primary">{inquiry.user.name}</span>
                 </p>
                 <p className="card-text">
-                Email:
-                  <span className="text-primary">
-                    {inquiry.user.email}
-                  </span>
+                  Email:
+                  <span className="text-primary">{inquiry.user.email}</span>
                 </p>
                 <p className="card-text">
                   PhoneNumber:

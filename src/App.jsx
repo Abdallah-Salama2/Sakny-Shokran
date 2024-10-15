@@ -13,7 +13,9 @@ import AgentLogin from "./pages/AgentLogin";
 import User from "./pages/Profile";
 import PropertyDetails from "./pages/PropertyDetails";
 import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
-
+import CreateProperty from "./pages/Profile/components/AgentProperties/components/CreateProperty";
+import EditProperty from "./pages/Profile/components/AgentProperties/components/EditProperty";
+import PropertyImage from "./pages/Profile/components/AgentProperties/components/PropertyImage";
 
 export default function App() {
   let navigate = useNavigate();
@@ -74,6 +76,10 @@ export default function App() {
         <Route path="agents" element={<Agents />}></Route>
         <Route path="about" element={<About />}></Route>
         <Route path="profile" element={<User />} />
+        <Route path="profile/properties/create" element={<CreateProperty />} />
+        <Route path="/properties/edit/:id" element={<EditProperty />} />
+        <Route path="/properties/:id/images" element={<PropertyImage />} />
+
         <Route path="inquiries/:id" element={<PropertInquiries />} />
         <Route
           path="register"

@@ -21,6 +21,7 @@ const customIcon = new L.Icon({
 });
 
 export default function Buy() {
+
     const position = [30.0644174, 31.3430602];
 
     const [filteredProperties, setFilteredProperties] = useState([]);
@@ -90,6 +91,7 @@ export default function Buy() {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
+
 
                         {/* Display filtered properties on the map */}
                         {filteredProperties.map((property) => (

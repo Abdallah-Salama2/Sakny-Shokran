@@ -25,21 +25,71 @@ export default function Inquiries() {
         {userType === "client" && (
           <div className="row">
             {userInquiries.inquiries.map((inquiry) => (
-              <div key={inquiry.inquiry_id} className="col-md-4 col-sm-6 mb-4">
-                <div className="card" style={{ width: "18rem" }}>
-                  <div className="card-body">
-                    <h3 className="card-title">
+              <div key={inquiry.inquiry_id} className="col-md-3 col-sm-6 mb-4">
+                <div
+                  className="d-flex flex-column justify-content-between"
+                  style={{
+                    position: "relative",
+                    width: "18rem",
+                    height: "35rem",
+                  }}
+                >
+                  <div
+                    className="topside p-2"
+                    style={{
+                      backgroundImage: "linear-gradient(#E4E0E1, #E4E0E1)",
+                      position: "relative",
+                      width: "100%",
+                      height: "24.5rem",
+                      borderRadius: "15px",
+                      overflow: "auto",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    <h3 className="card-title fw-bolder">
                       Inquiry ID: {inquiry.inquiry_id}
                     </h3>
-                    <p className="card-title text-opacity-75">
+                    <p
+                      className="card-title text-opacity-75 inquiry_message fw-bold"
+                      style={{ height: "18rem" }}
+                    >
                       Inquiry Message:{" "}
-                      <span className="text-primary">{inquiry.message}</span>
+                      <span className="text-black fw-normal">
+                        {inquiry.message}
+                      </span>
                     </p>
-                    <hr className="border border-dark border-3 opacity-75"></hr>
-                    <h5>Property ID: {inquiry.property.property_id}</h5>
-                    <p className="card-text">
+                  </div>
+
+                  <div
+                    className="botside"
+                    style={{
+                      backgroundImage: "linear-gradient(#E4E0E1, #E4E0E1)",
+                      borderTopLeftRadius: "1px",
+                      borderTopRightRadius: "15px",
+                      borderBottomLeftRadius: "15px",
+                      borderBottomRightRadius: "15px",
+                      position: "relative",
+                      height: "10rem",
+                    }}
+                  >
+                    <h5
+                      className="pt-2 ps-3 fs-4 fw-bolder"
+                      style={{
+                        backgroundImage: "linear-gradient(#E4E0E1, #E4E0E1)",
+                        position: "absolute",
+                        height: "70px",
+                        width: "50%",
+                        top: "-70px",
+                        borderTop: "5px solid #fff",
+                        borderRight: "5px solid #fff",
+                        borderTopRightRadius: "15px",
+                      }}
+                    >
+                      Property ID: {inquiry.property.property_id}
+                    </h5>
+                    <p className="card-text p-2 fs-5 fw-bold">
                       Property:{" "}
-                      <span className="text-primary">
+                      <span className="text-black fs-6 fw-normal">
                         {inquiry.property.description}
                       </span>
                     </p>
@@ -55,27 +105,47 @@ export default function Inquiries() {
             {agentInquiries.properties.map((property) => (
               <div
                 key={property.property_id}
-                className="col-md-4 col-sm-6 mb-4"
+                className="col-md-4  col-sm-6 mb-4"
               >
                 <Link
                   to={`/inquiries/${property.property_id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <div className="card" style={{ width: "18rem" }}>
-                    <div className="card-body">
-                      <h3 className="card-title">{property.title}</h3>
-                      <p className="card-title text-primary text-opacity-75">
-                        {property.description}
-                      </p>
-                      <p className="card-text">
-                        Inquiries Count:{" "}
-                        <span className="text-primary fs-2">
-                          {property.inquiries.length}
-                        </span>
-                      </p>
-                    </div>
+                  <div
+                    className="topside p-3"
+                    style={{
+                      backgroundImage: "linear-gradient(#E4E0E1, #FFF)",
+                      width: "100%",
+                      height: "80%",
+                      borderRadius: "15px",
+                    }}
+                  >
+                    <h3 className="card-title text-black ">
+                      {property.price}$
+                    </h3>
+                    <p className="card-title  text-black text-opacity-75 ">
+                      {property.description}
+                    </p>
                   </div>
                 </Link>
+
+                <div
+                  className="botside ps-2"
+                  style={{
+                    backgroundImage: "linear-gradient(#FFF, #E4E0E1)",
+                    borderRadius: "15px",
+                    height: "20%",
+                  }}
+                >
+                  <div className="pb-5">
+                    <p className="card-text  ps-3  fs-5 fw-bold">
+                      Inquiries Count:{" "}
+                      <span className=" fs-2 fw-normal">
+                        {property.inquiries.length}
+                      </span>
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

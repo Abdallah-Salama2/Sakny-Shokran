@@ -6,6 +6,7 @@ import logo from "../../components/Card/images/Capture.PNG";
 import "./styles.css"
 
 export default function PropertyDetails() {
+
     const {id} = useParams();
     console.log(id)
     let token = localStorage.getItem("Token");
@@ -198,6 +199,7 @@ export default function PropertyDetails() {
                              {property.status}
                          </span>
                         </p>
+
 
                     </div>
                 </div>
