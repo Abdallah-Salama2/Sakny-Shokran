@@ -17,6 +17,8 @@ export default function SearchCard() {
   const navigate = useNavigate();
   const handleClick = (id) => {
     setSelectedOption(id);
+    setQuery("");
+    setResults([]);
   };
 
   const handleSearch = async (e) => {
@@ -145,7 +147,7 @@ export default function SearchCard() {
                             style={{ width: "100px", height: "100px" }}
                           />
                         ) : (
-                          <span>No Image</span>
+                          <></>
                         )}
                       </>
                     ) : (
@@ -159,7 +161,7 @@ export default function SearchCard() {
                             style={{ width: "100px", height: "100px" }}
                           />
                         ) : (
-                          <span>No Image</span>
+                          <></>
                         )}
                         {result.address} - {result.price}$
                       </>
