@@ -117,17 +117,17 @@ export default function PropertyImage() {
   }, []);
 
   return (
-    <div>
+    <div className="container  text-center border py-5">
       <h2>Property Images</h2>
 
       {/* Form to submit image URL */}
-      <form onSubmit={handleSubmit}>
-        <label className="h2">
-          Image URL:
+      <form onSubmit={handleSubmit} className="mb-5 mt-3">
+        <label className="h2 mb-2 mx-auto text-center">
+          Add New Image URL
           <input
             type="url"
             value={imageUrl}
-            className="form-control me-2"
+            className="form-control me-2 mt-2"
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="Enter image URL"
             required
@@ -150,7 +150,7 @@ export default function PropertyImage() {
         {loading ? (
           <p>Loading images...</p>
         ) : (
-          <div className="d-flex flex-wrap gap-3">
+          <div className="d-flex flex-wrap gap-3 mt-3 justify-content-center">
             {images.length === 0 ? (
               <p>No images uploaded yet.</p>
             ) : (
