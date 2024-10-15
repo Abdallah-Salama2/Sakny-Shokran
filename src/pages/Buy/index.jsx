@@ -22,7 +22,7 @@ const customIcon = new L.Icon({
 });
 
 export default function Buy() {
-  const position = [50, 49];
+  const position = [30.061361, 31.344962];
 
   const [filteredProperties, setFilteredProperties] = useState([]);
   let [Loading, setLoading] = useState(true);
@@ -88,7 +88,7 @@ export default function Buy() {
         {Loading ? (
           <div>Loading map...</div>
         ) : (
-          <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
+          <MapContainer center={position} zoom={25} scrollWheelZoom={true}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -4,7 +4,7 @@ import AgentCard from "../Agents//components/Agents Card";
 import { useParams } from "react-router-dom";
 export default function PropertyDetails() {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   let token = localStorage.getItem("Token");
   const [properties, setProperties] = useState(null); // Set to null initially to avoid undefined issues
   const [loading, setLoading] = useState(true); // Loading state
@@ -184,40 +184,49 @@ export default function PropertyDetails() {
                     ></textarea>
                   </div>
 
-                  <div class="d-flex align-items-center">
-                    <div class="form-check me-3">
+                  <div className="d-flex align-items-center">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault1"
                       />
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <label
+                        className="form-check-label"
+                        for="flexRadioDefault1"
+                      >
                         Phone
                       </label>
                     </div>
 
-                    <div class="form-check me-3">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault2"
                         checked
                       />
-                      <label class="form-check-label" for="flexRadioDefault2">
+                      <label
+                        className="form-check-label"
+                        for="flexRadioDefault2"
+                      >
                         Text
                       </label>
                     </div>
 
-                    <div class="form-check me-3">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault3"
                       />
-                      <label class="form-check-label" for="flexRadioDefault3">
+                      <label
+                        className="form-check-label"
+                        for="flexRadioDefault3"
+                      >
                         Email
                       </label>
                     </div>

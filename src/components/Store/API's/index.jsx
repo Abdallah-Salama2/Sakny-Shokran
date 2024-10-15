@@ -21,24 +21,6 @@ export const ContextDataProvider = ({ children }) => {
   let token = localStorage.getItem("Token");
   let userData = localStorage.getItem("userType");
 
-  function refreshData() {
-    Promise.all([
-      getData("home/properties", setProperties),
-      getData("agents", setAgents),
-    ]).then(() => {
-      if (token && userData === "client") {
-        getData("properties", setProperties);
-        getData("user/inquiries", setUserInquiries);
-        getData("preferences", setFavorites);
-        getData("loggedInUser", setLoggedUser);
-      } else {
-        getData("agent/inquiries", setAgentInquiries);
-        getData("agent/properties", setAgentProperties);
-        getData("loggedInUser", setLoggedUser);
-      }
-    });
-  }
-
   // Function to fetch data from API
   const getData = async (type, callback) => {
     try {
@@ -93,7 +75,6 @@ export const ContextDataProvider = ({ children }) => {
 
     fetchData();
   }, [token, userData]);
-
 
   // Return early if still loading or if there's an error
   if (loading) {
