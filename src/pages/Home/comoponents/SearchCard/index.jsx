@@ -134,7 +134,20 @@ export default function SearchCard() {
                     onClick={() => handleSelect(result)}
                   >
                     {selectedOption === "option3" ? (
-                      result.name
+                      <>
+                        {/* Render preview image if available */}
+                        {result.name} - <span />
+                        {result.image_url ? (
+                          <img
+                            src={result.image_url}
+                            alt="Preview"
+                            className="me-2"
+                            style={{ width: "100px", height: "100px" }}
+                          />
+                        ) : (
+                          <span>No Image</span>
+                        )}
+                      </>
                     ) : (
                       <>
                         {/* Render preview image if available */}
@@ -143,7 +156,7 @@ export default function SearchCard() {
                             src={result.preview_image_url.filename}
                             alt="Preview"
                             className="me-2"
-                            style={{ width: "50px", height: "50px" }}
+                            style={{ width: "100px", height: "100px" }}
                           />
                         ) : (
                           <span>No Image</span>
