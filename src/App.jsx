@@ -16,6 +16,7 @@ import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
 import CreateProperty from "./pages/Profile/components/AgentProperties/components/CreateProperty";
 import EditProperty from "./pages/Profile/components/AgentProperties/components/EditProperty";
 import PropertyImage from "./pages/Profile/components/AgentProperties/components/PropertyImage";
+import AgentDetails from "./pages/Agents/components/AgentDetails";
 
 export default function App() {
   let navigate = useNavigate();
@@ -74,6 +75,7 @@ export default function App() {
         <Route path="rent" element={<Buy />}></Route>
         <Route path="details/:id" element={<PropertyDetails />}></Route>
         <Route path="agents" element={<Agents />}></Route>
+        <Route path="agents/:id" element={<AgentDetails />}></Route>
         <Route path="about" element={<About />}></Route>
         <Route path="profile" element={<User />} />
         <Route path="profile/properties/create" element={<CreateProperty />} />
