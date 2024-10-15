@@ -117,7 +117,7 @@ export default function PropertyImage() {
   }, []);
 
   return (
-    <div className="container  text-center border py-5">
+    <div className="container  text-center border py-5 offwhite">
       <h2>Property Images</h2>
 
       {/* Form to submit image URL */}
