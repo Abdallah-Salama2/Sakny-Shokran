@@ -102,52 +102,55 @@ export default function Inquiries() {
 
         {userType === "agent" && (
           <div className="row">
-            {agentInquiries.properties.map((property) => (
-              <div
-                key={property.property_id}
-                className="col-md-4  col-sm-6 mb-4"
-              >
-                <Link
-                  to={`/inquiries/${property.property_id}`}
-                  style={{ textDecoration: "none" }}
-                >
+            {agentInquiries.properties.map(
+              (property) =>
+                property.inquiries.length > 0 && (
                   <div
-                    className="topside p-3"
-                    style={{
-                      backgroundImage: "linear-gradient(#E4E0E1, #FFF)",
-                      width: "100%",
-                      height: "80%",
-                      borderRadius: "15px",
-                    }}
+                    key={property.property_id}
+                    className="col-md-4  col-sm-6 mb-4"
                   >
-                    <h3 className="card-title text-black ">
-                      {property.price}$
-                    </h3>
-                    <p className="card-title  text-black text-opacity-75 ">
-                      {property.description}
-                    </p>
-                  </div>
-                </Link>
+                    <Link
+                      to={`/inquiries/${property.property_id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div
+                        className="topside p-3"
+                        style={{
+                          backgroundImage: "linear-gradient(#E4E0E1, #FFF)",
+                          width: "100%",
+                          height: "80%",
+                          borderRadius: "15px",
+                        }}
+                      >
+                        <h3 className="card-title text-black ">
+                          {property.price}$
+                        </h3>
+                        <p className="card-title  text-black text-opacity-75 ">
+                          {property.description}
+                        </p>
+                      </div>
+                    </Link>
 
-                <div
-                  className="botside ps-2"
-                  style={{
-                    backgroundImage: "linear-gradient(#FFF, #E4E0E1)",
-                    borderRadius: "15px",
-                    height: "20%",
-                  }}
-                >
-                  <div className="pb-5">
-                    <p className="card-text  ps-3  fs-5 fw-bold">
-                      Inquiries Count:{" "}
-                      <span className=" fs-2 fw-normal">
-                        {property.inquiries.length}
-                      </span>
-                    </p>
+                    <div
+                      className="botside ps-2"
+                      style={{
+                        backgroundImage: "linear-gradient(#FFF, #E4E0E1)",
+                        borderRadius: "15px",
+                        height: "20%",
+                      }}
+                    >
+                      <div className="pb-5">
+                        <p className="card-text  ps-3  fs-5 fw-bold">
+                          Inquiries Count:{" "}
+                          <span className=" fs-2 fw-normal">
+                            {property.inquiries.length}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                )
+            )}
           </div>
         )}
       </>
