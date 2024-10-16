@@ -1,6 +1,6 @@
 .leaflet-container {
     /* margin-left: 20px; */
-    height: 90vh !important;
+    height: calc(100vh - 95px) !important;
     width: 100% !important;
     /* top: 0; */
     bottom:0;
@@ -21,7 +21,7 @@
   }
   
 .card-height{
-    height: 80vh !important;
+    height: calc(100vh - 95px) !important;
 
 }
 .leaflet-control-zoom {

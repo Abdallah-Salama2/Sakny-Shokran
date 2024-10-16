@@ -132,10 +132,10 @@ export default function Buy() {
             </>
           )}
 
-          <div className="col-lg-7 zero-padd">
+          <div className="col-lg-7 zero-padd ">
             <div
-              className="border ps-lg-2"
-              style={{ height: "90vh", overflowX: "hidden" }}
+              className="border ps-lg-2 card-height"
+              style={{ overflowX: "hidden" }}
             >
               <div className="form-outline mb-3 z-3 ps-lg-5">
                 {/* Pass the filtering function to the PropertyFilter component */}
