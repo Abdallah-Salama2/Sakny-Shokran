@@ -5,12 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import "./styles.css";
 import { ContextData } from "../../components/Store/API's";
-import { UserContext } from "../../components/Store/API's/UserContext";
+import {
+  UserContext,
+  useUserContext,
+} from "../../components/Store/API's/UserContext";
 
 export default function Login({ saveDataUser }) {
   const { fetchData: fetchDataFromContextData } = useContext(ContextData);
   const { fetchData: fetchDataFromUserContext } = useContext(UserContext);
-
+  const { setUserInfo } = useUserContext();
   const [loading, setLoading] = useState(false); // State for loading spinner
 
   const navigate = useNavigate();
@@ -47,10 +50,10 @@ export default function Login({ saveDataUser }) {
 
         // Make login request
         const res = await axios.post(
-          "http://127.0.0.1:8000/api/login",
+          "https://y-sooty-seven.vercel.app/api/api/login",
           formData
         );
-
+        setUserInfo(res.data.user);
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("userType", res.data.type);

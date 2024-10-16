@@ -95,7 +95,7 @@ body {
 /* Carousel */
 .carousel {
     max-width: 800px;
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
     box-shadow: var(--shadow-default);
     border-radius: 8px;
     overflow: hidden;

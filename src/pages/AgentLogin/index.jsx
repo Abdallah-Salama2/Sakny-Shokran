@@ -4,12 +4,17 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ContextData } from "../../components/Store/API's";
-import { UserContext } from "../../components/Store/API's/UserContext";
+import {
+  UserContext,
+  useUserContext,
+} from "../../components/Store/API's/UserContext";
 import "./styles.css";
 
 export default function AgentLogin({ saveDataUser }) {
-  const { fetchData: fetchDataFromContextData } = useContext(ContextData);
-  const { fetchData: fetchDataFromUserContext } = useContext(UserContext);
+  const { setUserInfo } = useUserContext();
+
+  const { fetchData } = useContext(ContextData);
+  // const { fetchData: fetchDataFromUserContext } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
@@ -47,11 +52,11 @@ export default function AgentLogin({ saveDataUser }) {
 
         // Make login request
         const res = await axios.post(
-          "http://127.0.0.1:8000/api/agent/login",
+          "https://y-sooty-seven.vercel.app/api/api/agent/login",
           formData
         );
-        console.log(res.data);
-        console.log(res.data.token);
+        setUserInfo(res.data.user);
+
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.agent.name);
           localStorage.setItem("Token", res.data.token);
@@ -59,7 +64,8 @@ export default function AgentLogin({ saveDataUser }) {
           // await fetchDataFromUserContext();
           // await fetchDataFromContextData();
           saveDataUser();
-          navigate("/home");
+          fetchData();
+          navigate("/profile");
         } else {
           setErrorMessage("Login failed, False Credentials");
         }

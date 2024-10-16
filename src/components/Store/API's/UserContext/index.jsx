@@ -18,13 +18,16 @@ export const UserProvider = ({ children }) => {
     try {
       const [userInfoRes, agentPropertiesRes, favoritesRes, inquiriesRes] =
         await Promise.all([
-          axios.get("http://127.0.0.1:8000/api/loggedInUser", {
+          axios.get("https://y-sooty-seven.vercel.app/api/api/loggedInUser", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://127.0.0.1:8000/api/agent/properties", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get("http://127.0.0.1:8000/api/preferences", {
+          axios.get(
+            "https://y-sooty-seven.vercel.app/api/api/agent/properties",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+          axios.get("https://y-sooty-seven.vercel.app/api/api/preferences", {
             headers: {
               Authorization: `Bearer ${token}`,
               Accept: "application/json",
@@ -32,8 +35,8 @@ export const UserProvider = ({ children }) => {
           }),
           axios.get(
             userType === "client"
-              ? "http://127.0.0.1:8000/api/user/inquiries"
-              : "http://127.0.0.1:8000/api/agent/inquiries",
+              ? "https://y-sooty-seven.vercel.app/api/api/user/inquiries"
+              : "https://y-sooty-seven.vercel.app/api/api/agent/inquiries",
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -89,6 +92,7 @@ export const UserProvider = ({ children }) => {
         loading,
         error,
         logout,
+        setUserInfo,
       }}
     >
       {children}

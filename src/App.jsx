@@ -49,7 +49,7 @@ export default function App() {
     console.log(token);
     axios
       .post(
-        "http://127.0.0.1:8000/api/logout",
+        "https://y-sooty-seven.vercel.app/api/api/logout",
         {},
         {
           headers: {
@@ -69,26 +69,26 @@ export default function App() {
       });
   }
 
-  const LoadingWrapper = ({ children }) => {
-    const { loading: userLoading, error: userError } = useUserContext();
-    const { loading: contextLoading, error: contextError } =
-      React.useContext(ContextData);
+  // const LoadingWrapper = ({ children }) => {
+  //   const { loading: userLoading, error: userError } = useUserContext();
+  //   const { loading: contextLoading, error: contextError } =
+  //     React.useContext(ContextData);
 
-    if (userLoading || contextLoading) {
-      return (
-        <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
-          <ClipLoader size={150} color={"#123abc"} loading={true} />
-          <h3>Loading Data...</h3>
-        </div>
-      );
-    }
+  //   if (userLoading || contextLoading) {
+  //     return (
+  //       <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
+  //         <ClipLoader size={150} color={"#123abc"} loading={true} />
+  //         <h3>Loading Data...</h3>
+  //       </div>
+  //     );
+  //   }
 
-    if (userError || contextError) {
-      return <div>Error: {userError || contextError}</div>;
-    }
+  //   if (userError || contextError) {
+  //     return <div>Error: {userError || contextError}</div>;
+  //   }
 
-    return children;
-  };
+  //   return children;
+  // };
   return (
     <div>
       <Navbar userData={userData} logout={logout} />
@@ -109,21 +109,10 @@ export default function App() {
         <Route path="inquiries/:id" element={<PropertInquiries />} />
 
         {/* Wrap Login and AgentLogin Routes with LoadingWrapper */}
-        <Route
-          path="login"
-          element={
-            <LoadingWrapper>
-              <Login saveDataUser={saveDataUser} />
-            </LoadingWrapper>
-          }
-        />
+        <Route path="login" element={<Login saveDataUser={saveDataUser} />} />
         <Route
           path="agentLogin"
-          element={
-            <LoadingWrapper>
-              <AgentLogin saveDataUser={saveDataUser} />
-            </LoadingWrapper>
-          }
+          element={<AgentLogin saveDataUser={saveDataUser} />}
         />
         <Route
           path="register"

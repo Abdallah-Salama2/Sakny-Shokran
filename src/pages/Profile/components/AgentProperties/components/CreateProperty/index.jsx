@@ -72,12 +72,16 @@ export default function CreateProperty() {
     e.preventDefault();
 
     axios
-      .post("http://127.0.0.1:8000/api/agent/properties", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "https://y-sooty-seven.vercel.app/api/api/agent/properties",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         if (res.data) {
           setSuccessMessage("Property added successfully!");

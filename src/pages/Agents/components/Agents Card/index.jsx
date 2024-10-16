@@ -7,11 +7,12 @@ const AgentCard = ({ agent }) => {
       <div className="card h-100">
         <div className="card-body">
           <Link to={`${agent.id}`}>
-            <div className="" style={{ width: "auto", height: "250px" }}>
+            <div className="" style={{ width: "auto", height: "300px" }}>
               <img
                 src={agent.image_url}
                 alt="Picture"
-                className="w-100 h-100 rounded-3 mb-3"
+                className="w-100 h-100 rounded-3 mb-3 object-fit-cover "
+                style={{ objectPosition: "top" }}
               />
             </div>
           </Link>

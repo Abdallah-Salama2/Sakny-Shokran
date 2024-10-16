@@ -10,7 +10,7 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     axios
-      .post("http://127.0.0.1:8000/api/forgot-password", {
+      .post("https://y-sooty-seven.vercel.app/api/api/forgot-password", {
         email,
       })
       .then((res) => {

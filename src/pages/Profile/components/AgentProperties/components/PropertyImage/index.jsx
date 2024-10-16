@@ -25,7 +25,7 @@ export default function PropertyImage() {
 
       // Correct Axios POST request structure
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/properties/${id}/images`,
+        `https://y-sooty-seven.vercel.app/api/api/properties/${id}/images`,
         {
           image_url: imageUrl, // Sending the image URL as part of the data
         },
@@ -58,7 +58,7 @@ export default function PropertyImage() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/properties/${id}/images`,
+        `https://y-sooty-seven.vercel.app/api/api/properties/${id}/images`,
         {
           headers: {
             Authorization: token ? `Bearer ${token}` : "", // Include token in headers
@@ -88,7 +88,7 @@ export default function PropertyImage() {
       setLoading(true);
 
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/images/${imageId}`,
+        `https://y-sooty-seven.vercel.app/api/api/images/${imageId}`,
         {
           headers: {
             Authorization: token ? `Bearer ${token}` : "", // Include token in headers

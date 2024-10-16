@@ -7,7 +7,7 @@ export default function PropertInquiries() {
   console.log(id);
   let token = localStorage.getItem("Token");
   const [inquiries, setInquiries] = useState([]);
-  let uri = `http://127.0.0.1:8000/api/properties/${id}/inquiries`;
+  let uri = `https://y-sooty-seven.vercel.app/api/api/properties/${id}/inquiries`;
 
   function getInquiries() {
     axios

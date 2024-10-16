@@ -19,7 +19,7 @@ export default function AgentPropertyCard({ property, onDelete }) {
 
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/agent/properties/${property.id}`,
+        `https://y-sooty-seven.vercel.app/api/api/agent/properties/${property.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

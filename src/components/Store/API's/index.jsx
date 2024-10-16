@@ -16,12 +16,15 @@ export const ContextDataProvider = ({ children }) => {
 
   const getData = async (type, callback) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/${type}`, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-          Accept: "application/json",
-        },
-      });
+      const response = await axios.get(
+        `https://y-sooty-seven.vercel.app/api/api/${type}`,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            Accept: "application/json",
+          },
+        }
+      );
 
       const data = response.data.data ? response.data.data : response.data;
       console.log(`API Response for ${type}:`, data);
@@ -37,7 +40,7 @@ export const ContextDataProvider = ({ children }) => {
   const getPropertyDetails = async (id) => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/properties/${id}`,
+        `https://y-sooty-seven.vercel.app/api/api/properties/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +57,7 @@ export const ContextDataProvider = ({ children }) => {
   const getAgentDetails = async (id) => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/agents/${id}`
+        `https://y-sooty-seven.vercel.app/api/api/agents/${id}`
       );
       return response.data.data;
     } catch (err) {
@@ -105,14 +108,15 @@ export const ContextDataProvider = ({ children }) => {
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Failed to fetch data");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, [token, userData]);
+
   // Logout function for context data
   const logout = () => {
     setProperties([]);
@@ -130,6 +134,7 @@ export const ContextDataProvider = ({ children }) => {
         loading,
         error,
         logout,
+        fetchData,
       }}
     >
       {children}

@@ -35,7 +35,11 @@ export default function Navbar({ userData, logout }) {
       <div className="container-fluid d-flex justify-content-between align-items-center">
         {/* Logo */}
         <Link className="navbar-brand col-6 col-md-3" to="/">
-          <img src={Logo} alt="Logo" className="img-fluid"></img>
+          <img
+            src={Logo}
+            alt="Logo"
+            className="img-fluid object-fit-contain"
+          ></img>
         </Link>
 
         {/* Toggler Button */}

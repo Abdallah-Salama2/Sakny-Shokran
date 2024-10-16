@@ -23,7 +23,7 @@ export default function Card({ property }) {
     try {
       setClick(!isClick);
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/preferences/${property.id}`,
+        `https://y-sooty-seven.vercel.app/api/api/preferences/${property.id}`,
         {},
         {
           headers: {
