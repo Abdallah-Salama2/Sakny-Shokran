@@ -53,7 +53,7 @@ export default function Login({ saveDataUser }) {
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
-          navigate("/profile");
+          navigate("/home");
         } else {
           setErrorMessage("Login failed,  False Credentials.");
         }
