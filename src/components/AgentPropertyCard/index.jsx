@@ -50,7 +50,7 @@ export default function AgentPropertyCard({ property, onDelete }) {
     <div className="d-flex  gap-2 align-items-center border rounded px-2">
       <div className="d-flex align-items-center gap-2">
         <div className="d-flex flex-column  gap-1 py-2">
-          <div className="d-flex align-items-center gap-1">
+          <div className="d-block d-md-flex align-items-center gap-1 me-5 me-md-0">
             <span className="fs-5">{property.price}$</span>
             <div className="fw-bold">
               <span>{property.beds}</span> bds{" "}

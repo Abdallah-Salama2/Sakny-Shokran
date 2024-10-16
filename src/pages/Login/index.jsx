@@ -46,7 +46,9 @@ export default function Login({ saveDataUser }) {
       setLoading(true); // Start loading
       try {
         // Get CSRF token
-        await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+        await axios.get(
+          "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
+        );
 
         // Make login request
         const res = await axios.post(

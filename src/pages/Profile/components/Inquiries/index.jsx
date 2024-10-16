@@ -12,10 +12,7 @@ export default function Inquiries() {
           <div className="row">
             {inquiries.length > 0 ? (
               inquiries.map((inquiry) => (
-                <div
-                  key={inquiry.inquiry_id}
-                  className="col-md-3 col-sm-6 mb-4"
-                >
+                <div key={inquiry.inquiry_id} className="col-md-6 mb-4">
                   <div
                     className="d-flex flex-column justify-content-between"
                     style={{

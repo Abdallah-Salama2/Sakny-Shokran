@@ -44,10 +44,10 @@ const Profile = () => {
     <div className="container-fluid mt-2">
       <div className="row">
         {/* Left side (menu) */}
-        <div className="col-3 bg-light vh-100">
-          <ul className="list-group">
+        <div className="col-md-3 col-12 container bg-light ">
+          <ul className="row list-group">
             <li
-              className={`list-group-item ${
+              className={` col-md-12 list-group-item ${
                 activeSection === "info" ? "active" : ""
               }`}
               onClick={() => setActiveSection("info")}
@@ -57,7 +57,7 @@ const Profile = () => {
             </li>
             {userType === "client" && (
               <li
-                className={`list-group-item ${
+                className={` col-md-12 list-group-item ${
                   activeSection === "favs" ? "active" : ""
                 }`}
                 onClick={() => setActiveSection("favs")}
@@ -68,7 +68,7 @@ const Profile = () => {
             )}
             {userType === "agent" && (
               <li
-                className={`list-group-item ${
+                className={` col-md-12 list-group-item ${
                   activeSection === "props" ? "active" : ""
                 }`}
                 onClick={() => setActiveSection("props")}
@@ -78,7 +78,7 @@ const Profile = () => {
               </li>
             )}
             <li
-              className={`list-group-item ${
+              className={` col-md-12 list-group-item ${
                 activeSection === "inquiries" ? "active" : ""
               }`}
               onClick={() => setActiveSection("inquiries")}
@@ -90,7 +90,7 @@ const Profile = () => {
         </div>
 
         {/* Right side (changing content) */}
-        <div className="col-9">{renderContent()}</div>
+        <div className="col-12 col-md-9">{renderContent()}</div>
       </div>
     </div>
   );
