@@ -3,16 +3,17 @@ import Heart from "react-animated-heart";
 import axios from "axios";
 import logo from "./images/Capture.PNG";
 import { ContextToken } from "../Store/token";
+import { Link } from "react-router-dom";
 
 export default function Card({ property }) {
   const [isClick, setClick] = useState(false);
-  let {token} = useContext(ContextToken);
+  let { token } = useContext(ContextToken);
   let userType = localStorage.getItem("userType");
 
   useEffect(() => {
     setClick(property.favoriteStats === 1);
   }, [property.favoriteStats]);
-  
+
   const handleFavorite = async () => {
     if (!token) {
       // If user is not authenticated, just toggle the heart color
@@ -30,7 +31,7 @@ export default function Card({ property }) {
           },
         }
       );
-      
+
       console.log(response.data);
     } catch (error) {
       console.error("Error updating favorite status:", error);
@@ -97,52 +98,55 @@ export default function Card({ property }) {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-
       <div className="card-body p-3">
-        <h5 className="card-title fs-6  text-muted">
-          {property.address.split(",")[0] || "Card title"}
-        </h5>
-        {/* <p className="card-text  mb-1 fw-bold">
+        <Link to={`/details/${property.id}`} style={{ textDecoration: "none" }}>
+          <h5 className="card-title fs-6  text-muted">
+            {property.address.split(",")[0] || "Card title"}
+          </h5>
+          {/* <p className="card-text  mb-1 fw-bold">
           {property.description.length > 60
             ? property.description.substring(0, 60) + "..."
             : property.description || "No description"}
         </p> */}
-        <p className="fw-semibold small">
-          {property.city} | {property.address}
-        </p>
+          <p className="fw-semibold small">
+            {property.city} | {property.address}
+          </p>
+        </Link>
       </div>
-      <div className="px-3">
-        <div className="d-flex justify-content-start align-items-center gap-2  text-muted flex-wrap">
-          <span className="fw-semibold fs-6 text-black">Single Family</span>
-          <span>| </span>
-          <br />
-          <span>
-            <i className="fa-solid fa-bed" /> {property.beds}
-          </span>
-          <span>|</span>
-          <span>
-            <i className="fa-solid fa-bath" /> {property.baths}
-          </span>
-          <span>|</span>
-          <span>
-            <i className="fa-solid fa-ruler-combined" /> {property.area} m²
-          </span>
+      <Link to={`/details/${property.id}`} style={{ textDecoration: "none" }}>
+        <div className="px-3">
+          <div className="d-flex justify-content-start align-items-center gap-2  text-muted flex-wrap">
+            <span className="fw-semibold fs-6 text-black">Single Family</span>
+            <span>| </span>
+            <br />
+            <span>
+              <i className="fa-solid fa-bed" /> {property.beds}
+            </span>
+            <span>|</span>
+            <span>
+              <i className="fa-solid fa-bath" /> {property.baths}
+            </span>
+            <span>|</span>
+            <span>
+              <i className="fa-solid fa-ruler-combined" /> {property.area} m²
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="px-3 d-flex justify-content-between align-content-center mt-3">
-        <p className=" ">
-          <span
-            className={`fw-bold ${
-              property.status === "Available" ? "text-success" : "text-danger"
-            }`}
-          >
-            {property.status}
-          </span>
-        </p>
-        <div className="" style={{ width: "80px" }}>
-          <img src={logo} className="w-100"></img>
+        <div className="px-3 d-flex justify-content-between align-content-center mt-3">
+          <p className=" ">
+            <span
+              className={`fw-bold ${
+                property.status === "Available" ? "text-success" : "text-danger"
+              }`}
+            >
+              {property.status}
+            </span>
+          </p>
+          <div className="" style={{ width: "80px" }}>
+            <img src={logo} className="w-100"></img>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <div className="card-footer d-flex justify-content-between align-items-center p-3 m-0">
         <p className=" fw-semibold fst-italic m-0 p-0">

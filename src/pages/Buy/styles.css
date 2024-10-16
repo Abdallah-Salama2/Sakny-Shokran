@@ -1,13 +1,27 @@
 .leaflet-container {
-    margin-left: 20px;
-    height: 82vh !important;
-    width: 700px !important;
+    /* margin-left: 20px; */
+    height: calc(100vh - 95px) !important;
+    width: 100% !important;
     /* top: 0; */
     bottom:0;
     /* z-index: -1; */
 }
+/* Large devices (≥992px) */
+@media (max-width: 992px) {
+    .leaflet-container {
+        /* margin-left: 20px; */
+        /* height: 90vh !important; */
+
+        height: 100vh !important;
+        width: 100% !important;
+        /* top: 0; */
+        bottom:0;
+        /* z-index: -1; */
+    }
+  }
+  
 .card-height{
-    height: 80vh !important;
+    height: calc(100vh - 95px) !important;
 
 }
 .leaflet-control-zoom {
@@ -26,4 +40,12 @@
     line-height: 40px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.zero-padd{
+    padding: 0 !important;
+}
+
+.overFlow{
+    
+    overflow-y: "auto",
 }

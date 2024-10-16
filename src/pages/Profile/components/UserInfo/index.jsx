@@ -1,45 +1,50 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ContextData } from "../../../../components/Store/API's";
+import React from "react";
+import { useUserContext } from "../../../../components/Store/API's/UserContext";
 
 export default function UserInfo() {
-  let {loggedUser} = useContext(ContextData);
-
-  const [info, setInfo] = useState([]);
-
-  const [Loading, setLoading] = useState(true);
-  useEffect(() => {
-      if (loggedUser) {
-        setInfo(loggedUser);
-        setLoading(false);
-    }
-  }, [loggedUser]); 
-
+  const { userInfo, loading } = useUserContext();
+  console.log(userInfo);
 
   return (
-<>
-      {Loading ? (<div>Loading....</div>) :(
-        <>
-        <div className="w-fit">
+    <>
+      {!loading ? (
+        userInfo ? (
+          <div className="w-fit">
             <img
-              src={info.image_url||"https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
-              alt={info.name}
+              src={
+                userInfo.image_url ||
+                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+              }
+              alt={userInfo.name}
               style={{ width: "200px", height: "200px" }}
               className="mb-3"
             />
+            <p className="fw-bolder fs-3">
+              Name: <span className="text-primary">{userInfo.name}</span>
+            </p>
+            <p className="fw-bolder fs-3">
+              Email: <span className="text-primary">{userInfo.email}</span>
+            </p>
+            <p className="fw-bolder fs-3">
+              PhoneNumber:{" "}
+              <span className="text-primary">
+                {userInfo.phone_number || userInfo.phone}
+              </span>
+            </p>
+            <p className="fw-bolder fs-3">
+              Joined Since:{" "}
+              <span className="text-primary">
+                {userInfo.created_at
+                  ? userInfo.created_at.split("T")[0]
+                  : "N/A"}
+              </span>
+            </p>
           </div>
-          <p className="fw-bolder fs-3">
-          Name: <span className="text-primary">{info.name}</span>
-          </p>
-          <p className="fw-bolder fs-3">
-          Email: <span className="text-primary">{info.email}</span>
-          </p>
-          <p className="fw-bolder fs-3">
-          PhoneNumber: <span className="text-primary">{info.phone_number||info.phone}</span>
-          </p>
-          <p className="fw-bolder fs-3">
-          Joined Since: <span className="text-primary">{info.created_at ? info.created_at.split("T")[0] : "N/A"}</span>
-          </p>
-        </>
+        ) : (
+          <p>No User Found</p>
+        )
+      ) : (
+        <p>Loading...</p>
       )}
     </>
   );

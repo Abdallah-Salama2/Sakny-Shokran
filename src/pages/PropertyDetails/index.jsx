@@ -1,138 +1,112 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AgentCard from "../Agents//components/Agents Card";
 import { useParams } from "react-router-dom";
+import logo from "../../components/Card/images/Capture.PNG";
+import "./styles.css";
+import { ContextData } from "../../components/Store/API's";
+
 export default function PropertyDetails() {
   const { id } = useParams();
-  console.log(id)
-  let token = localStorage.getItem("Token");
-  const [properties, setProperties] = useState(null); // Set to null initially to avoid undefined issues
-  const [loading, setLoading] = useState(true); // Loading state
   const [showModal, setShowModal] = useState(false);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  function getProperty() {
-    axios
-      .get(`https://y-sooty-seven.vercel.app/api/api/properties/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-        },
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        setProperties(res.data.data);
-        setLoading(false); // Stop loading once data is received
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false); // Stop loading even in case of error
-      });
-  }
+  const { propertyDetails, loading, error } = useContext(ContextData);
 
-  useEffect(() => {
-    getProperty();
-  }, []);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  const property = propertyDetails[id];
+  if (!property) return <p>No property data available.</p>;
 
-  if (!properties || !properties.images) {
-    return <p>No property data available.</p>;
-  }
   return (
-    <>
-      {/* property info */}
-      <div>
-        <h3>{properties.title}</h3>
-        <p>{properties.description}</p>
-        <p className="">
-          {properties.city} | {properties.address}
-        </p>
-        <div className="fs-5">
-          <i className="fa-solid fa-bed" />
-          <span> {properties.beds} |</span>
-          <i className="fa-solid fa-bath" />
-          <span> {properties.baths} |</span>
-          <i className="fa-solid fa-ruler-combined" />
-          <span> {properties.area} |</span>
-          <i className="fa-solid fa-tree-city" />
+    <div className="container">
+      <div className="property">
+        <div className="property__header">
+          <h1 className="property__title">{property.title}</h1>
+          <div className="property__price">${property.price}</div>
         </div>
-        <p>
-          Price: $<span>{properties.price}</span>
-        </p>
-        <p>
-          Status:{" "}
-          <span
-            className={`fw-bold ${
-              properties.status === "Available" ? "text-success" : "text-danger"
-            }`}
+        <div className="property__info">
+          <p className="property__address">{property.address}</p>
+          <div className="property__features">
+            <span className="property__feature">
+              <i className="property__feature-icon fa-solid fa-bed"></i>{" "}
+              {property.beds} Beds
+            </span>
+            <span className="property__feature">
+              <i className="property__feature-icon fa-solid fa-bath"></i>{" "}
+              {property.baths} Baths
+            </span>
+            <span className="property__feature">
+              <i className="property__feature-icon fa-solid fa-ruler-combined"></i>{" "}
+              {property.area} m²
+            </span>
+          </div>
+          <p
+            className={`property__status property__status--${property.status.toLowerCase()}`}
           >
-            {properties.status}
-          </span>
-        </p>
-      </div>
-      {/* images carousel */}
-      <div id="carouselExample" className="carousel slide w-50">
-        <div className="carousel-inner">
-          {properties.images.map((image, index) => (
-            <div
-              className={`carousel-item ${index === 0 ? "active" : ""}`}
-              key={image.id}
-            >
-              <img
-                src={image.image_url}
-                className="d-block w-100"
-                alt={`Property Image ${image.id}`}
-              />
-            </div>
-          ))}
+            {property.status}
+          </p>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
+      </div>
 
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
+      <div className="carousel">
+        <div id="propertyCarousel" className="carousel slide">
+          <div className="carousel-inner">
+            {property.images.map((image, index) => (
+              <div
+                className={`carousel-item ${index === 0 ? "active" : ""}`}
+                key={image.id}
+              >
+                <img
+                  src={image.image_url}
+                  className="carousel__image d-block w-100"
+                  alt={`Property Image ${image.id}`}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#propertyCarousel"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#propertyCarousel"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="agent">
+        <h2 className="agent__title">The Agent</h2>
+        <hr className="agent__divider" />
+        <AgentCard agent={property.agent} />
+      </div>
+
+      <div className="contact-button">
+        <button className="contact-button__text" onClick={handleShow}>
+          Contact Form
         </button>
       </div>
-      {/* agent */}
-      <h1>Listing agent</h1>
-      <hr className="border border-dark border-3 opacity-75 w-25"></hr>
-      <div style={{ width: "800px" }}>
-        <AgentCard key={properties.agent.id} agent={properties.agent} />
-      </div>
-      {/* details */}
-      <h1>The Details</h1>
-      <hr className="border border-dark border-3 opacity-75 w-25"></hr>
-      <p>{properties.description}</p>
 
-      {/* Button trigger modal */}
-      <button type="button" className="btn btn-primary" onClick={handleShow}>
-        Contact Form
-      </button>
-
-      {/* Modal */}
       {showModal && (
         <div className="modal show d-block" tabIndex="-1" role="dialog">
           <div className="modal-dialog d-flex justify-content-center">
@@ -148,35 +122,31 @@ export default function PropertyDetails() {
               </div>
               <div className="modal-body p-4">
                 <form>
-                  {/* Name input */}
-                  <label className="form-label" htmlFor="name4">
-                    Name
-                  </label>
-                  <div className="form-outline mb-4">
+                  <div className="mb-4">
+                    <label className="form-label" htmlFor="name4">
+                      Name
+                    </label>
                     <input type="text" id="name4" className="form-control" />
                   </div>
 
-                  {/* Phone input */}
-                  <label className="form-label" htmlFor="phone">
-                    Phone
-                  </label>
-                  <div className="form-outline mb-4">
+                  <div className="mb-4">
+                    <label className="form-label" htmlFor="phone">
+                      Phone
+                    </label>
                     <input type="text" id="phone" className="form-control" />
                   </div>
 
-                  {/* Email input */}
-                  <label className="form-label" htmlFor="email4">
-                    Email address
-                  </label>
-                  <div className="form-outline mb-4">
+                  <div className="mb-4">
+                    <label className="form-label" htmlFor="email4">
+                      Email address
+                    </label>
                     <input type="email" id="email4" className="form-control" />
                   </div>
 
-                  {/* Textarea input */}
-                  <label className="form-label" htmlFor="textarea4">
-                    Your message
-                  </label>
-                  <div className="form-outline mb-4">
+                  <div className="mb-4">
+                    <label className="form-label" htmlFor="textarea4">
+                      Your message
+                    </label>
                     <textarea
                       id="textarea4"
                       rows="4"
@@ -184,61 +154,67 @@ export default function PropertyDetails() {
                     ></textarea>
                   </div>
 
-                  <div class="d-flex align-items-center">
-                    <div class="form-check me-3">
+                  <div className="d-flex align-items-center mb-4">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault1"
                       />
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexRadioDefault1"
+                      >
                         Phone
                       </label>
                     </div>
 
-                    <div class="form-check me-3">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault2"
-                        checked
+                        defaultChecked
                       />
-                      <label class="form-check-label" for="flexRadioDefault2">
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexRadioDefault2"
+                      >
                         Text
                       </label>
                     </div>
 
-                    <div class="form-check me-3">
+                    <div className="form-check me-3">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault3"
                       />
-                      <label class="form-check-label" for="flexRadioDefault3">
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexRadioDefault3"
+                      >
                         Email
                       </label>
                     </div>
                   </div>
 
-                  {/* Submit button */}
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-block my-3"
-                  >
+                  <button type="submit" className="btn btn-primary btn-block">
                     Send
                   </button>
                 </form>
               </div>
             </div>
           </div>
-
-          {/* Overlay for modal */}
-          {/* <div className="modal-backdrop fade show"></div> */}
         </div>
       )}
-    </>
+
+      <div className="website-logo">
+        <img src={logo} className="img-fluid" alt="Logo" />
+      </div>
+    </div>
   );
 }

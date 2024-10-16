@@ -1,11 +1,19 @@
-import "./styles.css";
-import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import "./styles.css";
+import { ContextData } from "../../components/Store/API's";
+import {
+  UserContext,
+  useUserContext,
+} from "../../components/Store/API's/UserContext";
 
 export default function Login({ saveDataUser }) {
+  const { fetchData: fetchDataFromContextData } = useContext(ContextData);
+  const { fetchData: fetchDataFromUserContext } = useContext(UserContext);
+  const { setUserInfo } = useUserContext();
   const [loading, setLoading] = useState(false); // State for loading spinner
 
   const navigate = useNavigate();
@@ -38,21 +46,25 @@ export default function Login({ saveDataUser }) {
       setLoading(true); // Start loading
       try {
         // Get CSRF token
-        const toto = await axios.get(
-          "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
-        );
+        await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
 
         // Make login request
         const res = await axios.post(
           "https://y-sooty-seven.vercel.app/api/api/login",
           formData
         );
-
+        setUserInfo(res.data.user);
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
+
+          // await Promise.all([
+          //   fetchDataFromContextData(),
+          //   fetchDataFromUserContext(),
+          // ]);
+
           navigate("/home");
         } else {
           setErrorMessage("Login failed,  False Credentials.");

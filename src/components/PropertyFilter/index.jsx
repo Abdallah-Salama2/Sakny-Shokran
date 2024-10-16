@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const PropertyFilter = ({ onFilter }) => {
   // Define state for the filter form
   const [filterForm, setFilterForm] = useState({
+    address: "",
     priceFrom: "",
     priceTo: "",
     beds: "",
@@ -29,6 +30,7 @@ const PropertyFilter = ({ onFilter }) => {
   // Handle clearing the form
   const handleClear = () => {
     setFilterForm({
+      address: "",
       priceFrom: "",
       priceTo: "",
       beds: "",
@@ -40,8 +42,22 @@ const PropertyFilter = ({ onFilter }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mb-3">
-      <div className="row g-2 pt-2 ps-4 ">
+      <div className="row g-2 pt-2   ">
         {/* Price From / To */}
+        <div className="col-md-11">
+          <div className="row g-0">
+            <div className="col-md-12">
+              <input
+                type="text"
+                name="address"
+                value={filterForm.address}
+                onChange={handleChange}
+                placeholder="Address"
+                className="form-control  "
+              />
+            </div>
+          </div>
+        </div>
         <div className="col-md-3">
           <div className="row g-0">
             <div className="col-md-6">

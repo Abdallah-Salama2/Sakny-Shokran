@@ -35,3 +35,13 @@
     transform: translate(-50%, -50%);
   }
 }
+
+
+
+/* Large devices (≥992px) */
+@media (max-width: 992px) {
+  .custom-font {
+    font-size: 12px !important;
+  }
+}
+

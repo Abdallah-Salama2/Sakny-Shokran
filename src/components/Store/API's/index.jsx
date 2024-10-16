@@ -1,66 +1,143 @@
-import { createContext, useEffect, useState } from "react";
-import { ContextToken } from "../token";
-import { useContext } from "react";
 import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const ContextData = createContext(0);
 
-export const ContextDataProvider = ({children}) => {
-    const { token } = useContext(ContextToken);
-    const [properties, setProperties] = useState([]);
-    const [agentProperties, setAgentProperties] = useState([]);
-    const [agents, setAgents] = useState([]);
-    const [userInquiries, setUserInquiries] = useState([]);
-    const [agentInquiries, setAgentInquiries] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const [loggedUser, setLoggedUser] = useState([]);
-    let userData = localStorage.getItem("userType");
+export const ContextDataProvider = ({ children }) => {
+  const [properties, setProperties] = useState([]);
+  const [agents, setAgents] = useState([]);
+  const [propertyDetails, setPropertyDetails] = useState({});
+  const [agentDetails, setAgentDetails] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  let token = localStorage.getItem("Token");
+  let userData = localStorage.getItem("userType");
 
-
-    function getData(type, callback) {
-      return axios
-      .get(`https://y-sooty-seven.vercel.app/api/api/${type}`, {
+  const getData = async (type, callback) => {
+    try {
+      const response = await axios.get(
+        `https://y-sooty-seven.vercel.app/api/api/${type}`,
+        {
           headers: {
-              Authorization: `Bearer ${token}`, // Passing the token here
+            Authorization: token ? `Bearer ${token}` : "",
+            Accept: "application/json",
           },
-      })
-      .then((res) => {
-          console.log("API Response:", res);
-          const data = type === "properties" ? res.data.data : res.data; // Update this based on your API response
-          console.log(`API Response for ${type}:`, data);
-          callback(data);
+        }
+      );
 
-          // Handle inquiries conditionally
-          const inquiries = userData === "client" ? res.data.inquiries : res.data.properties;
-          setUserInquiries(inquiries);
-          setAgentProperties(inquiries);
-      })
-      .catch((err) => {
-          console.log(err);
-      });
-}
+      const data = response.data.data ? response.data.data : response.data;
+      console.log(`API Response for ${type}:`, data);
 
-    useEffect(() => {
-      Promise.all([
-          getData("properties", setProperties),
-          getData("agents", setAgents),
-          getData("preferences", setFavorites),
-          getData("loggedInUser", setLoggedUser),
-      ])
-      .then(() => {
-          if (token && userData === "client") {
-              getData("user/inquiries", setUserInquiries);
-          } else {
-              getData("agent/inquiries", setAgentInquiries);
-              getData("agent/properties", setAgentProperties);
-          }
-      });
+      callback(data);
+      return data;
+    } catch (err) {
+      console.error(`Error fetching ${type}:`, err);
+      setError(`Failed to fetch ${type}`);
+    }
+  };
+
+  const getPropertyDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://y-sooty-seven.vercel.app/api/api/properties/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.data;
+    } catch (err) {
+      console.error("Error fetching property details:", err);
+      setError("Failed to fetch property details");
+    }
+  };
+
+  const getAgentDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://y-sooty-seven.vercel.app/api/api/agents/${id}`
+      );
+      return response.data.data;
+    } catch (err) {
+      console.error("Error fetching agent details:", err);
+      setError("Failed to fetch agent details");
+    }
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const [propertiesData, agentsData] = await Promise.all([
+        token
+          ? getData("properties", setProperties)
+          : getData("home/properties", setProperties),
+        getData("agents", setAgents),
+      ]);
+
+      const propertyDetailsPromises = propertiesData.map((property) =>
+        getPropertyDetails(property.id)
+      );
+      const agentDetailsPromises = agentsData.map((agent) =>
+        getAgentDetails(agent.id)
+      );
+
+      const [fetchedPropertyDetails, fetchedAgentDetails] = await Promise.all([
+        Promise.all(propertyDetailsPromises),
+        Promise.all(agentDetailsPromises),
+      ]);
+
+      const propertyDetailsMap = fetchedPropertyDetails.reduce(
+        (acc, property) => {
+          acc[property.id] = property;
+          return acc;
+        },
+        {}
+      );
+
+      const agentDetailsMap = fetchedAgentDetails.reduce((acc, agent) => {
+        acc[agent.id] = agent;
+        return acc;
+      }, {});
+
+      setPropertyDetails(propertyDetailsMap);
+      setAgentDetails(agentDetailsMap);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to fetch data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [token, userData]);
 
-    return (
-        <ContextData.Provider value={{ properties, agents, agentProperties, userInquiries, agentInquiries, favorites, loggedUser }}>
-            {children}
-        </ContextData.Provider>
-    );
-}
+  // Logout function for context data
+  const logout = () => {
+    setProperties([]);
+    setAgents([]);
+    setPropertyDetails({});
+    setAgentDetails({});
+  };
+  return (
+    <ContextData.Provider
+      value={{
+        properties,
+        agents,
+        propertyDetails,
+        agentDetails,
+        loading,
+        error,
+        logout,
+        fetchData,
+      }}
+    >
+      {children}
+    </ContextData.Provider>
+  );
+};

@@ -1,20 +1,31 @@
-import "./styles.css";
-import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { ContextData } from "../../components/Store/API's";
+import {
+  UserContext,
+  useUserContext,
+} from "../../components/Store/API's/UserContext";
+import "./styles.css";
 
 export default function AgentLogin({ saveDataUser }) {
-  const [loading, setLoading] = useState(false); // State for loading spinner
-  const navigate = useNavigate();
+  const { setUserInfo } = useUserContext();
+
+  const { fetchData } = useContext(ContextData);
+  // const { fetchData: fetchDataFromUserContext } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     remember: false, // add remember field
   });
+
   function getData(e) {
     let data = { ...formData };
     if (e.target.name === "remember") {
@@ -24,7 +35,6 @@ export default function AgentLogin({ saveDataUser }) {
     }
     setFormData(data);
     console.log(data);
-    // set data now in formData to send it to api
   }
 
   async function submitHandler(e) {
@@ -38,24 +48,23 @@ export default function AgentLogin({ saveDataUser }) {
 
       try {
         // Get CSRF token
-        const toto = await axios.get(
-          "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
-        );
-        console.log(toto);
+        await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
 
         // Make login request
         const res = await axios.post(
           "https://y-sooty-seven.vercel.app/api/api/agent/login",
           formData
         );
-        console.log(res.data);
-        console.log(res.data.token);
+        setUserInfo(res.data.user);
+
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.agent.name);
           localStorage.setItem("Token", res.data.token);
           localStorage.setItem("userType", res.data.type);
-
+          // await fetchDataFromUserContext();
+          // await fetchDataFromContextData();
           saveDataUser();
+          fetchData();
           navigate("/profile");
         } else {
           setErrorMessage("Login failed, False Credentials");

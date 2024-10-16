@@ -1,10 +1,10 @@
-import "./styles.css";
-import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserFavourites from "./components/UserFavourites";
-import UserInfo from "./components/UserInfo";
+import React, { useEffect, useState } from "react";
 import AgentProperties from "./components/AgentProperties"; // Make sure this component exists
 import Inquiries from "./components/Inquiries";
+import UserFavourites from "./components/UserFavourites";
+import UserInfo from "./components/UserInfo";
+import "./styles.css";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("info");
@@ -44,10 +44,9 @@ const Profile = () => {
     <div className="container-fluid mt-2">
       <div className="row">
         {/* Left side (menu) */}
-        <div className="col-3 bg-light vh-100">
-          <ul className="list-group">
-            <li
-              className={`list-group-item ${
+        <div className="col-md-3 col-12 container bg-light ">
+          <ul className="row list-group">
+            <li className={` col-md-12 list-group-item ${
                 activeSection === "info" ? "active" : ""
               }`}
               onClick={() => setActiveSection("info")}
@@ -56,8 +55,7 @@ const Profile = () => {
               Info
             </li>
             {userType === "client" && (
-              <li
-                className={`list-group-item ${
+              <li className={` col-md-12 list-group-item ${
                   activeSection === "favs" ? "active" : ""
                 }`}
                 onClick={() => setActiveSection("favs")}
@@ -67,8 +65,7 @@ const Profile = () => {
               </li>
             )}
             {userType === "agent" && (
-              <li
-                className={`list-group-item ${
+              <li className={` col-md-12 list-group-item ${
                   activeSection === "props" ? "active" : ""
                 }`}
                 onClick={() => setActiveSection("props")}
@@ -77,8 +74,7 @@ const Profile = () => {
                 My Properties
               </li>
             )}
-            <li
-              className={`list-group-item ${
+            <li className={` col-md-12 list-group-item ${
                 activeSection === "inquiries" ? "active" : ""
               }`}
               onClick={() => setActiveSection("inquiries")}
@@ -90,7 +86,7 @@ const Profile = () => {
         </div>
 
         {/* Right side (changing content) */}
-        <div className="col-9">{renderContent()}</div>
+        <div className="col-12 col-md-9">{renderContent()}</div>
       </div>
     </div>
   );

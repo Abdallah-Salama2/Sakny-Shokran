@@ -1,23 +1,24 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import backgroundImg from "./img/pexels-pixabay-210617.jpg";
-import visionImage from "./img/pexels-pixabay-210617.jpg";
 import teamImage from "./img/agents_team.jpg";
-import usOne from "./img/trust1.jpg";
-import usTwo from "./img/trust2.jpg";
 import Facebook from "./img/icons/facebookLogo.png";
 import Instagram from "./img/icons/instagramLogo.png";
 import LinkedIn from "./img/icons/LinkedIn.png";
 import X from "./img/icons/X_logo-black.png";
-import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  default as backgroundImg,
+  default as visionImage,
+} from "./img/pexels-pixabay-210617.jpg";
+import usOne from "./img/trust1.jpg";
+import usTwo from "./img/trust2.jpg";
 
 const About = () => {
-  // Inline style for the fixed background image
   const backgroundStyle = {
-    backgroundImage: `url(${backgroundImg})`, // Replace with your image path
+    backgroundImage: `url(${backgroundImg})`,
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
     backgroundPosition: "center",
-    minHeight: "80vh", // Ensure the div covers the full viewport height
+    minHeight: "80vh",
   };
 
   return (
@@ -82,7 +83,8 @@ const About = () => {
 
       <div className="vh-100 d-flex align-items-center bg-secondary text-white bg-opacity-75">
         <div className="container d-flex flex-column flex-md-row">
-          <div className="col-md-6 text-center text-md-left">
+          {/* Text Section */}
+          <div className="col-12 col-md-6 text-center text-md-left mb-4 mb-md-0">
             <h2 className="display-5">Why Choose Us?</h2>
             <ul className="list-unstyled">
               <li className="my-3">
@@ -101,11 +103,13 @@ const About = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-6 position-relative">
+
+          {/* Image Section */}
+          <div className="col-12 col-md-6 position-relative d-flex justify-content-center">
             <img
               src={usTwo}
               alt="Why Choose Us"
-              className="img-fluid"
+              className="img-fluid d-none d-md-block"
               style={{
                 width: "80%",
                 height: "auto",
@@ -124,15 +128,16 @@ const About = () => {
                 width: "80%",
                 height: "auto",
                 borderRadius: "30px",
-                transform: "translate(0%, -40%)",
+                position: "relative",
               }}
             />
           </div>
         </div>
       </div>
 
-      <div className="h-25  bg-light  py-5 ">
-        <div className="d-flex  container gap-5 align-items-center">
+      {/* footer */}
+      <div className="h-25  w-100 bg-light  py-5  ">
+        <div className="d-md-flex  container gap-5 align-items-center">
           <div>
             <h2>Get in Touch</h2>
             <p>
@@ -202,14 +207,17 @@ const About = () => {
               </ul>
             </div>
           </div>
-          <div className="contact-info">
+          <div className="contact-info mt-5 mt-md-0 ">
             <h4>Contact Us:</h4>
             <ul className="list-unstyled">
               <li>
-                📞 <strong>Phone:</strong> +20 123 456 7890
+                📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
-              <li>
-                📧 <strong>Email:</strong> info@sakenyshokran.com
+              <li className="">
+                <span>
+                  <strong className="">📧 Email:</strong>
+                  info@sakenyshokran.com
+                </span>
               </li>
               <li>
                 📍 <strong>Address:</strong> 123 Real Estate St, Cairo, Egypt
