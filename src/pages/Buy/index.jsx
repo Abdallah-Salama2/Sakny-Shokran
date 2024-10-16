@@ -27,7 +27,7 @@ export default function Buy() {
   const [mapVisible, setMapVisible] = useState(false); // State to control map visibility
   let [Loading, setLoading] = useState(true);
   let { properties } = useContext(ContextData);
-
+  // properties = properties.data;
   useEffect(() => {
     if (properties && properties.length) {
       setFilteredProperties(properties);

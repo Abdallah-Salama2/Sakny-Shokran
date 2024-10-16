@@ -44,39 +44,30 @@ export const ContextDataProvider = ({ children }) => {
       setError(`Failed to fetch ${type}`);
     }
   };
+
   const fetchData = async () => {
     setLoading(true); // Show the loading spinner
 
-    await Promise.all([
-      getData("home/properties", setProperties),
-      getData("agents", setAgents),
-    ]);
-
-    // Conditional fetching based on user type
-    if (token && userData === "client") {
+    try {
       await Promise.all([
-        getData("properties", setProperties),
-        getData("user/inquiries", setUserInquiries),
-        getData("preferences", setFavorites),
-        getData("loggedInUser", setLoggedUser),
+        getData("agents", setAgents),
+        token
+          ? getData("properties", setProperties)
+          : getData("home/properties", setProperties),
       ]);
-    } else if (token && userData === "agent") {
-      await Promise.all([
-        getData("properties", setProperties),
-        getData("loggedInUser", setLoggedUser),
-        getData("agent/inquiries", setAgentInquiries),
-        getData("agent/properties", setAgentProperties),
-      ]);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to fetch data");
     }
 
     setLoading(false); // Hide the loading spinner once data is fetched
   };
+
   useEffect(() => {
     setError(null); // Reset errors
 
     fetchData();
   }, [token, userData]);
-
   // Return early if still loading or if there's an error
   if (loading) {
     return (

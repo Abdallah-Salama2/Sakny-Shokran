@@ -41,7 +41,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="container-fluid mt-2 ">
+    <div className="container-fluid mt-2">
       <div className="row">
         {/* Left side (menu) */}
         <div className="col-3 bg-light vh-100">
