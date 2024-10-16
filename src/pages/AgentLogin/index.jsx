@@ -9,6 +9,7 @@ import {
   useUserContext,
 } from "../../components/Store/API's/UserContext";
 import "./styles.css";
+import PasswordInput from "../../components/PasswordInput";
 
 export default function AgentLogin({ saveDataUser }) {
   const { setUserInfo } = useUserContext();
@@ -93,9 +94,7 @@ export default function AgentLogin({ saveDataUser }) {
           tlds: { allow: ["com", "net", "org"] },
         })
         .required(),
-      password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-        .required(),
+      password: Joi.string().required(),
       remember: Joi.required(),
     });
 
@@ -128,9 +127,7 @@ export default function AgentLogin({ saveDataUser }) {
           name="email"
           onChange={getData}
         />
-        <input
-          className="form-control form-control-lg bg-light fs-6 mb-3"
-          type="password"
+        <PasswordInput
           placeholder="Password"
           name="password"
           onChange={getData}

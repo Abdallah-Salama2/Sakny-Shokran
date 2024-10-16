@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
+import { useUserContext } from "../../components/Store/API's/UserContext";
+import PasswordInput from "../../components/PasswordInput";
 
 export default function Register({ saveDataUser }) {
   //   const [name, setName] = useState("");
@@ -12,6 +14,7 @@ export default function Register({ saveDataUser }) {
   const [errorMessage, setErrorMessage] = useState(""); //validation for backend
   const [errors, setErrors] = useState(""); //validation for frontend
   const navigate = useNavigate();
+  const { setUserInfo } = useUserContext();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,7 +44,11 @@ export default function Register({ saveDataUser }) {
       axios
         .post("https://y-sooty-seven.vercel.app/api/api/register", formData)
         .then((res) => {
+          setUserInfo(res.data.user);
+
           if (res.data.token) {
+            localStorage.setItem("UserName", res.data.user.name);
+            localStorage.setItem("userType", res.data.type);
             localStorage.setItem("Token", res.data.token);
             saveDataUser();
             navigate("/home");
@@ -70,9 +77,7 @@ export default function Register({ saveDataUser }) {
           tlds: { allow: ["com", "net"] },
         })
         .required(),
-      password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-        .required(),
+      password: Joi.string().required(),
       password_confirmation: Joi.any()
         .valid(Joi.ref("password"))
         .required()
@@ -127,17 +132,13 @@ export default function Register({ saveDataUser }) {
           onChange={getData}
           required
         />
-        <input
-          className="form-control form-control-lg bg-light fs-6 mb-3"
-          type="password"
+        <PasswordInput
           placeholder="Password"
           name="password"
           onChange={getData}
           required
         />
-        <input
-          className="form-control form-control-lg bg-light fs-6 mb-3"
-          type="password"
+        <PasswordInput
           placeholder="Confirm Password"
           name="password_confirmation"
           onChange={getData}

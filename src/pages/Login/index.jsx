@@ -9,6 +9,7 @@ import {
   UserContext,
   useUserContext,
 } from "../../components/Store/API's/UserContext";
+import PasswordInput from "../../components/PasswordInput";
 
 export default function Login({ saveDataUser }) {
   const { fetchData: fetchDataFromContextData } = useContext(ContextData);
@@ -131,9 +132,8 @@ export default function Login({ saveDataUser }) {
           name="email"
           onChange={getData}
         />
-        <input
-          className="form-control form-control-lg bg-light fs-6 mb-3"
-          type="password"
+
+        <PasswordInput
           placeholder="Password"
           name="password"
           onChange={getData}
