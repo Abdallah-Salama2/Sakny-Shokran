@@ -1,49 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AgentCard from "../Agents//components/Agents Card";
 import { useParams } from "react-router-dom";
 import logo from "../../components/Card/images/Capture.PNG";
 import "./styles.css";
+import { ContextData } from "../../components/Store/API's";
 
 export default function PropertyDetails() {
   const { id } = useParams();
-  let token = localStorage.getItem("Token");
-  const [property, setProperty] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  function getProperty() {
-    axios
-      .get(`https://y-sooty-seven.vercel.app/api/api/properties/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        setProperty(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  }
+  const { propertyDetails, loading, error } = useContext(ContextData);
 
-  useEffect(() => {
-    getProperty();
-  }, []);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (!property || !property.images) {
-    return <p>No property data available.</p>;
-  }
+  const property = propertyDetails[id];
+  if (!property) return <p>No property data available.</p>;
 
   return (
     <div className="container">

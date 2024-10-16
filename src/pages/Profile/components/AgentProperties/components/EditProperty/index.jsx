@@ -65,7 +65,7 @@ export default function EditProperty() {
   // Fetch property details when the component loads
   useEffect(() => {
     axios
-      .get(`https://y-sooty-seven.vercel.app/api/api/properties/${id}`, {
+      .get(`http://127.0.0.1:8000/api/properties/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -93,7 +93,7 @@ export default function EditProperty() {
 
     axios
       .put(
-        `https://y-sooty-seven.vercel.app/api/api/properties/${id}`, // PUT request for editing
+        `http://127.0.0.1:8000/api/properties/${id}`, // PUT request for editing
         formData,
         {
           headers: {

@@ -1,100 +1,135 @@
-import { createContext, useEffect, useState } from "react";
-import { useContext } from "react";
 import axios from "axios";
-import { ClipLoader } from "react-spinners";
+import { createContext, useEffect, useState } from "react";
 
-// Create context to store the data
 export const ContextData = createContext(0);
 
-// Context provider component
 export const ContextDataProvider = ({ children }) => {
   const [properties, setProperties] = useState([]);
-  const [agentProperties, setAgentProperties] = useState([]);
   const [agents, setAgents] = useState([]);
-  const [userInquiries, setUserInquiries] = useState([]);
-  const [agentInquiries, setAgentInquiries] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-  const [loggedUser, setLoggedUser] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [propertyDetails, setPropertyDetails] = useState({});
+  const [agentDetails, setAgentDetails] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   let token = localStorage.getItem("Token");
   let userData = localStorage.getItem("userType");
 
-  // Function to fetch data from API
   const getData = async (type, callback) => {
     try {
-      const response = await axios.get(
-        `https://y-sooty-seven.vercel.app/api/api/${type}`,
-        {
-          headers: {
-            Authorization: token ? `Bearer ${token}` : "", // Include token in headers
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await axios.get(`http://127.0.0.1:8000/api/${type}`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+          Accept: "application/json",
+        },
+      });
 
-      // Dynamically handle cases where data might be inside `data.data`
       const data = response.data.data ? response.data.data : response.data;
       console.log(`API Response for ${type}:`, data);
 
-      callback(data); // Pass the data to the corresponding state setter
+      callback(data);
+      return data;
     } catch (err) {
       console.error(`Error fetching ${type}:`, err);
       setError(`Failed to fetch ${type}`);
     }
   };
 
+  const getPropertyDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/properties/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.data;
+    } catch (err) {
+      console.error("Error fetching property details:", err);
+      setError("Failed to fetch property details");
+    }
+  };
+
+  const getAgentDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/agents/${id}`
+      );
+      return response.data.data;
+    } catch (err) {
+      console.error("Error fetching agent details:", err);
+      setError("Failed to fetch agent details");
+    }
+  };
+
   const fetchData = async () => {
-    setLoading(true); // Show the loading spinner
+    setLoading(true);
+    setError(null);
 
     try {
-      await Promise.all([
-        getData("agents", setAgents),
+      const [propertiesData, agentsData] = await Promise.all([
         token
           ? getData("properties", setProperties)
           : getData("home/properties", setProperties),
+        getData("agents", setAgents),
       ]);
+
+      const propertyDetailsPromises = propertiesData.map((property) =>
+        getPropertyDetails(property.id)
+      );
+      const agentDetailsPromises = agentsData.map((agent) =>
+        getAgentDetails(agent.id)
+      );
+
+      const [fetchedPropertyDetails, fetchedAgentDetails] = await Promise.all([
+        Promise.all(propertyDetailsPromises),
+        Promise.all(agentDetailsPromises),
+      ]);
+
+      const propertyDetailsMap = fetchedPropertyDetails.reduce(
+        (acc, property) => {
+          acc[property.id] = property;
+          return acc;
+        },
+        {}
+      );
+
+      const agentDetailsMap = fetchedAgentDetails.reduce((acc, agent) => {
+        acc[agent.id] = agent;
+        return acc;
+      }, {});
+
+      setPropertyDetails(propertyDetailsMap);
+      setAgentDetails(agentDetailsMap);
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Failed to fetch data");
     }
 
-    setLoading(false); // Hide the loading spinner once data is fetched
+    setLoading(false);
   };
 
   useEffect(() => {
-    setError(null); // Reset errors
-
     fetchData();
   }, [token, userData]);
-  // Return early if still loading or if there's an error
-  if (loading) {
-    return (
-      <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
-        <ClipLoader size={150} color={"#123abc"} loading={loading} />
-        <h3>Loading Data...</h3>
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div>{error}</div>; // Display the error message
-  }
-
-  // Provide context data once everything is loaded
+  // Logout function for context data
+  const logout = () => {
+    setProperties([]);
+    setAgents([]);
+    setPropertyDetails({});
+    setAgentDetails({});
+  };
   return (
     <ContextData.Provider
       value={{
         properties,
         agents,
-        agentProperties,
-        userInquiries,
-        agentInquiries,
-        favorites,
-        loggedUser,
-        fetchData,
+        propertyDetails,
+        agentDetails,
         loading,
+        error,
+        logout,
       }}
     >
       {children}

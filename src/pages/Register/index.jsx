@@ -39,7 +39,7 @@ export default function Register({ saveDataUser }) {
       setErrors(statusError?.error.details);
     } else {
       axios
-        .post("https://y-sooty-seven.vercel.app/api/api/register", formData)
+        .post("http://127.0.0.1:8000/api/register", formData)
         .then((res) => {
           if (res.data.token) {
             localStorage.setItem("Token", res.data.token);

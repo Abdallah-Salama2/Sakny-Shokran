@@ -1,42 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Card from "../../../../components/Card";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { ContextData } from "../../../../components/Store/API's";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AgentPropertyCard from "../../../../components/AgentPropertyCard";
-import axios from "axios";
+import { useUserContext } from "../../../../components/Store/API's/UserContext";
 
 export default function AgentProperties() {
-  let token = localStorage.getItem("Token");
-
-  const [agentProperties, setAgentProperties] = useState([]);
-  const navigate = useNavigate();
-
-  function getProperties() {
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/agent/properties", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-        },
-      })
-
-      .then((res) => {
-        console.log(res.data.data);
-        setAgentProperties(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
+  const { agentProperties } = useUserContext();
+  const [filtered, setfiltered] = useState([]);
   const handleDelete = (id) => {
-    setAgentProperties(
-      agentProperties.filter((property) => property.id !== id)
-    );
+    setfiltered(agentProperties.filter((property) => property.id !== id));
   };
-  useEffect(() => {
-    getProperties();
-  }, []);
+
   console.log("agentPorpes", agentProperties);
 
   return (

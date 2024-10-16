@@ -36,7 +36,7 @@ export default function SearchCard() {
             : "agent";
 
         const response = await axios.post(
-          `https://y-sooty-seven.vercel.app/api/api/search/${type}`,
+          `http://127.0.0.1:8000/api/search/${type}`,
           {
             query: searchTerm, // Properly send the search term in the body
           },

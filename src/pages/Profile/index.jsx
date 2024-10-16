@@ -1,10 +1,10 @@
-import "./styles.css";
-import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserFavourites from "./components/UserFavourites";
-import UserInfo from "./components/UserInfo";
+import React, { useEffect, useState } from "react";
 import AgentProperties from "./components/AgentProperties"; // Make sure this component exists
 import Inquiries from "./components/Inquiries";
+import UserFavourites from "./components/UserFavourites";
+import UserInfo from "./components/UserInfo";
+import "./styles.css";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("info");

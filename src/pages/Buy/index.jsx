@@ -1,14 +1,13 @@
-import "./styles.css";
-import React, { useEffect, useState } from "react";
-import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import "leaflet/dist/leaflet.css";
+import React, { useContext, useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import Card from "../../components/Card/index";
 import PropertyFilter from "../../components/PropertyFilter";
-import { useContext } from "react";
 import { ContextData } from "../../components/Store/API's";
+import "./styles.css";
 
 // Define custom icon with proper image paths
 const customIcon = new L.Icon({

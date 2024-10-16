@@ -26,7 +26,7 @@ export default function PasswordReset() {
 
     // Send password reset request to the backend
     axios
-      .post("https://y-sooty-seven.vercel.app/api/api/reset-password", {
+      .post("http://127.0.0.1:8000/api/reset-password", {
         token,
         email,
         password,

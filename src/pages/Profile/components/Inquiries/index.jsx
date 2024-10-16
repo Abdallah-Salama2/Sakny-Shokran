@@ -1,51 +1,13 @@
-import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ContextData } from "../../../../components/Store/API's";
-import axios from "axios";
+import { useUserContext } from "../../../../components/Store/API's/UserContext";
 
 export default function Inquiries() {
-  let token = localStorage.getItem("Token");
-  const [inquiries, setInquiries] = useState([]);
-  const [properties, setProperties] = useState([]);
+  const { inquiries } = useUserContext();
   let userType = localStorage.getItem("userType");
-
-  let uri;
-
-  if (userType === "client") {
-    uri = `https://y-sooty-seven.vercel.app/api/api/user/inquiries`;
-  } else {
-    uri = `https://y-sooty-seven.vercel.app/api/api/agent/inquiries`;
-  }
-
-  function getProperties() {
-    axios
-      .get(uri, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-        },
-      })
-
-      .then((res) => {
-        console.log("resonseeeeee inquir", res);
-        if (userType === "client") {
-          setInquiries(res.data.inquiries);
-        } else {
-          setInquiries(res.data.properties);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  useEffect(() => {
-    getProperties();
-  }, []);
 
   return (
     <>
       <>
-        {console.log(uri, inquiries)}
         {userType === "client" && (
           <div className="row">
             {inquiries.length > 0 ? (

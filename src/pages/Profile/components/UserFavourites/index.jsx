@@ -1,37 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Card from "../../../../components/Card";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ContextData } from "../../../../components/Store/API's";
+
+import { useUserContext } from "../../../../components/Store/API's/UserContext";
 
 export default function UserFavourites() {
-  let token = localStorage.getItem("Token");
-
-  const [favorites, setFavourites] = useState([]);
-
-  function getFavourites() {
-    console.log(token);
-
-    axios
-      .get("https://y-sooty-seven.vercel.app/api/api/preferences", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the token in the header
-          Accept: "application/json",
-        },
-      })
-
-      .then((res) => {
-        console.log(res.data);
-        setFavourites(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  useEffect(() => {
-    getFavourites();
-  }, []);
+  const { favorites } = useUserContext();
 
   return (
     <div className="container-fluid px-2 py-3 ">

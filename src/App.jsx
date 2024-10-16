@@ -2,7 +2,7 @@ import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Navbar } from "./components";
 import { Home, Login, Register, Buy, Agents, About } from "./pages";
@@ -17,10 +17,15 @@ import CreateProperty from "./pages/Profile/components/AgentProperties/component
 import EditProperty from "./pages/Profile/components/AgentProperties/components/EditProperty";
 import PropertyImage from "./pages/Profile/components/AgentProperties/components/PropertyImage";
 import AgentDetails from "./pages/Agents/components/AgentDetails";
+import { useUserContext } from "./components/Store/API's/UserContext";
+import { ContextData } from "./components/Store/API's";
+import { ClipLoader } from "react-spinners";
 
 export default function App() {
   let navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const { logout: userLogout } = useUserContext();
+  const { logout: contextLogout } = useContext(ContextData);
 
   function saveDataUser() {
     let token = localStorage.getItem("Token");
@@ -39,31 +44,51 @@ export default function App() {
   }, []);
 
   function logout() {
-    // Get the token from localStorage (if you're using an API token)
     const token = localStorage.getItem("Token");
 
     console.log(token);
-    // Configure the axios request with the Authorization header if using API tokens
     axios
       .post(
-        "https://y-sooty-seven.vercel.app/api/api/logout",
-        {}, // Send an empty body
+        "http://127.0.0.1:8000/api/logout",
+        {},
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach the token in the header
+            Authorization: `Bearer ${token}`,
           },
         }
       )
       .then(() => {
-        setUserData(null); // Clear user data from state
+        setUserData(null);
         localStorage.clear();
-        navigate("/login"); // Redirect to login page
+        userLogout();
+        contextLogout();
+        navigate("/login");
       })
       .catch((error) => {
         console.error("Logout error", error);
       });
   }
 
+  const LoadingWrapper = ({ children }) => {
+    const { loading: userLoading, error: userError } = useUserContext();
+    const { loading: contextLoading, error: contextError } =
+      React.useContext(ContextData);
+
+    if (userLoading || contextLoading) {
+      return (
+        <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
+          <ClipLoader size={150} color={"#123abc"} loading={true} />
+          <h3>Loading Data...</h3>
+        </div>
+      );
+    }
+
+    if (userError || contextError) {
+      return <div>Error: {userError || contextError}</div>;
+    }
+
+    return children;
+  };
   return (
     <div>
       <Navbar userData={userData} logout={logout} />
@@ -81,17 +106,29 @@ export default function App() {
         <Route path="profile/properties/create" element={<CreateProperty />} />
         <Route path="/properties/edit/:id" element={<EditProperty />} />
         <Route path="/properties/:id/images" element={<PropertyImage />} />
-
         <Route path="inquiries/:id" element={<PropertInquiries />} />
+
+        {/* Wrap Login and AgentLogin Routes with LoadingWrapper */}
+        <Route
+          path="login"
+          element={
+            <LoadingWrapper>
+              <Login saveDataUser={saveDataUser} />
+            </LoadingWrapper>
+          }
+        />
+        <Route
+          path="agentLogin"
+          element={
+            <LoadingWrapper>
+              <AgentLogin saveDataUser={saveDataUser} />
+            </LoadingWrapper>
+          }
+        />
         <Route
           path="register"
           element={<Register saveDataUser={saveDataUser} />}
         ></Route>
-        <Route path="login" element={<Login saveDataUser={saveDataUser} />} />
-        <Route
-          path="agentLogin"
-          element={<AgentLogin saveDataUser={saveDataUser} />}
-        />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/password-reset/:token" element={<PasswordReset />} />
       </Routes>

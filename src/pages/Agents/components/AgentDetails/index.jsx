@@ -1,44 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ContextData } from "../../../../components/Store/API's";
-import AgentPropertyCard from "../../../../components/AgentPropertyCard";
 import Card from "../../../../components/Card";
 import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
+import { ContextData } from "../../../../components/Store/API's";
 
 export default function AgentDetails() {
-  const [userData, setUserData] = useState(null);
-  const [properties, setProperties] = useState([]); // Initialize as empty array
+  let [properties] = useState([]); // Initialize as empty array
+  const { id } = useParams();
+  const { agentDetails, loading, error } = useContext(ContextData);
 
-  const [error, setError] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState(
-    "هذه بيانات إضافية يمكنك إضافتها"
-  );
-  let { id } = useParams();
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `https://y-sooty-seven.vercel.app/api/api/agents/${id}`
-        );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-        // Simulate delay using setTimeout
-        setTimeout(() => {
-          setUserData(response.data.data);
-          setProperties(response.data.data.properties || []); // Fallback to an empty array
-        }, 1000); // 1 second delay
-
-        setError("");
-      } catch (err) {
-        setError("Error fetching user data");
-      }
-    };
-
-    fetchUserData();
-  }, [id]); // Ensure id is in the dependency array
+  const agent = agentDetails[id];
+  properties = agent.properties;
+  if (!agent) return <p>No agent data available.</p>;
+  console.log(agent);
 
   return (
     <>
@@ -46,19 +27,19 @@ export default function AgentDetails() {
         <div className="container">
           <div className="row mt-3">
             <div className="col-lg-6">
-              {userData ? (
+              {agent ? (
                 <div className="user-info">
                   <div className="w-fit pe-5">
                     <img
-                      src={userData.image_url}
+                      src={agent.image_url}
                       alt="User"
                       className="img-fluid"
                     />
                   </div>
-                  <h2 className="pt-3">{userData.name}</h2>
+                  <h2 className="pt-3">{agent.name}</h2>
                   <p>
                     <span className="fw-bold">Phone Number: </span>
-                    {userData.phone_number || "Not Available"}
+                    {agent.phone_number || "Not Available"}
                   </p>
                   <p>
                     <span className="fw-bold">Address: </span>Cairo

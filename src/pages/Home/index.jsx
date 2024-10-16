@@ -1,16 +1,16 @@
-import "./styles.css";
-import homeImage from "./images/HomeImage.png";
-import metingImage from "./images/meeting-3.jpg";
-import learnMore from "./images/LearnMore.jpg";
 import React, { useContext } from "react";
-import SearchCard from "./comoponents/SearchCard";
-import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
+import Card from "../../components/Card";
+import { ContextData } from "../../components/Store/API's";
+import SearchCard from "./comoponents/SearchCard";
+import homeImage from "./images/HomeImage.png";
 import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
-import { ContextData } from "../../components/Store/API's";
+import learnMore from "./images/LearnMore.jpg";
+import metingImage from "./images/meeting-3.jpg";
+import "./styles.css";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function Home() {
         <div className="container">
           <h1>Featured Listings</h1>
           <div className="row pt-5 ">
-            {console.log("homeProps", properties)}
+            {/* {console.log("homeProps", properties)} */}
             {properties?.slice(0, 3).map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                 <Card property={property} />

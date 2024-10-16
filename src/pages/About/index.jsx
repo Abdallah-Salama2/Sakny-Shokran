@@ -1,14 +1,16 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import backgroundImg from "./img/pexels-pixabay-210617.jpg";
-import visionImage from "./img/pexels-pixabay-210617.jpg";
 import teamImage from "./img/agents_team.jpg";
-import usOne from "./img/trust1.jpg";
-import usTwo from "./img/trust2.jpg";
 import Facebook from "./img/icons/facebookLogo.png";
 import Instagram from "./img/icons/instagramLogo.png";
 import LinkedIn from "./img/icons/LinkedIn.png";
 import X from "./img/icons/X_logo-black.png";
-import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  default as backgroundImg,
+  default as visionImage,
+} from "./img/pexels-pixabay-210617.jpg";
+import usOne from "./img/trust1.jpg";
+import usTwo from "./img/trust2.jpg";
 
 const About = () => {
   const backgroundStyle = {
