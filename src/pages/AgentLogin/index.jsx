@@ -60,7 +60,7 @@ export default function AgentLogin({ saveDataUser }) {
           saveDataUser();
           fetchData();
 
-          navigate("/profile");
+          navigate("/home");
         } else {
           setErrorMessage("Login failed, False Credentials");
         }
