@@ -212,9 +212,8 @@ const About = () => {
                 📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
               <li className="">
-                <span className="custom-font">📧</span>
                 <span>
-                  <strong className="custom-font">Email:</strong>
+                  <strong className="">📧 Email:</strong>
                   info@sakenyshokran.com
                 </span>
               </li>

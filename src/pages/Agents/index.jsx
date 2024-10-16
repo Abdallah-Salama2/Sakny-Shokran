@@ -7,13 +7,15 @@ const Agents = () => {
   let { agents } = useContext(ContextData);
 
   return (
-    <div className=" pt-5 vh-100 offwhite ">
-      <div className="container">
-        <h1>Real Estate Agents</h1>
-        <div className="row">
-          {agents.map((agent) => (
-            <AgentCard key={agent.id} agent={agent} />
-          ))}
+    <div className="offwhite">
+      <div className="    ">
+        <div className="container">
+          <h1>Real Estate Agents</h1>
+          <div className="row">
+            {agents.map((agent) => (
+              <AgentCard key={agent.id} agent={agent} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

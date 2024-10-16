@@ -45,17 +45,17 @@ export default function AgentDetails() {
       <div className="offwhite py-4">
         <div className="container">
           <div className="row mt-3">
-            <div className="col-6">
+            <div className="col-lg-6">
               {userData ? (
                 <div className="user-info">
-                  <div className="w-50">
+                  <div className="w-fit pe-5">
                     <img
                       src={userData.image_url}
                       alt="User"
                       className="img-fluid"
                     />
                   </div>
-                  <h2>{userData.name}</h2>
+                  <h2 className="pt-3">{userData.name}</h2>
                   <p>
                     <span className="fw-bold">Phone Number: </span>
                     {userData.phone_number || "Not Available"}
@@ -80,7 +80,7 @@ export default function AgentDetails() {
               )}
             </div>
 
-            <div className="col-6">
+            <div className="mt-5 mt-lg-0 col-lg-6">
               <div className="header">
                 <h1>Sakny Shokran Group</h1>
                 <p>Licensed as Sakny Realty Group</p>
@@ -109,7 +109,7 @@ export default function AgentDetails() {
 
             {properties.length > 0 ? (
               properties.map((property) => (
-                <div key={property.id} className="col-md-3 col-sm-6 mb-4">
+                <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                   <Card property={property} />
                 </div>
               ))
@@ -121,14 +121,15 @@ export default function AgentDetails() {
       </div>
 
       {/* Footer */}
-      <div className="h-25 w-100 offwhite py-5">
-        <div className="d-flex container gap-5 align-items-center">
+      <div className="h-25  w-100 bg-light  py-5  ">
+        <div className="d-md-flex  container gap-5 align-items-center">
           <div>
             <h2>Get in Touch</h2>
             <p>
               Whether you’re looking to buy, sell, or invest in real estate,
-              Sakeny-Shokran is here to help. Contact us today to learn more
-              about how we can assist you in your real estate journey.
+              Sakeny-Shokran is here to help. <br />
+              Contact us today to learn more about how we can assist you in your
+              real estate journey.
             </p>
             <div className="social-media mt-4">
               <ul className="list-unstyled d-flex justify-content-center">
@@ -191,15 +192,17 @@ export default function AgentDetails() {
               </ul>
             </div>
           </div>
-
-          <div className="contact-info">
+          <div className="contact-info mt-5 mt-md-0 ">
             <h4>Contact Us:</h4>
             <ul className="list-unstyled">
               <li>
-                📞 <strong>Phone:</strong> +20 123 456 7890
+                📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
-              <li>
-                📧 <strong>Email:</strong> info@sakenyshokran.com
+              <li className="">
+                <span>
+                  <strong className="">📧 Email:</strong>
+                  info@sakenyshokran.com
+                </span>
               </li>
               <li>
                 📍 <strong>Address:</strong> 123 Real Estate St, Cairo, Egypt

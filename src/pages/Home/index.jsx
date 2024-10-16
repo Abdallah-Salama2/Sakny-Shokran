@@ -31,6 +31,7 @@ export default function Home() {
         <div className="container">
           <h1>Featured Listings</h1>
           <div className="row pt-5 ">
+            {console.log("homeProps", properties)}
             {properties?.slice(0, 3).map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                 <Card property={property} />
@@ -113,7 +114,7 @@ export default function Home() {
       </div>
       {/* footer */}
       <div className="h-25  w-100   py-5  ">
-        <div className="d-md-flex  container gap-5 align-items-center ">
+        <div className="d-lg-flex  container gap-5 align-items-center">
           <div>
             <h2>Get in Touch</h2>
             <p>
@@ -190,9 +191,8 @@ export default function Home() {
                 📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
               <li className="">
-                <span className="d-none d-lg-block">📧</span>
                 <span>
-                  <strong className="">Email:</strong>
+                  <strong className="">📧 Email:</strong>
                   info@sakenyshokran.com
                 </span>
               </li>

@@ -62,6 +62,7 @@ export const ContextDataProvider = ({ children }) => {
       ]);
     } else if (token && userData === "agent") {
       await Promise.all([
+        getData("properties", setProperties),
         getData("loggedInUser", setLoggedUser),
         getData("agent/inquiries", setAgentInquiries),
         getData("agent/properties", setAgentProperties),
