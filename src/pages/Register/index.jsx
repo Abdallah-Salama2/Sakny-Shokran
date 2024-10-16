@@ -1,10 +1,11 @@
 import "./styles.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { useUserContext } from "../../components/Store/API's/UserContext";
 import PasswordInput from "../../components/PasswordInput";
+import { ContextData } from "../../components/Store/API's";
 
 export default function Register({ saveDataUser }) {
   //   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ export default function Register({ saveDataUser }) {
   const [errors, setErrors] = useState(""); //validation for frontend
   const navigate = useNavigate();
   const { setUserInfo } = useUserContext();
+  const { fetchData: fetchDataFromContextData } = useContext(ContextData);
 
   const [formData, setFormData] = useState({
     name: "",

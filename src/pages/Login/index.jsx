@@ -61,6 +61,7 @@ export default function Login({ saveDataUser }) {
           localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
+          fetchDataFromUserContext();
           saveDataUser();
 
           // await Promise.all([
