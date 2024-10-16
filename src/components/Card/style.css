@@ -1,0 +1,31 @@
+.property-card{
+    background-color: #fff !important;
+    height: 450px !important;
+}
+
+.property-img{
+    padding: 0 !important;
+}
+
+.property-location{
+    font-weight: bolder;
+    color: #817878;
+    font-size: smaller;
+    height: 50px !important;
+    padding: 8px 0 0 !important;
+}
+
+.property-address{
+   font-family: "Bentham", serif;
+    height: 100px !important;
+
+}
+
+.property-details{
+    font-size: smaller;
+    height: 50px !important;
+}
+
+.property-price{
+    height: 100px !important;
+}
