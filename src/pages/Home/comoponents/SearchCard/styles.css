@@ -11,8 +11,22 @@
   font-style: italic; 
   opacity: 1; 
 }
+.custom-placeholder:focus {
+  outline: none !important; /* Remove the blue outline */
+  box-shadow: none !important; /* Remove any shadow effects (if any) */
+}
+.custom-placeholder {
+  width: auto; /* Or any desired width */
+}
 
+/* Media query for screens smaller than XXL (1400px) */
+@media (max-width: 1399.98px) {
+  .custom-placeholder {
+    width: 100% !important; /* Set width to 100% for smaller screens */
+  }
+}
 
+/* 
 @media (max-width: 767px) {
   .input-group {
     padding: 0.5rem !important;
@@ -28,4 +42,4 @@
   .input-group {
     flex-wrap: nowrap !important;
   }
-}
+} */

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Option({ id, name, label, checked, handleClick }) {
   return (
-    <div className="col">
+    <div className="col-12 col-xxl-4 pb-2 pb-xxl-0">
       <input
         type="radio"
         className="btn-check "

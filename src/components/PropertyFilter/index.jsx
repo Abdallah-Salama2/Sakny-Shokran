@@ -42,7 +42,7 @@ const PropertyFilter = ({ onFilter }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mb-3">
-      <div className="row g-2 pt-2 ps-4 ">
+      <div className="row g-2 pt-2   ">
         {/* Price From / To */}
         <div className="col-md-11">
           <div className="row g-0">

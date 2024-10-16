@@ -88,8 +88,8 @@ export default function SearchCard() {
       <div className="container">
         <div className="row">
           <div className="col col-xl-10 mx-xl-auto">
-            <div className="input-group d-flex border border-2 rounded-5 p-3 ">
-              <div className="row align-items-center border border-1 rounded-start">
+            <div className="input-group d-block d-xxl-flex border border-2 rounded-5 p-3 ">
+              <div className="row align-items-center ">
                 {options.map((option) => (
                   <Option
                     key={option.id}
@@ -104,7 +104,7 @@ export default function SearchCard() {
 
               <input
                 type="text"
-                className="form-control custom-placeholder border border-1 border-start-0 border-end-0"
+                className="form-control  custom-placeholder mt-2 mt-lg-0  ms-lg-2  border  "
                 placeholder="Enter a location, address, property"
                 aria-label="Search"
                 aria-describedby="basic-addon2"
@@ -113,7 +113,7 @@ export default function SearchCard() {
                 autoComplete="off"
               />
 
-              <div className="input-group-append">
+              {/* <div className="input-group-append">
                 <button
                   className="btn btn-danger border border-0 rounded rounded-start-0 rounded-end-3"
                   type="button"
@@ -123,7 +123,7 @@ export default function SearchCard() {
                     className="w-100 py-2"
                   />
                 </button>
-              </div>
+              </div> */}
             </div>
 
             {showDropdown && results.length > 0 && (

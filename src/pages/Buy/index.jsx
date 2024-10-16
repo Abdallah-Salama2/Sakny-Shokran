@@ -24,8 +24,10 @@ export default function Buy() {
   const position = [30.0644174, 31.3430602];
 
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [mapVisible, setMapVisible] = useState(false); // State to control map visibility
   let [Loading, setLoading] = useState(true);
   let { properties } = useContext(ContextData);
+
   useEffect(() => {
     if (properties && properties.length) {
       setFilteredProperties(properties);
@@ -79,50 +81,75 @@ export default function Buy() {
     setFilteredProperties(filtered);
   };
 
-  return (
-    <div className="offwhite border mt-2">
-      <div className="d-flex justify-content-between  pe-5">
-        {Loading ? (
-          <div>Loading map...</div>
-        ) : (
-          <MapContainer center={position} zoom={16} scrollWheelZoom={true}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+  // Toggle map visibility
+  const toggleMap = () => {
+    setMapVisible(!mapVisible);
+  };
 
-            {/* Display filtered properties on the map */}
-            {filteredProperties.map((property) => (
-              <Marker
-                key={property.id}
-                position={[property?.latitude, property?.longitude]}
-                icon={customIcon}
-              >
-                <Popup>
-                  <div>
+  return (
+    <div className="border">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="d-lg-none col-12 mb-3 text-center">
+            <button className="btn btn-primary" onClick={toggleMap}>
+              {mapVisible ? "Hide Map" : "Show Map"}
+            </button>
+          </div>
+
+          {Loading ? (
+            <div>Loading map...</div>
+          ) : (
+            <>
+              {(mapVisible || window.innerWidth >= 992) && (
+                <div className=" col-lg-5 zero-padd">
+                  <MapContainer
+                    center={position}
+                    zoom={16}
+                    scrollWheelZoom={true}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+
+                    {/* Display filtered properties on the map */}
+                    {filteredProperties.map((property) => (
+                      <Marker
+                        key={property.id}
+                        position={[property?.latitude, property?.longitude]}
+                        icon={customIcon}
+                      >
+                        <Popup>
+                          <div>
+                            <Card property={property} />
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
+                </div>
+              )}
+            </>
+          )}
+
+          <div className="col-lg-7 zero-padd">
+            <div
+              className="border ps-lg-2"
+              style={{ height: "90vh", overflowX: "hidden" }}
+            >
+              <div className="form-outline mb-3 z-3 ps-lg-5">
+                {/* Pass the filtering function to the PropertyFilter component */}
+                <PropertyFilter onFilter={handleFilter} />
+              </div>
+              <div className="row pe-3">
+                {/* Display filtered properties in the list */}
+                {filteredProperties.map((property) => (
+                  <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                     <Card property={property} />
                   </div>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
-        )}
-
-        <div
-          className="col-7 border"
-          style={{ height: "80vh", overflowY: "auto", overflowX: "hidden" }}
-        >
-          <div className="form-outline mb-3 z-3">
-            {/* Pass the filtering function to the PropertyFilter component */}
-            <PropertyFilter onFilter={handleFilter} />
-          </div>
-          <div className="row pe-3">
-            {/* Display filtered properties in the list */}
-            {filteredProperties.map((property) => (
-              <div key={property.id} className="col-md-4 col-sm-6 mb-4">
-                <Card property={property} />
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

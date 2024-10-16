@@ -2,7 +2,6 @@ import "./styles.css";
 import homeImage from "./images/HomeImage.png";
 import metingImage from "./images/meeting-3.jpg";
 import learnMore from "./images/LearnMore.jpg";
-
 import React, { useContext } from "react";
 import SearchCard from "./comoponents/SearchCard";
 import Card from "../../components/Card";
@@ -12,6 +11,7 @@ import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
 import { ContextData } from "../../components/Store/API's";
+
 export default function Home() {
   const navigate = useNavigate();
   let { properties } = useContext(ContextData);
@@ -40,59 +40,80 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Get to know agent */}
       <div
-        className="d-flex mt-5 align-content-center container "
+        className="mt-5 container "
         style={{ paddingTop: "100px", paddingBottom: "100px" }}
       >
-        <div className="d-flex flex-column justify-content-center w-50 text-center ">
-          <h2>
-            Get to know a <br />
-            Sakny Shokran agent.
-          </h2>
-          <p>
-            Whether you’re buying, renting, or selling, when you connect with{" "}
-            <br />a Corcoran agent, you’re working with the best in the
-            business.
-          </p>
-          <button
-            className="btn btn-outline-secondary w-25 align-self-center rounded-5"
-            onClick={() => navigate("/agents")}
-          >
-            Find An Agent
-          </button>
-        </div>
-        <div className="w-50 ">
-          <img src={metingImage} alt="#" className="w-100 " />
+        <div className="row">
+          <div className="col-12 col-md-6  d-flex flex-column justify-content-center text-center ">
+            <h2>
+              Get to know a <br />
+              Sakny Shokran agent.
+            </h2>
+            <p>
+              Whether you’re buying, renting, or selling, when you connect with{" "}
+              <br />a Corcoran agent, you’re working with the best in the
+              business.
+            </p>
+            <button
+              className="btn btn-outline-secondary w-auto align-self-center rounded-5"
+              onClick={() => navigate("/agents")}
+            >
+              Find An Agent
+            </button>
+          </div>
+          <div className="col-12 col-md-6  mt-3 mt-md-0 align-self-center">
+            <img
+              src={metingImage}
+              alt="#"
+              className=" w-100 "
+              style={{
+                borderRadius: "15px",
+              }}
+            />
+          </div>
         </div>
       </div>
 
       {/* About us */}
-      <div className="offwhite py-5 ">
-        <div className="d-flex mt-5 align-content-center container">
-          <div className="d-flex flex-column justify-content-center w-50 text-center order-1 ms-2">
-            <h2>
-              Want to know <br />
-              more about our Company.
-            </h2>
-            <p>
-              Whether you’re buying, renting, or selling, when you connect with
-              a Corcoran agent, you’re working with the best in the business.
-            </p>
-            <button
-              className="btn btn-outline-secondary w-25 align-self-center rounded-5"
-              onClick={() => navigate("/about")}
-            >
-              About us
-            </button>
-          </div>
-          <div className="w-50 order-0">
-            <img src={learnMore} alt="#" className="w-100 " />
+      <div className="offwhite">
+        <div
+          className="container mt-5  "
+          style={{ paddingTop: "100px", paddingBottom: "100px" }}
+        >
+          <div className=" row">
+            <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-center ">
+              <h2>
+                Want to know <br />
+                more about our Company.
+              </h2>
+              <p>
+                Whether you’re buying, renting, or selling, when you connect
+                with a Corcoran agent, you’re working with the best in the
+                business.
+              </p>
+              <button
+                className="btn btn-outline-secondary w-auto align-self-center rounded-5"
+                onClick={() => navigate("/about")}
+              >
+                About us
+              </button>
+            </div>
+            <div className="col-12 mt-3 mt-md-0 col-md-6 align-self-center">
+              <img
+                src={learnMore}
+                alt="#"
+                className=" w-100 "
+                style={{ borderRadius: "15px" }}
+              />
+            </div>
           </div>
         </div>
       </div>
       {/* footer */}
       <div className="h-25  w-100   py-5  ">
-        <div className="d-flex  container gap-5 align-items-center">
+        <div className="d-md-flex  container gap-5 align-items-center ">
           <div>
             <h2>Get in Touch</h2>
             <p>
@@ -162,14 +183,18 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="contact-info">
+          <div className="contact-info mt-5 mt-md-0 ">
             <h4>Contact Us:</h4>
             <ul className="list-unstyled">
               <li>
-                📞 <strong>Phone:</strong> +20 123 456 7890
+                📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
-              <li>
-                📧 <strong>Email:</strong> info@sakenyshokran.com
+              <li className="">
+                <span className="d-none d-lg-block">📧</span>
+                <span>
+                  <strong className="">Email:</strong>
+                  info@sakenyshokran.com
+                </span>
               </li>
               <li>
                 📍 <strong>Address:</strong> 123 Real Estate St, Cairo, Egypt

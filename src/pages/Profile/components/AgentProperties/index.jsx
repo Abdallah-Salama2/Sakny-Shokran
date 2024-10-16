@@ -40,14 +40,18 @@ export default function AgentProperties() {
           </div>
           <div>
             <div className="row ">
-              {agentProperties.map((property) => (
-                <div key={property.id} className="col-md-6 col-sm-6 mb-4 ">
-                  <AgentPropertyCard
-                    property={property}
-                    onDelete={handleDelete}
-                  />
-                </div>
-              ))}
+              {agentProperties.length > 0 ? (
+                agentProperties.map((property) => (
+                  <div key={property.id} className="col-md-6 col-sm-6 mb-4 ">
+                    <AgentPropertyCard
+                      property={property}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p>Loading properties...</p>
+              )}
             </div>
           </div>
         </div>

@@ -11,13 +11,14 @@ export default function AgentLogin({ saveDataUser }) {
 
   const [loading, setLoading] = useState(false); // State for loading spinner
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState(""); //validation for backend
-  const [errors, setErrors] = useState(""); //validation for frontend
+  const [errorMessage, setErrorMessage] = useState(""); // validation for backend
+  const [errors, setErrors] = useState(""); // validation for frontend
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     remember: false, // add remember field
   });
+
   function getData(e) {
     let data = { ...formData };
     if (e.target.name === "remember") {
@@ -27,7 +28,6 @@ export default function AgentLogin({ saveDataUser }) {
     }
     setFormData(data);
     console.log(data);
-    // set data now in formData to send it to api
   }
 
   async function submitHandler(e) {
@@ -37,14 +37,13 @@ export default function AgentLogin({ saveDataUser }) {
     if (statusError?.error) {
       setErrors(statusError?.error.details);
     } else {
-      setLoading(true); // Start loading
-
       try {
+        setLoading(true); // Start loading
         // Get CSRF token
-        const toto = await axios.get(
+        const csrfResponse = await axios.get(
           "https://y-sooty-seven.vercel.app/api/sanctum/csrf-cookie"
         );
-        console.log(toto);
+        console.log(csrfResponse);
 
         // Make login request
         const res = await axios.post(
@@ -52,7 +51,7 @@ export default function AgentLogin({ saveDataUser }) {
           formData
         );
         console.log(res.data);
-        console.log(res.data.token);
+
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.agent.name);
           localStorage.setItem("Token", res.data.token);
@@ -95,6 +94,7 @@ export default function AgentLogin({ saveDataUser }) {
 
     return schema.validate(formData, { abortEarly: true });
   }
+
   // Show loading spinner if context is loading
   if (contextLoading) {
     return (
@@ -111,19 +111,22 @@ export default function AgentLogin({ saveDataUser }) {
       id="content"
     >
       <h2>Agent Login</h2>
+
       {/* Conditionally show error message if it exists */}
       {errorMessage.length > 0 && (
         <div className="alert alert-danger">
           <strong>Error:</strong> {errorMessage}
         </div>
       )}
+
       {errors?.length > 0 &&
         errors.map((err, i) => (
           <div key={i} className="alert alert-danger">
             <strong>Error:</strong> {err.message}
           </div>
         ))}
-      <form className="form  w-75 p-1 text-center" onSubmit={submitHandler}>
+
+      <form className="form w-75 p-1 text-center" onSubmit={submitHandler}>
         <input
           className="form-control form-control-lg bg-light fs-6 mb-3"
           type="email"
@@ -139,7 +142,7 @@ export default function AgentLogin({ saveDataUser }) {
           onChange={getData}
         />
 
-        {/*  Checkbox to Remember Me */}
+        {/* Checkbox to Remember Me */}
         <div className="d-flex justify-content-between mt-4">
           <div className="form-check mb-3">
             <input
@@ -164,15 +167,18 @@ export default function AgentLogin({ saveDataUser }) {
             </Link>
           </div>
         </div>
+
         <div className="buttons-group d-flex justify-content-between">
-          <button type="submit" disabled={loading}>
-            {loading ? (
-              <ClipLoader size={20} color={"#fff"} /> // Display spinner during loading
-            ) : (
-              "Login"
-            )}
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? <ClipLoader size={20} color={"#fff"} /> : "Login"}
           </button>
-          <button onClick={() => navigate("/register")}>Register</button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </button>
         </div>
       </form>
     </div>
