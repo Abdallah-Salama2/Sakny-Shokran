@@ -76,12 +76,12 @@ export default function Inquiries() {
                         borderTopRightRadius: "15px",
                       }}
                     >
-                      Property ID: {inquiry.property.property_id}
+                      Property ID: {inquiry.property?.property_id}
                     </h5>
                     <p className="card-text p-2 fs-5 fw-bold">
                       Property:{" "}
                       <span className="text-black fs-6 fw-normal">
-                        {inquiry.property.description}
+                        {inquiry.property?.description}
                       </span>
                     </p>
                   </div>
