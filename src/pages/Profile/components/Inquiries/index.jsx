@@ -15,7 +15,7 @@ export default function Inquiries() {
       {userType === "client" && (
         <div className="row">
           {inquiries.length > 0 ? (
-            inquiries.map((inquiry) => (
+            inquiries?.map((inquiry) => (
               <div key={inquiry.inquiry_id} className="col-lg-4 col mb-4">
                 <div
                   className="d-flex flex-column justify-content-between"
@@ -97,7 +97,7 @@ export default function Inquiries() {
       {userType === "agent" && (
         <div className="row">
           {inquiries.length > 0 ? (
-            inquiries.map(
+            inquiries?.map(
               (property) =>
                 property.inquiries.length > 0 && (
                   <div

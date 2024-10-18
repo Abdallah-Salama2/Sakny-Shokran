@@ -11,15 +11,38 @@ import { ContextData } from "../../../../components/Store/API's";
 export default function AgentDetails() {
   let [properties] = useState([]); // Initialize as empty array
   const { id } = useParams();
-  const { agentDetails, loading, error } = useContext(ContextData);
+  const [agentDetails, setAgentDetails] = useState([]);
+  let token = localStorage.getItem("Token");
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  async function getAgentDetails() {
+    try {
+      const response = await axios.get(
+        `https://y-sooty-seven.vercel.app/api/api/agents/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("agent,details", response);
+      setAgentDetails(response.data.data);
+    } catch (err) {
+      console.error("Error fetching property details:", err);
+    }
+  }
+  // const { agentDetails, loading, error } = useContext(ContextData);
 
-  const agent = agentDetails[id];
-  properties = agent.properties;
-  if (!agent) return <p>No agent data available.</p>;
-  console.log(agent);
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
+
+  // const agent = agentDetails;
+  properties = agentDetails.properties;
+  // if (!agent) return <p>No agent data available.</p>;
+  console.log(agentDetails);
+
+  useEffect(() => {
+    getAgentDetails();
+  }, []);
 
   return (
     <>
@@ -27,19 +50,19 @@ export default function AgentDetails() {
         <div className="container">
           <div className="row mt-3">
             <div className="col-lg-6">
-              {agent ? (
+              {agentDetails ? (
                 <div className="user-info">
                   <div className="w-fit pe-5">
                     <img
-                      src={agent.image_url}
+                      src={agentDetails?.image_url}
                       alt="User"
                       className="img-fluid"
                     />
                   </div>
-                  <h2 className="pt-3">{agent.name}</h2>
+                  <h2 className="pt-3">{agentDetails.name}</h2>
                   <p>
                     <span className="fw-bold">Phone Number: </span>
-                    {agent.phone_number || "Not Available"}
+                    {agentDetails.phone_number || "Not Available"}
                   </p>
                   <p>
                     <span className="fw-bold">Address: </span>Cairo
@@ -86,9 +109,9 @@ export default function AgentDetails() {
       <div className="py-4">
         <div className="container">
           <div className="row">
-            <h2>Agent Properties</h2>
+            <h2>Properties</h2>
 
-            {properties.length > 0 ? (
+            {properties?.length > 0 ? (
               properties.map((property) => (
                 <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                   <Card property={property} />

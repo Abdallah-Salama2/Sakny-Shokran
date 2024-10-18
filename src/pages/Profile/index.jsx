@@ -1,15 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AgentProperties from "./components/AgentProperties"; // Make sure this component exists
 import Inquiries from "./components/Inquiries";
 import UserFavourites from "./components/UserFavourites";
 import UserInfo from "./components/UserInfo";
 import "./styles.css";
+import { UserContext } from "../../components/Store/API's/UserContext";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("info");
   const [userType, setUserType] = useState("");
+  let token = localStorage.getItem("Token");
 
+  const { fetchData } = useContext(UserContext);
   const renderContent = () => {
     switch (activeSection) {
       case "info":
@@ -32,6 +35,14 @@ const Profile = () => {
         return <p>Select a section</p>;
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      fetchData();
+    } else {
+      // setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");

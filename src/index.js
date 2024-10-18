@@ -12,42 +12,42 @@ import {
 } from "./components/Store/API's/UserContext";
 import { ClipLoader } from "react-spinners";
 
-const LoadingWrapper = ({ children }) => {
-  const { loading: userLoading, error: userError } = useUserContext();
-  const { loading: contextLoading, error: contextError } =
-    React.useContext(ContextData);
+// const LoadingWrapper = ({ children }) => {
+//   const { loading: userLoading, error: userError } = useUserContext();
+//   const { loading: contextLoading, error: contextError } =
+//     React.useContext(ContextData);
 
-  if (userLoading || contextLoading) {
-    return (
-      <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
-        <ClipLoader size={150} color={"#123abc"} loading={true} />
-        <h3>Loading Data...</h3>
-      </div>
-    );
-  }
+//   if (userLoading || contextLoading) {
+//     return (
+//       <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
+//         <ClipLoader size={150} color={"#123abc"} loading={true} />
+//         <h3>Loading Data...</h3>
+//       </div>
+//     );
+//   }
 
-  if (userError || contextError) {
-    return <div>Error: {userError || contextError}</div>;
-  }
+//   if (userError || contextError) {
+//     return <div>Error: {userError || contextError}</div>;
+//   }
 
-  return children;
-};
+//   return children;
+// };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <ContextTokenProvider>
-        <ContextDataProvider>
-          <UserProvider>
-            <LoadingWrapper>
-              <App />
-            </LoadingWrapper>
-          </UserProvider>
-        </ContextDataProvider>
-      </ContextTokenProvider>
-    </Router>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Router>
+    <ContextTokenProvider>
+      <ContextDataProvider>
+        <UserProvider>
+          {/* <LoadingWrapper> */}
+          <App />
+          {/* </LoadingWrapper> */}
+        </UserProvider>
+      </ContextDataProvider>
+    </ContextTokenProvider>
+  </Router>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

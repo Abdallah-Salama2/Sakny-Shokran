@@ -56,7 +56,7 @@ export default function Login({ saveDataUser }) {
           "https://y-sooty-seven.vercel.app/api/api/login",
           formData
         );
-        setUserInfo(res.data.user);
+        // setUserInfo(res.data.user);
         if (res.data.token) {
           localStorage.setItem("UserName", res.data.user.name);
           localStorage.setItem("userType", res.data.type);

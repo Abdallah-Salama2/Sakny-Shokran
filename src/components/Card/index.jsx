@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import Heart from "react-animated-heart";
 import axios from "axios";
-import logo from "./images/Capture.PNG";
-import { ContextToken } from "../Store/token";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "./images/Capture.PNG";
+import { ContextData } from "../Store/API's";
 
 export default function Card({ property }) {
   const [isClick, setClick] = useState(false);
-  let { token } = useContext(ContextToken);
+  let token = localStorage.getItem("Token");
   let userType = localStorage.getItem("userType");
+  const { fetchData } = useContext(ContextData);
 
   useEffect(() => {
-    setClick(property.favoriteStats === 1);
-  }, [property.favoriteStats]);
+    // console.log(property.favoriteStats);
+    setClick(property.favoriteStats);
+  }, []);
 
   const handleFavorite = async () => {
     if (!token) {
@@ -21,7 +22,8 @@ export default function Card({ property }) {
       return;
     }
     try {
-      setClick(!isClick);
+      setClick((prev) => !prev);
+
       const response = await axios.post(
         `https://y-sooty-seven.vercel.app/api/api/preferences/${property.id}`,
         {},
@@ -31,9 +33,11 @@ export default function Card({ property }) {
           },
         }
       );
+      fetchData();
 
       console.log(response.data);
     } catch (error) {
+      setClick((prev) => !prev);
       console.error("Error updating favorite status:", error);
     }
   };
@@ -103,11 +107,7 @@ export default function Card({ property }) {
           <h5 className="card-title fs-6  text-muted">
             {property.address.split(",")[0] || "Card title"}
           </h5>
-          {/* <p className="card-text  mb-1 fw-bold">
-          {property.description.length > 60
-            ? property.description.substring(0, 60) + "..."
-            : property.description || "No description"}
-        </p> */}
+
           <p className="fw-semibold small">
             {property.city} | {property.address}
           </p>
@@ -156,7 +156,12 @@ export default function Card({ property }) {
           </span>
         </p>
         {userType !== "agent" && (
-          <div onClick={handleFavorite} style={{ cursor: "pointer" }}>
+          <div
+            onClick={() => {
+              handleFavorite();
+            }}
+            style={{ cursor: "pointer" }}
+          >
             <i
               className={`fa-heart fs-4 ${isClick ? "fa-solid" : "fa-regular"}`}
               style={{

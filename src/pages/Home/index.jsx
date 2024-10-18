@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
 import { ContextData } from "../../components/Store/API's";
@@ -15,6 +15,11 @@ import "./styles.css";
 export default function Home() {
   const navigate = useNavigate();
   let { properties } = useContext(ContextData);
+  const { fetchData } = useContext(ContextData);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -34,6 +39,7 @@ export default function Home() {
             {/* {console.log("homeProps", properties)} */}
             {properties?.slice(0, 3).map((property) => (
               <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+                {/* <p>{property.favoriteStats}</p> */}
                 <Card property={property} />
               </div>
             ))}

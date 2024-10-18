@@ -39,7 +39,7 @@ function LocationMarker({ setFormData }) {
 }
 
 export default function EditProperty() {
-  let { token } = useContext(ContextToken);
+  let token = localStorage.getItem("Token");
   let { id } = useParams();
   let navigate = useNavigate();
 

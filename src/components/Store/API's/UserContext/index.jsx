@@ -5,17 +5,18 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
+
   const [agentProperties, setAgentProperties] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("Token");
   const userType = localStorage.getItem("userType");
 
   const fetchData = async () => {
     try {
+      const token = localStorage.getItem("Token");
       const [userInfoRes, agentPropertiesRes, favoritesRes, inquiriesRes] =
         await Promise.all([
           axios.get("https://y-sooty-seven.vercel.app/api/api/loggedInUser", {
@@ -64,13 +65,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      fetchData();
-    } else {
-      setLoading(false);
-    }
-  }, [token]);
   // Logout function to clear state and localStorage
   const logout = () => {
     setUserInfo(null);
@@ -93,6 +87,7 @@ export const UserProvider = ({ children }) => {
         error,
         logout,
         setUserInfo,
+        fetchData,
       }}
     >
       {children}

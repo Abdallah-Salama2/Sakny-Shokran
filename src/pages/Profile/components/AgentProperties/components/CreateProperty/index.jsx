@@ -40,7 +40,6 @@ function LocationMarker({ setFormData }) {
 }
 
 export default function CreateProperty() {
-  let { token } = useContext(ContextToken);
   let navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -69,6 +68,7 @@ export default function CreateProperty() {
   }
 
   function submitHandler(e) {
+    let token = localStorage.getItem("Token");
     e.preventDefault();
 
     axios
@@ -100,7 +100,7 @@ export default function CreateProperty() {
             status: "",
             type: "",
           });
-          navigate("/home");
+          navigate("/profile");
         }
       })
       .catch((err) => {

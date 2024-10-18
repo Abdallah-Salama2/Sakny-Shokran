@@ -5,6 +5,7 @@ export default function UserInfo() {
   const { userInfo, loading } = useUserContext();
   console.log(userInfo);
 
+  // function get
   return (
     <>
       {!loading ? (

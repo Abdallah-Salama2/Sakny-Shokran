@@ -6,7 +6,7 @@ import "./styles.css";
 
 export default function AgentPropertyCard({ property, onDelete }) {
   const [isDeleting, setIsDeleting] = useState(false); // Track deletion state
-  let { token } = useContext(ContextToken);
+  let token = localStorage.getItem("Token");
 
   // Function to delete property with confirmation
   const deleteProperty = async () => {
