@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import logo from "../../components/Card/images/Capture.PNG";
 import AgentCard from "../Agents//components/Agents Card";
@@ -33,15 +33,22 @@ export default function PropertyDetails() {
     }
   };
 
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
-
   const [formData, setFormData] = useState({
     email: "",
     phone_number: "",
     message: "",
     contact_type: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
+
+  const modalRef = useRef();
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => {
+    setShowModal(false);
+    setSuccessMessage(""); // Reset success message when closing
+  };
 
   const getData = (e) => {
     setFormData({
@@ -65,6 +72,10 @@ export default function PropertyDetails() {
       )
       .then((res) => {
         console.log(res);
+        setSuccessMessage("Inquiry sent successfully!"); // Set success message
+        setTimeout(() => {
+          handleClose(); // Close modal after 3 seconds
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -74,6 +85,24 @@ export default function PropertyDetails() {
   useEffect(() => {
     getPropertyDetails();
   }, [id]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        handleClose();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showModal]);
 
   return (
     <div className="container">
@@ -171,17 +200,22 @@ export default function PropertyDetails() {
           {showModal && (
             <div className="modal show d-block" tabIndex="-1" role="dialog">
               <div className="modal-dialog d-flex justify-content-center">
-                <div className="modal-content w-75">
+                <div className="modal-content w-75" ref={modalRef}>
                   <div className="modal-header">
                     <h5 className="modal-title">Write to us</h5>
                     <button
                       type="button"
-                      className="btn-close"
+                      className="btn-close btn btn-primary"
                       onClick={handleClose}
                       aria-label="Close"
-                    ></button>
+                    >X</button>
                   </div>
                   <div className="modal-body p-4">
+                  {successMessage ? ( // Display success message if available
+                  <div className="alert alert-success">
+                    {successMessage}
+                  </div>
+                ) : (
                     <form onSubmit={handleSubmit}>
                       <div className="mb-4">
                         <label className="form-label" htmlFor="contact">
@@ -242,6 +276,7 @@ export default function PropertyDetails() {
                         Send
                       </button>
                     </form>
+                     )}
                   </div>
                 </div>
               </div>
