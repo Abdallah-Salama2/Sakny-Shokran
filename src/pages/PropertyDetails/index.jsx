@@ -94,13 +94,13 @@ export default function PropertyDetails() {
     };
 
     if (showModal) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showModal]);
 
@@ -208,75 +208,123 @@ export default function PropertyDetails() {
                       className="btn-close btn btn-primary"
                       onClick={handleClose}
                       aria-label="Close"
-                    >X</button>
+                    >
+                      X
+                    </button>
                   </div>
                   <div className="modal-body p-4">
-                  {successMessage ? ( // Display success message if available
-                  <div className="alert alert-success">
-                    {successMessage}
-                  </div>
-                ) : (
-                    <form onSubmit={handleSubmit}>
-                      <div className="mb-4">
-                        <label className="form-label" htmlFor="contact">
-                          Contact Type
-                        </label>
-                        <input
-                          type="text"
-                          id="contact"
-                          className="form-control"
-                          name="contact_type"
-                          onChange={getData}
-                        />
+                    {successMessage ? ( // Display success message if available
+                      <div className="alert alert-success">
+                        {successMessage}
                       </div>
+                    ) : (
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                          <label className="form-label" htmlFor="contact">
+                            Contact Type
+                          </label>
+                          <div>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="contact_type"
+                                id="contactPhone"
+                                value="phone"
+                                onChange={getData}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="contactPhone"
+                              >
+                                Phone
+                              </label>
+                            </div>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="contact_type"
+                                id="contactEmail"
+                                value="email"
+                                onChange={getData}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="contactEmail"
+                              >
+                                Email
+                              </label>
+                            </div>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="contact_type"
+                                id="contactText"
+                                value="text"
+                                onChange={getData}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="contactText"
+                              >
+                                Text
+                              </label>
+                            </div>
+                          </div>
+                        </div>
 
-                      <div className="mb-4">
-                        <label className="form-label" htmlFor="phone">
-                          Phone
-                        </label>
-                        <input
-                          type="text"
-                          id="phone"
-                          className="form-control"
-                          name="phone_number"
-                          onChange={getData}
-                        />
-                      </div>
+                        <div className="mb-4">
+                          <label className="form-label" htmlFor="phone">
+                            Phone
+                          </label>
+                          <input
+                            type="text"
+                            id="phone"
+                            className="form-control"
+                            name="phone_number"
+                            onChange={getData}
+                          />
+                        </div>
 
-                      <div className="mb-4">
-                        <label className="form-label" htmlFor="email4">
-                          Email address
-                        </label>
-                        <input
-                          type="email"
-                          id="email4"
-                          className="form-control"
-                          name="email"
-                          onChange={getData}
-                        />
-                      </div>
+                        <div className="mb-4">
+                          <label className="form-label" htmlFor="email4">
+                            Email address
+                          </label>
+                          <input
+                            type="email"
+                            id="email4"
+                            className="form-control"
+                            name="email"
+                            onChange={getData}
+                          />
+                        </div>
 
-                      <div className="mb-4">
-                        <label className="form-label" htmlFor="textarea4">
-                          Your message
-                        </label>
-                        <textarea
-                          name="message"
-                          id="textarea4"
-                          rows="4"
-                          className="form-control"
-                          onChange={getData}
-                        ></textarea>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-block"
-                      >
-                        Send
-                      </button>
-                    </form>
-                     )}
+                        <div className="mb-4">
+                          <label className="form-label" htmlFor="textarea4">
+                            Your message
+                          </label>
+                          <textarea
+                            name="message"
+                            id="textarea4"
+                            rows="4"
+                            className="form-control"
+                            onChange={getData}
+                          ></textarea>
+                        </div>
+                        {token ? (
+                          <button
+                            type="submit"
+                            className="btn btn-primary btn-block"
+                          >
+                            Send
+                          </button>
+                        ) : (
+                          <p className="text-danger text-center">Login First</p>
+                        )}
+                      </form>
+                    )}
                   </div>
                 </div>
               </div>

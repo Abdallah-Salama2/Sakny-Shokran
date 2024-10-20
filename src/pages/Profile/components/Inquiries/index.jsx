@@ -13,12 +13,12 @@ export default function Inquiries() {
   return (
     <>
       {userType === "client" && (
-        <div className="row  gap-5 ">
+        <div className="row  flex-wrap justify-content-start ">
           {inquiries.length > 0 ? (
             inquiries?.map((inquiry) => (
               <div
                 key={inquiry.inquiry_id}
-                className="col-lg-3 col-sm-6 col-12 col mb-4"
+                className="col-6 col-md-6 col-xl-4  mb-4"
               >
                 <div
                   className="d-flex flex-column justify-content-between"
@@ -105,7 +105,7 @@ export default function Inquiries() {
                 property.inquiries.length > 0 && (
                   <div
                     key={property.property_id}
-                    className="col-lg-3 col-sm-6 col mb-4"
+                    className="col-6 col-md-6 col-xl-4  mb-4"
                   >
                     <Link
                       to={`/inquiries/${property.property_id}`}
