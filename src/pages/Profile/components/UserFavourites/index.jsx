@@ -23,10 +23,7 @@ export default function UserFavourites() {
         ) : favorites.length > 0 ? (
           <div className="row">
             {favorites.map((property) => (
-              <div
-                key={property.id}
-                className="col-lg-3 col-md-4 col-sm-6 mb-4"
-              >
+              <div key={property.id} className="col-6 col-md-6 col-xl-4  mb-4">
                 <Card property={property} />
               </div>
             ))}
