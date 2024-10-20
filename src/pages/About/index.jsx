@@ -155,6 +155,7 @@ const About = () => {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Facebook}
                       alt="Facebook"
                       className="img-fluid"
@@ -169,6 +170,7 @@ const About = () => {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={X}
                       alt="Twitter"
                       className="img-fluid"
@@ -183,6 +185,7 @@ const About = () => {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Instagram}
                       alt="Instagram"
                       className="img-fluid"
@@ -197,6 +200,7 @@ const About = () => {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={LinkedIn}
                       alt="LinkedIn"
                       className="img-fluid"

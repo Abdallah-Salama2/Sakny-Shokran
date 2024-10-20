@@ -157,6 +157,7 @@ export default function PropertyImage() {
               images.map((image) => (
                 <div key={image.id} className="w-25">
                   <img
+                    loading="lazy"
                     src={image.image_url}
                     alt={`Property ${id}`}
                     className="w-100"

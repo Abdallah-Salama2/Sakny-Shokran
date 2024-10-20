@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../../../components/Store/API's/UserContext";
 
 export default function Inquiries() {
-  const { inquiries, isLoading } = useUserContext();
+  const { inquiries, loading } = useUserContext();
   let userType = localStorage.getItem("userType");
 
-  if (isLoading) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 
@@ -16,7 +16,10 @@ export default function Inquiries() {
         <div className="row">
           {inquiries.length > 0 ? (
             inquiries?.map((inquiry) => (
-              <div key={inquiry.inquiry_id} className="col-lg-4 col mb-4">
+              <div
+                key={inquiry.inquiry_id}
+                className="col-lg-3 col-md-4 col-sm-6 col-12 col mb-4"
+              >
                 <div
                   className="d-flex flex-column justify-content-between"
                   style={{
@@ -102,7 +105,7 @@ export default function Inquiries() {
                 property.inquiries.length > 0 && (
                   <div
                     key={property.property_id}
-                    className="col-md-4  col-sm-6 mb-4"
+                    className="col-lg-3 col-md-4 col-sm-6 col-12 col mb-4"
                   >
                     <Link
                       to={`/inquiries/${property.property_id}`}

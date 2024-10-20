@@ -1,31 +1,31 @@
-import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import "./App.css";
 import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "./App.css";
 import { Navbar } from "./components";
-import { Home, Login, Register, Buy, Agents, About } from "./pages";
-import axios from "axios";
+import { ContextData } from "./components/Store/API's";
+import { useUserContext } from "./components/Store/API's/UserContext";
+import { About, Agents, Buy, Home, Login, Register } from "./pages";
+import AgentLogin from "./pages/AgentLogin";
+import AgentDetails from "./pages/Agents/components/AgentDetails";
 import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
-import AgentLogin from "./pages/AgentLogin";
 import User from "./pages/Profile";
-import PropertyDetails from "./pages/PropertyDetails";
-import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
 import CreateProperty from "./pages/Profile/components/AgentProperties/components/CreateProperty";
 import EditProperty from "./pages/Profile/components/AgentProperties/components/EditProperty";
 import PropertyImage from "./pages/Profile/components/AgentProperties/components/PropertyImage";
-import AgentDetails from "./pages/Agents/components/AgentDetails";
-import { useUserContext } from "./components/Store/API's/UserContext";
-import { ContextData } from "./components/Store/API's";
-import { ClipLoader } from "react-spinners";
+import PropertInquiries from "./pages/Profile/components/PropertyInquiries";
+import PropertyDetails from "./pages/PropertyDetails";
 
 export default function App() {
   let navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const { logout: userLogout } = useUserContext();
   const { logout: contextLogout } = useContext(ContextData);
+  const [loading, setLoading] = useState(false); // State for loading spinner
 
   function saveDataUser() {
     let token = localStorage.getItem("Token");
@@ -44,6 +44,8 @@ export default function App() {
   }, []);
 
   function logout() {
+    setLoading(true); // Start loading
+
     const token = localStorage.getItem("Token");
 
     console.log(token);
@@ -63,35 +65,16 @@ export default function App() {
         userLogout();
         contextLogout();
         navigate("/login");
+        setLoading(false); // End loading
       })
       .catch((error) => {
         console.error("Logout error", error);
       });
   }
 
-  // const LoadingWrapper = ({ children }) => {
-  //   const { loading: userLoading, error: userError } = useUserContext();
-  //   const { loading: contextLoading, error: contextError } =
-  //     React.useContext(ContextData);
-
-  //   if (userLoading || contextLoading) {
-  //     return (
-  //       <div className="spinner-container d-flex flex-column justify-content-center align-items-center vh-100">
-  //         <ClipLoader size={150} color={"#123abc"} loading={true} />
-  //         <h3>Loading Data...</h3>
-  //       </div>
-  //     );
-  //   }
-
-  //   if (userError || contextError) {
-  //     return <div>Error: {userError || contextError}</div>;
-  //   }
-
-  //   return children;
-  // };
   return (
     <div>
-      <Navbar userData={userData} logout={logout} />
+      <Navbar userData={userData} logout={logout} loading={loading} />
       <Routes>
         <Route path="*" element={<h1>Element Not Found</h1>}></Route>
         <Route path="" element={<Home />}></Route>

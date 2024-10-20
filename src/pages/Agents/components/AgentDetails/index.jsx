@@ -1,20 +1,23 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../../../../components/Card";
 import Facebook from "./images/icons/facebookLogo.png";
 import Instagram from "./images/icons/instagramLogo.png";
 import LinkedIn from "./images/icons/LinkedIn.png";
 import X from "./images/icons/X_logo-black.png";
-import { ContextData } from "../../../../components/Store/API's";
+import Skeleton from "react-loading-skeleton";
+import CardSkeleton from "../../../../components/Card/CardSkeleton";
 
 export default function AgentDetails() {
-  let [properties] = useState([]); // Initialize as empty array
   const { id } = useParams();
-  const [agentDetails, setAgentDetails] = useState([]);
-  let token = localStorage.getItem("Token");
+  const [agentDetails, setAgentDetails] = useState(null);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("Token");
 
   async function getAgentDetails() {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://y-sooty-seven.vercel.app/api/api/agents/${id}`,
@@ -24,45 +27,45 @@ export default function AgentDetails() {
           },
         }
       );
-      console.log("agent,details", response);
       setAgentDetails(response.data.data);
+      setProperties(response.data.data.properties); // Update properties from agentDetails
     } catch (err) {
-      console.error("Error fetching property details:", err);
+      console.error("Error fetching agent details:", err);
     }
+    setLoading(false);
   }
-  // const { agentDetails, loading, error } = useContext(ContextData);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
-
-  // const agent = agentDetails;
-  properties = agentDetails.properties;
-  // if (!agent) return <p>No agent data available.</p>;
-  console.log(agentDetails);
 
   useEffect(() => {
     getAgentDetails();
-  }, []);
+  }, [id]); // Added id as dependency
 
   return (
     <>
+      {/* Agent Details Section */}
       <div className="offwhite py-4">
         <div className="container">
           <div className="row mt-3">
             <div className="col-lg-6">
-              {agentDetails ? (
+              {loading ? (
+                <Skeleton height={500} />
+              ) : agentDetails ? (
                 <div className="user-info">
                   <div className="w-fit pe-5">
                     <img
-                      src={agentDetails?.image_url}
-                      alt="User"
+                      loading="lazy"
+                      src={
+                        agentDetails?.image_url || "/path/to/default-image.jpg"
+                      }
+                      alt={agentDetails?.name || "Agent Image"}
                       className="img-fluid"
                     />
                   </div>
-                  <h2 className="pt-3">{agentDetails.name}</h2>
+                  <h2 className="pt-3">
+                    {agentDetails?.name || "Name Not Available"}
+                  </h2>
                   <p>
                     <span className="fw-bold">Phone Number: </span>
-                    {agentDetails.phone_number || "Not Available"}
+                    {agentDetails?.phone_number || "Not Available"}
                   </p>
                   <p>
                     <span className="fw-bold">Address: </span>Cairo
@@ -71,19 +74,22 @@ export default function AgentDetails() {
                   <div className="info d-flex gap-5">
                     <div className="lang d-flex flex-column">
                       <strong>Languages</strong>
-                      <span>English</span>
+                      <span>
+                        {agentDetails?.languages?.join(", ") || "English"}
+                      </span>
                     </div>
                     <div className="licens d-flex flex-column">
                       <strong>Licenses</strong>
-                      <span>CA 01380025</span>
+                      <span>{agentDetails?.license || "Not Available"}</span>
                     </div>
                   </div>
                 </div>
               ) : (
-                <p>Loading...</p>
+                <p>No agent details available.</p>
               )}
             </div>
 
+            {/* About Section */}
             <div className="mt-5 mt-lg-0 col-lg-6">
               <div className="header">
                 <h1>Sakny Shokran Group</h1>
@@ -106,32 +112,38 @@ export default function AgentDetails() {
         </div>
       </div>
 
+      {/* Properties Section */}
       <div className="py-4">
         <div className="container">
           <div className="row">
             <h2>Properties</h2>
 
-            {properties?.length > 0 ? (
+            {loading ? ( // Show loading message while properties are being fetched
+              Array(3)
+                .fill()
+                .map((_, index) => <CardSkeleton key={index} />)
+            ) : properties?.length > 0 ? (
               properties.map((property) => (
                 <div key={property.id} className="col-md-4 col-sm-6 mb-4">
                   <Card property={property} />
                 </div>
               ))
             ) : (
-              <p>Loading properties...</p>
+              <p>No properties available.</p>
             )}
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="h-25  w-100 bg-light  py-5  ">
-        <div className="d-md-flex  container gap-5 align-items-center">
+      {/* Footer Section */}
+      <div className="h-25 w-100 bg-light py-5">
+        <div className="d-md-flex container gap-5 align-items-center">
           <div>
             <h2>Get in Touch</h2>
             <p>
               Whether you’re looking to buy, sell, or invest in real estate,
-              Sakeny-Shokran is here to help. <br />
+              Sakeny-Shokran is here to help.
+              <br />
               Contact us today to learn more about how we can assist you in your
               real estate journey.
             </p>
@@ -144,6 +156,7 @@ export default function AgentDetails() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Facebook}
                       alt="Facebook"
                       className="img-fluid"
@@ -158,8 +171,9 @@ export default function AgentDetails() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={X}
-                      alt="Twitter"
+                      alt="X (formerly Twitter)"
                       className="img-fluid"
                       style={{ width: "30px", height: "30px" }}
                     />
@@ -172,6 +186,7 @@ export default function AgentDetails() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Instagram}
                       alt="Instagram"
                       className="img-fluid"
@@ -186,6 +201,7 @@ export default function AgentDetails() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={LinkedIn}
                       alt="LinkedIn"
                       className="img-fluid"
@@ -196,16 +212,16 @@ export default function AgentDetails() {
               </ul>
             </div>
           </div>
-          <div className="contact-info mt-5 mt-md-0 ">
+
+          <div className="contact-info mt-5 mt-md-0">
             <h4>Contact Us:</h4>
             <ul className="list-unstyled">
               <li>
                 📞 <strong className="fs-6">Phone:</strong> +20 123 456 7890
               </li>
-              <li className="">
+              <li>
                 <span>
-                  <strong className="">📧 Email:</strong>
-                  info@sakenyshokran.com
+                  <strong>📧 Email:</strong> info@sakenyshokran.com
                 </span>
               </li>
               <li>

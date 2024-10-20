@@ -1,0 +1,26 @@
+.card-title {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .card-footer {
+    background-color: #f1f1f1;
+  }
+  
+  .text-primary {
+    text-decoration: none;
+  }
+  
+  .text-primary:hover {
+    text-decoration: underline;
+  }
+  
+  .btn-link {
+    text-decoration: none;
+  }
+  
+  .badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  

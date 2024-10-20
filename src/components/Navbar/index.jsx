@@ -1,10 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NavLink from "./components/NavLink";
 import Logo from "./images/Logo.png";
 import "./styles.css";
+import { ClipLoader } from "react-spinners";
 
 let navLinks = [
+  { name: "", path: "" },
   { name: "Home", path: "" },
   { name: "Buy", path: "buy" },
   { name: "Rent", path: "rent" },
@@ -12,30 +14,24 @@ let navLinks = [
   { name: "About", path: "about" },
 ];
 
-export default function Navbar({ userData, logout }) {
-  const [userType, setuserType] = useState("");
+export default function Navbar({ userData, logout, loading }) {
+  const [userType, setUserType] = useState("");
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
-  const handleRegisterClick = () => {
-    navigate("/register");
-  };
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
-    // console.log(storedUserType);
     if (storedUserType) {
-      setuserType(storedUserType);
+      setUserType(storedUserType);
     }
   }, []);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-body rounded z-3">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         {/* Logo */}
         <Link className="navbar-brand col-6 col-md-3" to="/">
           <img
+            loading="lazy"
             src={Logo}
             alt="Logo"
             className="img-fluid object-fit-contain"
@@ -77,11 +73,12 @@ export default function Navbar({ userData, logout }) {
 
           {/* Sign In / Join Now Section */}
           <div className="d-flex justify-content-center ">
+            {/* in case not logged in/ */}
             {userData == null ? (
               <>
                 <button
                   className="btn btn-outline-secondary me-2"
-                  onClick={handleRegisterClick}
+                  onClick={() => navigate("/register")}
                 >
                   Join now
                 </button>
@@ -89,7 +86,7 @@ export default function Navbar({ userData, logout }) {
                   <button
                     type="button"
                     className="btn btn-outline-primary"
-                    onClick={handleLoginClick}
+                    onClick={() => navigate("/login")}
                   >
                     Sign In
                   </button>
@@ -117,6 +114,7 @@ export default function Navbar({ userData, logout }) {
               </>
             ) : (
               <>
+                {/* User Name & Info */}
                 <div className="dropdown">
                   <button
                     className="border-0 bg-transparent dropdown-toggle pt-2 pe-3"
@@ -141,8 +139,23 @@ export default function Navbar({ userData, logout }) {
                     {userType === "agent" && <></>}
                   </ul>
                 </div>
-                <button className="btn btn-outline-danger" onClick={logout}>
-                  Logout
+                {/* Logout */}
+                <button
+                  className="btn btn-outline-danger "
+                  disabled={loading}
+                  onClick={() => logout()}
+                >
+                  {loading ? (
+                    <div className="d-flex justify-content-center align-items-center">
+                      {/* <p className="me-2 d-block">Logging out</p> */}
+                      <span>
+                        <ClipLoader size={20} color={"red"} />{" "}
+                      </span>
+                      {/* Display spinner during loading */}
+                    </div>
+                  ) : (
+                    "Logout"
+                  )}
                 </button>
               </>
             )}

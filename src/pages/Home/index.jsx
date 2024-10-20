@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
+import CardSkeleton from "../../components/Card/CardSkeleton";
 import { ContextData } from "../../components/Store/API's";
 import SearchCard from "./comoponents/SearchCard";
 import homeImage from "./images/HomeImage.png";
@@ -14,11 +15,16 @@ import "./styles.css";
 
 export default function Home() {
   const navigate = useNavigate();
-  let { properties } = useContext(ContextData);
+  let { properties, loading } = useContext(ContextData);
   const { fetchData } = useContext(ContextData);
 
   useEffect(() => {
-    fetchData();
+    let token = localStorage.getItem("Token");
+    if (token) {
+      fetchData();
+    } else {
+      fetchData();
+    }
   }, []);
 
   return (
@@ -32,17 +38,20 @@ export default function Home() {
         </div>
       </section>
 
-      <div className=" py-5  offwhite">
+      <div className="py-5 offwhite">
         <div className="container">
           <h1>Featured Listings</h1>
-          <div className="row pt-5 ">
-            {/* {console.log("homeProps", properties)} */}
-            {properties?.slice(0, 3).map((property) => (
-              <div key={property.id} className="col-md-4 col-sm-6 mb-4">
-                {/* <p>{property.favoriteStats}</p> */}
-                <Card property={property} />
-              </div>
-            ))}
+          <div className="row pt-5">
+            {loading
+              ? Array(3)
+                  .fill()
+                  .map((_, index) => <CardSkeleton key={index} />)
+              : properties?.slice(0, 3).map((property) => (
+                  <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+                    {/* {property.favoriteStats} */}
+                    <Card property={property} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>
@@ -118,6 +127,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       {/* footer */}
       <div className="h-25  w-100   py-5  ">
         <div className="d-lg-flex  container gap-5 align-items-center">
@@ -138,6 +148,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Facebook}
                       alt="Facebook"
                       className="img-fluid"
@@ -152,6 +163,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={X}
                       alt="Twitter"
                       className="img-fluid"
@@ -166,6 +178,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={Instagram}
                       alt="Instagram"
                       className="img-fluid"
@@ -180,6 +193,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <img
+                      loading="lazy"
                       src={LinkedIn}
                       alt="LinkedIn"
                       className="img-fluid"

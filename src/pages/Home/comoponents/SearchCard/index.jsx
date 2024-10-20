@@ -141,6 +141,7 @@ export default function SearchCard() {
                         {result.name} - <span />
                         {result.image_url ? (
                           <img
+                            loading="lazy"
                             src={result.image_url}
                             alt="Preview"
                             className="me-2"
@@ -155,6 +156,7 @@ export default function SearchCard() {
                         {/* Render preview image if available */}
                         {result.preview_image_url ? (
                           <img
+                            loading="lazy"
                             src={result.preview_image_url.filename}
                             alt="Preview"
                             className="me-2"

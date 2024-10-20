@@ -19,18 +19,13 @@ const PasswordInput = ({ placeholder, name, onChange, required }) => {
         onChange={onChange}
         required={required}
       />
-      {/* <button
-        type="button"
-        className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600"
-        onClick={togglePasswordVisibility}
-      > */}
+
       <FontAwesomeIcon
         icon={showPassword ? faEyeSlash : faEye}
         className="h-5 w-5 position-absolute end-0 pe-3 translate-middle-y top-50 "
         style={{ cursor: "pointer" }}
         onClick={togglePasswordVisibility}
       />
-      {/* </button> */}
     </div>
   );
 };

@@ -3,13 +3,13 @@ import Joi from "joi";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import "./styles.css";
+import PasswordInput from "../../components/PasswordInput";
 import { ContextData } from "../../components/Store/API's";
 import {
   UserContext,
   useUserContext,
 } from "../../components/Store/API's/UserContext";
-import PasswordInput from "../../components/PasswordInput";
+import "./styles.css";
 
 export default function Login({ saveDataUser }) {
   const { fetchData: fetchDataFromContextData } = useContext(ContextData);
@@ -62,10 +62,10 @@ export default function Login({ saveDataUser }) {
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
-
-          // await Promise.all([
-          //   fetchDataFromContextData(),
-          //   fetchDataFromUserContext(),
+          fetchDataFromContextData();
+          // fetchDataFromUserContext();
+          //  Promise.all([
+          //   // fetchDataFromUserContext(),
           // ]);
 
           navigate("/home");

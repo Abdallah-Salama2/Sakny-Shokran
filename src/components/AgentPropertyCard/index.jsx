@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
 import axios from "axios";
-import { ContextToken } from "../Store/token";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
@@ -46,7 +45,10 @@ export default function AgentPropertyCard({ property, onDelete }) {
       setIsDeleting(false); // Reset loading state
     }
   };
+
+  //UI rendering
   return (
+    // container
     <div className="d-flex  gap-2 align-items-center border rounded px-2">
       <div className="d-flex align-items-center gap-2">
         <div className="d-flex flex-column  gap-1 py-2">

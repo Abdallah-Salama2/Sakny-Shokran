@@ -12,7 +12,6 @@ export const ContextDataProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   let token = localStorage.getItem("Token");
-  let userData = localStorage.getItem("userType");
 
   const getData = async (type, callback) => {
     try {
@@ -39,12 +38,16 @@ export const ContextDataProvider = ({ children }) => {
     setError(null);
 
     try {
-      await Promise.all([
-        token
-          ? getData("properties", setProperties)
-          : getData("home/properties", setProperties),
-        getData("agents", setAgents),
-      ]);
+      if (token) {
+        // First fetch properties if token exists
+        await getData("properties", setProperties);
+      } else {
+        // Fetch home properties if token does not exist
+        await getData("home/properties", setProperties);
+      }
+
+      // Then fetch agents
+      await getData("agents", setAgents);
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Failed to fetch data");
@@ -53,20 +56,27 @@ export const ContextDataProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   // Logout function for context data
   const logout = () => {
     setProperties([]);
     setAgents([]);
   };
+
   return (
     <ContextData.Provider
       value={{
         properties,
+        setProperties,
         agents,
 
         loading,
         error,
         logout,
+        getData,
         fetchData,
       }}
     >
@@ -74,6 +84,7 @@ export const ContextDataProvider = ({ children }) => {
     </ContextData.Provider>
   );
 };
+
 // const getPropertyDetails = async (id) => {
 //   try {
 //     const response = await axios.get(`${Base_Api_Url}/properties/${id}`, {

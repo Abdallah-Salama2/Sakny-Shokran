@@ -40,6 +40,7 @@ const PropertyFilter = ({ onFilter }) => {
     });
   };
 
+  //UI
   return (
     <form onSubmit={handleSubmit} className="mb-3">
       <div className="row g-2 pt-2   ">

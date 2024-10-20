@@ -16,6 +16,8 @@ export const UserProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
+      // setLoading(true);
+
       const token = localStorage.getItem("Token");
       const [userInfoRes, agentPropertiesRes, favoritesRes, inquiriesRes] =
         await Promise.all([
@@ -57,6 +59,7 @@ export const UserProvider = ({ children }) => {
           ? inquiriesRes.data.inquiries
           : inquiriesRes.data.properties
       );
+      // setLoading(false);
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Failed to fetch user data");
@@ -88,6 +91,7 @@ export const UserProvider = ({ children }) => {
         logout,
         setUserInfo,
         fetchData,
+        setLoading,
       }}
     >
       {children}

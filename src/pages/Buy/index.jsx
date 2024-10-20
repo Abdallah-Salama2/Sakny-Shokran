@@ -8,6 +8,9 @@ import Card from "../../components/Card/index";
 import PropertyFilter from "../../components/PropertyFilter";
 import { ContextData } from "../../components/Store/API's";
 import "./styles.css";
+import CardSkeleton from "../../components/Card/CardSkeleton";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css"; // Import skeleton CSS
 
 // Define custom icon with proper image paths
 const customIcon = new L.Icon({
@@ -26,13 +29,21 @@ export default function Buy() {
   const [mapVisible, setMapVisible] = useState(false); // State to control map visibility
   let [Loading, setLoading] = useState(true);
   let { properties } = useContext(ContextData);
-  // properties = properties.data;
+
+  const MapSkeleton = () => {
+    return (
+      <div className="map-skeleton">
+        <Skeleton height={`calc(100vh - 90px)`} /> {/* Map placeholder */}
+      </div>
+    );
+  };
+
   useEffect(() => {
     if (properties && properties.length) {
       setFilteredProperties(properties);
       setLoading(false);
     }
-  }, [properties, Loading]);
+  }, [properties]);
 
   // Filtering function
   const handleFilter = (filterCriteria) => {
@@ -96,7 +107,9 @@ export default function Buy() {
           </div>
 
           {Loading ? (
-            <div>Loading map...</div>
+            <div className=" col-lg-5 zero-padd">
+              <MapSkeleton />
+            </div>
           ) : (
             <>
               {(mapVisible || window.innerWidth >= 992) && (
@@ -131,7 +144,7 @@ export default function Buy() {
             </>
           )}
 
-          <div className="col-lg-7 zero-padd ">
+          <div className="col-lg-7 zero-padd">
             <div
               className="border ps-lg-2 card-height"
               style={{ overflowX: "hidden" }}
@@ -141,12 +154,20 @@ export default function Buy() {
                 <PropertyFilter onFilter={handleFilter} />
               </div>
               <div className="row pe-3">
-                {/* Display filtered properties in the list */}
-                {filteredProperties.map((property) => (
-                  <div key={property.id} className="col-md-4 col-sm-6 mb-4">
-                    <Card property={property} />
-                  </div>
-                ))}
+                {/* Conditional rendering for skeleton and properties */}
+                {Loading
+                  ? Array(6)
+                      .fill()
+                      .map((_, index) => (
+                        <div key={index} className="col-md-4 col-sm-6 mb-4">
+                          <CardSkeleton />
+                        </div>
+                      ))
+                  : filteredProperties.map((property) => (
+                      <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+                        <Card property={property} />
+                      </div>
+                    ))}
               </div>
             </div>
           </div>

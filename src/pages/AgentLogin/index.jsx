@@ -67,7 +67,7 @@ export default function AgentLogin({ saveDataUser }) {
           // await fetchDataFromUserContext();
           // await fetchDataFromContextData();
           saveDataUser();
-          fetchData();
+          // fetchData();
           navigate("/profile");
         } else {
           setErrorMessage("Login failed, False Credentials");

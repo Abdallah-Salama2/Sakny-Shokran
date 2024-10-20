@@ -10,9 +10,7 @@ import { UserContext } from "../../components/Store/API's/UserContext";
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("info");
   const [userType, setUserType] = useState("");
-  let token = localStorage.getItem("Token");
 
-  const { fetchData } = useContext(UserContext);
   const renderContent = () => {
     switch (activeSection) {
       case "info":
@@ -35,14 +33,6 @@ const Profile = () => {
         return <p>Select a section</p>;
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      fetchData();
-    } else {
-      // setLoading(false);
-    }
-  }, []);
 
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
@@ -88,15 +78,17 @@ const Profile = () => {
                 My Properties
               </li>
             )}
-            <li
-              className={` col-md-12 list-group-item ${
-                activeSection === "inquiries" ? "active" : ""
-              }`}
-              onClick={() => setActiveSection("inquiries")}
-              style={{ cursor: "pointer" }}
-            >
-              Inquiries
-            </li>
+            {userType && (
+              <li
+                className={` col-md-12 list-group-item ${
+                  activeSection === "inquiries" ? "active" : ""
+                }`}
+                onClick={() => setActiveSection("inquiries")}
+                style={{ cursor: "pointer" }}
+              >
+                Inquiries
+              </li>
+            )}
           </ul>
         </div>
 
