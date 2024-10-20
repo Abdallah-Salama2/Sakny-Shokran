@@ -164,7 +164,10 @@ export default function Buy() {
                         </div>
                       ))
                   : filteredProperties.map((property) => (
-                      <div key={property.id} className="col-md-4 col-sm-6 mb-4">
+                      <div
+                        key={property.id}
+                        className="col-lg-6 col-xxl-4 col-md-4 col mb-4"
+                      >
                         <Card property={property} />
                       </div>
                     ))}
