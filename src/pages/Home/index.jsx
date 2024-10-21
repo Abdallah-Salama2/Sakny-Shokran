@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
 import CardSkeleton from "../../components/Card/CardSkeleton";
@@ -16,16 +16,16 @@ import "./styles.css";
 export default function Home() {
   const navigate = useNavigate();
   let { properties, loading } = useContext(ContextData);
-  const { fetchData } = useContext(ContextData);
+  const { fetchAuthProps, fetchData } = useContext(ContextData);
 
   useEffect(() => {
     let token = localStorage.getItem("Token");
     if (token) {
-      fetchData();
+      fetchAuthProps();
     } else {
       fetchData();
     }
-  }, []);
+  }, []); // Empty dependency array
 
   return (
     <>
