@@ -10,7 +10,7 @@ export default function UserInfo() {
     if (token) {
       fetchData();
     }
-  }, [token, fetchData]);
+  }, []);
 
   if (!token && !loading) {
     return <p>No User Found</p>;

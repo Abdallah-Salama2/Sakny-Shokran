@@ -30,7 +30,10 @@ export default function AgentProperties() {
         ) : filteredProperties.length > 0 ? (
           <div className="row">
             {filteredProperties.map((property) => (
-              <div key={property.id} className="col-md-6 col-sm-6 mb-4">
+              <div
+                key={property.id}
+                className="col-xl-6 col-md-12 col-sm-6 mb-4"
+              >
                 <AgentPropertyCard
                   property={property}
                   onDelete={handleDelete}

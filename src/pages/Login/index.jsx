@@ -62,7 +62,7 @@ export default function Login({ saveDataUser }) {
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("Token", res.data.token);
           saveDataUser();
-          fetchDataFromContextData();
+          // fetchDataFromContextData();
           // fetchDataFromUserContext();
           //  Promise.all([
           //   // fetchDataFromUserContext(),

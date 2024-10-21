@@ -26,6 +26,7 @@ export default function App() {
   const { logout: userLogout } = useUserContext();
   const { logout: contextLogout } = useContext(ContextData);
   const [loading, setLoading] = useState(false); // State for loading spinner
+  const { fetchData } = useContext(ContextData);
 
   function saveDataUser() {
     let token = localStorage.getItem("Token");
@@ -72,6 +73,7 @@ export default function App() {
       });
   }
 
+  //Routes
   return (
     <div>
       <Navbar userData={userData} logout={logout} loading={loading} />
