@@ -61,6 +61,20 @@ export const ContextDataProvider = ({ children }) => {
       } else {
         throw new Error("No token found");
       }
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to fetch data");
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAgents = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
       await getData("agents", setAgents);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -77,7 +91,6 @@ export const ContextDataProvider = ({ children }) => {
 
     try {
       await getData("home/properties", setProperties);
-      await getData("agents", setAgents);
       setIsAuthenticated(false);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -107,6 +120,7 @@ export const ContextDataProvider = ({ children }) => {
         fetchData,
         fetchAuthProps,
         setProperties,
+        fetchAgents,
       }}
     >
       {children}

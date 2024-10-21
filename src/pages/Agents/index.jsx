@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AgentCard from "./components/Agents Card/index";
 
 import { ContextData } from "../../components/Store/API's";
@@ -7,6 +7,12 @@ import CardSkeleton from "../../components/Card/CardSkeleton";
 const Agents = () => {
   let { agents } = useContext(ContextData);
   let { loading } = useContext(ContextData);
+
+  const { fetchAgents } = useContext(ContextData);
+
+  useEffect(() => {
+    fetchAgents();
+  }, []); // Empty dependency array
 
   return (
     <div className="offwhite">
