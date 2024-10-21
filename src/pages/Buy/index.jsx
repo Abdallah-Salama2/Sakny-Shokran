@@ -29,6 +29,16 @@ export default function Buy() {
   const [mapVisible, setMapVisible] = useState(false); // State to control map visibility
   let [Loading, setLoading] = useState(true);
   let { properties } = useContext(ContextData);
+  const { fetchAuthProps, fetchData } = useContext(ContextData);
+
+  useEffect(() => {
+    let token = localStorage.getItem("Token");
+    if (token) {
+      fetchAuthProps();
+    } else {
+      fetchData();
+    }
+  }, []); // Empty dependency array
 
   const MapSkeleton = () => {
     return (
