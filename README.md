@@ -1,3 +1,4 @@
+
 ---
 
 # 🏡 Sakny Shokran Real Estate Platform  
@@ -16,7 +17,6 @@
 ---
 
 This summary is clean, professional, and highlights the key technologies and features. Let me know if you'd like any modifications! 🚀
-
 ## Related Repositories
 - [Backend Repository](https://github.com/Abdallah-Salama2/sakny-backend)
 
