@@ -1,5 +1,3 @@
-Here's a concise and professional **GitHub project summary** for your **Sakny Shokran Real Estate** project:  
-
 ---
 
 # 🏡 Sakny Shokran Real Estate Platform  
